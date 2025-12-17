@@ -95,7 +95,7 @@ local weapon_class_path = nil
     local cur_mon = pawn:GetCurrentMontage()
     
     if cur_mon then
-    --print(cur_mon:get_full_name())
+    print(cur_mon:get_full_name())
         if is_melee and not string.find(cur_mon:get_full_name(), "Knockdown") then
             cur_mon.RateScale = 5.0
         else
