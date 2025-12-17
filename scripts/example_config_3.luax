@@ -1,0 +1,53 @@
+local configui = require("libs/configui")
+
+configui.onUpdate("false_count", function(value)
+	print("New value for false_count", value)
+end)
+
+configui.onUpdate("snap_turn", function(value)
+	print("New value for snap turn in test 2", value)
+end)
+
+configui.onUpdate("states", function(value)
+	print("New value for states", value)
+end)
+
+configui.onUpdate("volume", function(value)
+	print("New value for volume", value)
+end)
+
+configui.onUpdate("size", function(value)
+	print("New value for size", value)
+end)
+
+configui.onUpdate("code", function(value)
+	print("New value for code", value)
+end)
+
+configui.onUpdate("bigtext", function(value)
+	print("New value for bigtext", value)
+end)
+
+configui.onUpdate("best_color", function(value)
+	print("New value for best_color", value, configui.intToAARRGGBB(value) )
+end)
+
+configui.onUpdate("calibrate_button", function(value)
+	print("New value for calibrate button", value)
+end)
+
+configui.onUpdate("sm_button", function(value)
+	print("New value for small button", value)
+end)
+
+configui.onUpdate("vector2", function(value)
+	print("New value for vector2", value) --value.x and value.y fail for some reason
+end)
+
+configui.onUpdate("vector3", function(value)
+	print("New value for vector3", value.X, value.Y, value.Z)
+end)
+
+configui.onUpdate("vector4", function(value)
+	print("New value for vector3", value.X, value.Y, value.Z, value.W)
+end)

@@ -1,0 +1,75 @@
+local uevrUtils = require('libs/uevr_utils')
+local remap = require('libs/remap')
+uevrUtils.setLogLevel(LogLevel.Debug)
+remap.setLogLevel(LogLevel.Debug)
+
+-- This example handles controller remapping using a simple table format that defines how the inputs should be remapped
+-- Check the documentation in remap.lua for more information
+-- In english this configuration does the following:
+--	1) When right shoulder is pressed that action is ignored (unpress=true) and a left trigger press with a value of 255 is activated instead
+--  2) When left shoulder is pressed that action is ignored and the right shoulder is pressed instead
+--  3) When the left trigger is toggled on (only fired once per activation as opposed to continuously fired while held) 
+--		the left shoulder is pressed. When the left trigger is toggled off, the left shoulder is pressed again
+--  4) When the right stick is moved left or right it no longer turns (unpress = true) but instead strafes by emulating the left stick (COPY_VALUE). Note
+--		that the left stick also continues to strafe with this setup
+local remapParameters = {}
+remapParameters = {
+    right_shoulder = {
+		{
+			state = remap.InputState.ON, 
+			unpress = true, 
+			actions = {
+				left_trigger = {
+					state = remap.ActionState.ON,
+					value = 255 --triggers can take a value from 0 to 255 although anything other than 0 is currently recognized as 255 by UEVR
+				}
+			}
+		}, 
+	},
+    left_shoulder = {
+		{
+			state = remap.InputState.ON, 
+			unpress = true, 
+			actions = {
+				right_shoulder = {
+					state = remap.ActionState.ON
+				}
+			}
+		}, 
+	},
+    left_trigger = {
+		{
+			state = remap.InputState.TOGGLE_ON, 
+			unpress = true, 
+			threshold = 100, --same as deadzone
+			actions = {
+				left_shoulder = {
+					state = remap.ActionState.ON
+				}
+			}
+		}, 
+		{
+			state = remap.InputState.TOGGLE_OFF, 
+			threshold = 100,  --same as deadzone
+			actions = {
+				left_shoulder = {
+					state = remap.ActionState.ON
+				}
+			}
+		}
+	},
+	right_stick_x = {
+		{
+			state = remap.InputState.ON, 
+			unpress = true, 
+			threshold = 8000, --same as deadzone
+			actions = {
+				left_stick_x = {
+					state = remap.ActionState.COPY_VALUE
+				}
+			}
+		}
+	}
+}
+remap.setRemapParameters(remapParameters)
+

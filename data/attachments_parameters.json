@@ -1,0 +1,93 @@
+{
+    "attachmentOffsets": [
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_HuntingRifle",
+            "id": "BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_RangedWeaponVisuals_HuntingRifle_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "two_handed": false
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_BattleAK",
+            "id": "BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_RangedWeaponVisuals_LegendaryBodyCount_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_WarScythe",
+            "id": "BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_MeleeWeapon_LegendaryScythe_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_Katana",
+            "id": "BP_MeleeWeapon_Katana_C_SK_Katana",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_MeleeWeapon_Katana_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    ]
+}

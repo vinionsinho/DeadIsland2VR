@@ -1,0 +1,8 @@
+local uevrUtils = require('libs/uevr_utils')
+local reticule = require("libs/reticule")
+
+uevrUtils.setLogLevel(LogLevel.Debug)
+reticule.setLogLevel(LogLevel.Debug)
+uevrUtils.setDeveloperMode(true)
+
+reticule.init()

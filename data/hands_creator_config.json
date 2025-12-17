@@ -1,0 +1,95 @@
+{
+    "animation_data": null,
+    "animation_finger": 1,
+    "animation_finger_bone_pitch": 55.207000732421875,
+    "animation_finger_bone_pitch_mirror": false,
+    "animation_finger_bone_roll": -0.96929931640625,
+    "animation_finger_bone_roll_mirror": false,
+    "animation_finger_bone_yaw": -46.743770599365234,
+    "animation_finger_bone_yaw_mirror": false,
+    "animation_hand": 3,
+    "animation_hands_profile_mesh_list": 1,
+    "animation_joint": 1,
+    "animation_name": "Shared",
+    "animation_state": 1,
+    "animation_test_active_weapon_mode": false,
+    "animation_test_left_handed_mode": false,
+    "animation_type": 2,
+    "animations_list": 1,
+    "attachments_list": 1,
+    "character_mesh": 2,
+    "code_text": "local uevrUtils = require('libs/uevr_utils')\nlocal hands = require('libs/hands')\nlocal controllers = require('libs/controllers')\n\nfunction on_level_change(level)\n\tcontrollers.createController(0)\n\tcontrollers.createController(1)\n\thands.reset()\n\n\tlocal paramsFile = 'hands_parameters' -- found in the [game profile]/data directory\n\tlocal configName = 'Main' -- the name you gave your config\n\tlocal animationName = '' -- the name you gave your animation\n\thands.createFromConfig(paramsFile, configName, animationName)\nend",
+    "code_text_2": "",
+    "cutoff_children_bone_picker": 1,
+    "cutoff_children_hand_picker": 1,
+    "cutoff_children_location": [
+        26.2421875,
+        0.0,
+        -0.00048828125
+    ],
+    "cutoff_children_rotation": [
+        -13.430302619934082,
+        1.5256661176681519,
+        -100.8947982788086
+    ],
+    "fov_param_name": "",
+    "hands_profile_list": 2,
+    "hands_profile_mesh_list": 2,
+    "hands_profile_mesh_name": "Arms",
+    "hands_profile_name": "Main",
+    "include_children_in_mesh_search": true,
+    "knuckle_bone_search_pattern": "",
+    "left_cutoff_bone": 20,
+    "left_hand_location": [
+        1.0,
+        -33.599998474121094,
+        6.900000095367432
+    ],
+    "left_hand_rotation": [
+        0.0,
+        95.0,
+        -65.0
+    ],
+    "left_hand_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "left_index_knuckle": 22,
+    "left_middle_knuckle": 31,
+    "left_pinky_knuckle": 41,
+    "left_ring_knuckle": 50,
+    "left_thumb_knuckle": 59,
+    "mesh_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "new_attachment_name": "",
+    "optimize_animations": true,
+    "optimize_animations_root_bone_left": 1,
+    "optimize_animations_root_bone_right": 1,
+    "right_cutoff_bone": 77,
+    "right_cutoff_bone_name": "",
+    "right_hand_location": [
+        0.0,
+        -40.79999923706055,
+        0.0
+    ],
+    "right_hand_rotation": [
+        5.0,
+        -85.0,
+        125.0
+    ],
+    "right_hand_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "right_index_knuckle": 79,
+    "right_middle_knuckle": 88,
+    "right_pinky_knuckle": 98,
+    "right_ring_knuckle": 107,
+    "right_thumb_knuckle": 116,
+    "use_default_pose": true
+}

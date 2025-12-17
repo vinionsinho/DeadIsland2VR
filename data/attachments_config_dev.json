@@ -1,0 +1,166 @@
+{
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_any_child": false,
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_any_parent": false,
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_grip_animation": 1,
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_any_child": false,
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_any_parent": false,
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_grip_animation": 1,
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_any_child": false,
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_any_parent": false,
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_grip_animation": 1,
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_any_child": false,
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_any_parent": false,
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_grip_animation": 1,
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_child": false,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_parent": false,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_grip_animation": 1,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_any_child": false,
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_any_parent": false,
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_grip_animation": 1,
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_is_two_handed": false,
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_child": false,
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_parent": false,
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 1,
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_DESTROYED_BP_MeleeWeapon_Katana_C_CHILDACTOR_SK_Katana_any_child": false,
+    "attachment_DESTROYED_BP_MeleeWeapon_Katana_C_CHILDACTOR_SK_Katana_any_parent": false,
+    "attachment_DESTROYED_BP_MeleeWeapon_Katana_C_CHILDACTOR_SK_Katana_grip_animation": 1,
+    "attachment_DESTROYED_BP_MeleeWeapon_Katana_C_CHILDACTOR_SK_Katana_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_DESTROYED_BP_MeleeWeapon_Katana_C_CHILDACTOR_SK_Katana_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_DESTROYED_BP_MeleeWeapon_Katana_C_CHILDACTOR_SK_Katana_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_DESTROYED_BP_MeleeWeapon_LegendaryScythe_C_CHILDACTOR_SK_WarScythe_any_child": false,
+    "attachment_DESTROYED_BP_MeleeWeapon_LegendaryScythe_C_CHILDACTOR_SK_WarScythe_any_parent": false,
+    "attachment_DESTROYED_BP_MeleeWeapon_LegendaryScythe_C_CHILDACTOR_SK_WarScythe_grip_animation": 1,
+    "attachment_DESTROYED_BP_MeleeWeapon_LegendaryScythe_C_CHILDACTOR_SK_WarScythe_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_DESTROYED_BP_MeleeWeapon_LegendaryScythe_C_CHILDACTOR_SK_WarScythe_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_DESTROYED_BP_MeleeWeapon_LegendaryScythe_C_CHILDACTOR_SK_WarScythe_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "use_uevr_attachments_strip_parent_name_numeric_suffix": false
+}

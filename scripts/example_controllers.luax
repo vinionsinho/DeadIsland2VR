@@ -1,0 +1,50 @@
+local uevrUtils = require("libs/uevr_utils")
+uevrUtils.initUEVR(uevr)
+local controllersModule = require("libs/controllers")
+uevrUtils.setLogLevel(LogLevel.Debug)
+controllersModule.setLogLevel(LogLevel.Debug)
+uevrUtils.setLogToFile(true)
+
+local objectsConnected = false
+
+function on_level_change(level)
+	uevrUtils.print("Level changed\n")
+
+	objectsConnected = false
+		
+end
+
+uevrUtils.setInterval(1000, function()
+	attachObjectsToControllers()
+end)
+
+--This works for Outer Worlds. Replace this with a way to get a widget in your particular game
+function getWidget()
+	local hud = uevrUtils.find_first_of("Class /Script/Indiana.HUDWidget", false)
+	if hud ~= nil then
+		return hud.Compass
+	end
+end
+
+function attachObjectsToControllers()
+	if objectsConnected == false then
+		local rightComponent = uevrUtils.createStaticMeshComponent("StaticMesh /Engine/EngineMeshes/Sphere.Sphere")
+		local rightConnected = controllersModule.attachComponentToController(1, rightComponent)
+		uevrUtils.set_component_relative_transform(rightComponent, nil, nil, {X=0.03, Y=0.03, Z=0.03})
+		
+		local leftComponent = uevrUtils.createStaticMeshComponent("StaticMesh /Engine/BasicShapes/Cube.Cube")
+		local leftConnected = controllersModule.attachComponentToController(0, leftComponent)
+		uevrUtils.set_component_relative_transform(leftComponent, nil, nil, {X=0.03, Y=0.03, Z=0.03})
+
+		local widget = getWidget()
+		if widget ~= nil then
+			local hudComponent = uevrUtils.createWidgetComponent(widget, {removeFromViewport=true, twoSided=false, drawSize=vector_2(620, 75)})
+			local hudConnected = controllersModule.attachComponentToController(2, hudComponent)		
+			uevrUtils.set_component_relative_transform(hudComponent, {X=25.0, Y=0.0, Z=10}, {Pitch=0,Yaw=0 ,Roll=0}, {X=-0.03, Y=-0.03, Z=0.03})
+		end
+		objectsConnected = rightConnected and leftConnected
+	end
+end
+
+
+

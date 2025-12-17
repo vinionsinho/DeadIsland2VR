@@ -1,0 +1,249 @@
+local configui = require("libs/configui")
+
+local configDefinition = {
+	{
+		panelLabel = "Script UI", --If panelLabel is nil or "" or "Script UI" then the panel used will be Script UI. For this panel, the saveFile param is autoset to "config_default"
+		layout = 
+		{
+			{ widgetType = "text", label = "This is"},
+			{ widgetType = "same_line" },
+			{ widgetType = "text", label = "the Script UI panel."}
+		}
+	},
+	{
+		panelLabel = "Weapons Config", 
+		saveFile = "config_weapons",
+		layout = 
+		{		
+			-- {
+				-- widgetType = "collapsing_header",
+				-- id = "uevr_static_mesh_viewer",
+				-- label = "Test",
+			-- },
+			{
+				widgetType = "tree_node",
+				id = "level_A",
+				label = "Level A",
+				initialOpen = true
+			},
+				{
+					widgetType = "text",
+					label = "Inside A"
+				},
+				{
+					widgetType = "tree_node",
+					id = "level_A1",
+					label = "Level A1"
+				},
+					{
+						widgetType = "text",
+						label = "Inside A1"
+					},
+					{
+						widgetType = "tree_node",
+						id = "level_A1a",
+						label = "Level A1a"
+					},
+						{
+							widgetType = "text",
+							label = "Inside A1a"
+						},
+					{
+						widgetType = "tree_pop"
+					},
+					{
+						widgetType = "tree_node",
+						id = "level_A1b",
+						label = "Level A1b",
+						initialOpen = true
+					},
+						{
+							widgetType = "text",
+							label = "Inside A1b"
+						},
+					{
+						widgetType = "tree_pop"
+					},
+					{
+						widgetType = "tree_node",
+						id = "level_A1c",
+						label = "Level A1c"
+					},
+						{
+							widgetType = "text",
+							label = "Inside A1c"
+						},
+					{
+						widgetType = "tree_pop"
+					},
+				{
+					widgetType = "tree_pop"
+				},
+			{
+				widgetType = "tree_pop"
+			},
+			{
+				widgetType = "tree_node",
+				id = "tree_node",
+				label = "Second Dropdown"
+			},
+				{
+					widgetType = "checkbox",
+					id = "snap_turn",
+					label = "Snap Turn",
+					initialValue = true
+				},
+				{
+					widgetType = "button",
+					id = "calibrate_button",
+					label = "Calibrate",
+					size = {120,34}
+				},
+			{
+				widgetType = "tree_pop"
+			},
+			{
+				widgetType = "new_line"
+			},
+			{
+				widgetType = "indent",
+				width = 40
+			},
+			{
+				widgetType = "begin_rect",
+			},
+			{
+				widgetType = "text",
+				label = "Hey Now"
+			},
+			{
+				widgetType = "same_line",
+			},
+			{
+				widgetType = "text",
+				label = "Whats up"
+			},
+			{
+				widgetType = "new_line"
+			},
+			{
+				widgetType = "text_colored",
+				label = "Colors!",
+				color = "#FFFF00FF"
+			},
+			{
+				widgetType = "end_rect",
+				additionalSize = 10,
+				rounding = 5
+			},
+			{
+				widgetType = "same_line",
+			},
+			{
+				widgetType = "begin_group"
+			},
+			{
+				widgetType = "combo",
+				id = "states",
+				label = "States",
+				selections = {"California","Pennsylvania","Virginia"},
+				initialValue = 2
+			},
+			{
+				widgetType = "small_button",
+				id = "sm_button",
+				label = "Small Button"
+			},
+			{
+				widgetType = "end_group"
+			},
+			{
+				widgetType = "unindent",
+				width = 40
+			},
+			{
+				widgetType = "new_line"
+			},
+			{
+				widgetType = "slider_int",
+				id = "volume",
+				label = "Volume",
+				range = {0, 100},
+				initialValue = 50
+			},
+			{
+				widgetType = "drag_int",
+				id = "size",
+				label = "Size",
+				speed = 0.4,
+				range = {0, 100},
+				initialValue = 50
+			},
+			{
+				widgetType = "drag_float2",
+				id = "vector2",
+				label = "Dimensions",
+				speed = 0.4,
+				range = {0, 100},
+				initialValue = {20.0, 20.0}
+			},
+			{
+				widgetType = "drag_float3",
+				id = "vector3",
+				label = "Location",
+				speed = 0.4,
+				range = {0, 100},
+				initialValue = {10.0, 10.0, 10.0}
+			},
+			{
+				widgetType = "drag_float4",
+				id = "vector4",
+				label = "Quaternion",
+				speed = 0.005,
+				range = {0, 1},
+				initialValue = {0.5, 0.5, 0.5, 0.5}
+			},
+			{
+				widgetType = "input_text",
+				id = "code",
+				label = "Enter Code",
+				initialValue = "Hi"
+			},
+			{
+				widgetType = "input_text_multiline",
+				id = "bigtext",
+				label = "Your life story",
+				initialValue = "Type something",
+				--size = {400, 100} -- optional, will default to full size without it
+			},
+			{
+				widgetType = "begin_child_window",
+				size = {100, 500},
+				border = true
+			},
+			{
+				widgetType = "text",
+				label = "Text in the child window"
+			},
+			{
+				widgetType = "end_child_window"
+			},
+			{
+				widgetType = "text",
+				label = "Text after the child window"
+			},
+			{
+				widgetType = "color_picker",
+				id = "best_color",
+				label = "Your favorite color",
+				initialValue = "#FF00FFFF"
+			}
+		}	
+	}
+}
+
+configui.create(configDefinition)
+
+configui.onUpdate("use_hands", function(value)
+	print("File 1: New value for use_hands", value)
+end)

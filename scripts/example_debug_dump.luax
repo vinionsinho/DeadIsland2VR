@@ -1,0 +1,32 @@
+local uevrUtils = require("libs/uevr_utils")
+local debugModule = require("libs/uevr_debug")
+
+--dumps the pawn object to the console only
+register_key_bind("F1", function()
+    print("F1 pressed\n")
+	debugModule.dump(pawn)
+end)
+
+--dumps the pawn object to the console and to the log file
+register_key_bind("F2", function()
+    print("F2 pressed\n")
+	debugModule.dump(pawn, false, nil, true)
+end)
+
+--dumps the pawn's RootComponent recursively. Notice that the ShapeBodySetup
+--ObjectProperty is also dumped as a result of the recursion
+--Be careful when setting recursion to true as this could take several minutes
+--to dump with objects such as the pawn and the game will feel frozen during that time
+register_key_bind("F3", function()
+    print("F3 pressed\n")
+	debugModule.dump(pawn.RootComponent, true, nil, true)
+end)
+
+--dumps the pawn's RootComponent recursively but ignores the BodySetup class while recursing. 
+--Notice that the ShapeBodySetup ObjectProperty is no longer dumped as a result of the recursion
+register_key_bind("F4", function()
+    print("F4 pressed\n")
+	ignoreRecursionList = {}
+	ignoreRecursionList["Class /Script/Engine.BodySetup"] = true
+	debugModule.dump(pawn.RootComponent, true, ignoreRecursionList, true)
+end)

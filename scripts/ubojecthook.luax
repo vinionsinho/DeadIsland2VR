@@ -1,0 +1,136 @@
+local function find_required_object(name)
+    local obj = uevr.api:find_uobject(name)
+    if not obj then
+        error("Cannot find " .. name)
+        return nil
+    end
+
+    return obj
+end
+
+local find_static_class = function(name)
+    local c = find_required_object(name)
+    return c:get_class_default_object()
+end
+
+local api = uevr.api
+local vr = uevr.params.vr
+local callbacks = uevr.sdk.callbacks
+local pawn = api:get_local_pawn(0)
+local kismet_string_library = find_static_class("Class /Script/Engine.KismetStringLibrary")
+local kismet_system_library = find_static_class("Class /Script/Engine.KismetSystemLibrary")
+local uobject_plane = find_required_object("ScriptStruct /Script/CoreUObject.Plane")
+local game_engine_class = find_required_object("Class /Script/Engine.GameEngine")
+local hitresult_c = find_required_object("ScriptStruct /Script/Engine.HitResult")
+local empty_hitresult = StructObject.new(hitresult_c)
+local reusable_hit_result = StructObject.new(hitresult_c)
+local color_c = find_required_object("ScriptStruct /Script/CoreUObject.LinearColor")
+local zero_color = StructObject.new(color_c)
+local player_controller = api:get_player_controller(0)
+local actor_c = find_required_object("BlueprintGeneratedClass /Game/DI2/Enemies/BP_DismemberedLimb_AI.BP_DismemberedLimb_AI_C")
+local Statics = find_static_class("Class /Script/Engine.GameplayStatics")
+local ftransform_c = find_required_object("ScriptStruct /Script/CoreUObject.Transform")
+local temp_transform = StructObject.new(ftransform_c)
+local temp_vec3 = Vector3d.new(0, 0, 0)
+local temp_vec3f = Vector3f.new(0, 0, 0)
+
+--local skeletal_mesh = find_required_object("SkeletalMesh /Game/DI2/Art/Characters/ZombieMale/Walker/SK_WalkerMaleHills06.SK_WalkerMaleHills06")
+--local zombie = find_required_object("BP_Walker_Hills_C /Game/DI2/Maps/BeverlyHills/Mansions/Bev_Mansions_P_Main.Bev_Mansions_P_Main.PersistentLevel.BP_Walker_Hills_C_2147344934")
+
+
+local root = nil
+local equipped_weapon_mesh = nil
+local equipped_ranged_weapon_actor = nil
+local ranged_root = nil
+local melee_root = nil
+local equipped_melee_weapon_actor = nil
+
+
+-- function attach_weapon(mesh, rot_x, rot_y, rot_z, pos_x, pos_y, pos_z)
+function attach_weapon(mesh)
+    --print ("Attached mesh: " .. mesh:get_full_name())
+    melee_root_state = UEVR_UObjectHook.get_or_add_motion_controller_state(mesh)
+    melee_root_state:set_hand(1) -- Right hand, 0 to left hand
+    melee_root_state:set_permanent(false)
+    -- melee_root_state:set_rotation_offset(temp_vec3f:set(rot_x, rot_y, rot_z))
+    -- melee_root_state:set_location_offset(temp_vec3f:set(pos_x, pos_y, pos_z))
+end
+
+uevr.sdk.callbacks.on_post_engine_tick(function()
+local pawn = api:get_local_pawn(0)
+if not pawn then
+    --print ("No pawn post")
+    return
+end
+
+local actor = nil
+local equipped_melee_weapon_actor = nil
+local equipped_ranged_weapon_actor = nil
+local melee_root = nil
+local ranged_mesh_component = nil
+local ranged_root = nil
+local root = nil
+
+local attached_actors = {}
+pawn:GetAttachedActors(attached_actors, true)
+
+
+-- Melee weapon detection and uobjecthook
+
+for i, actor in ipairs(attached_actors) do
+    if actor and not string.find(actor:get_full_name(),"DESTROYED") then
+        local melee_mesh_component = actor.WeaponMesh
+        if melee_mesh_component and melee_mesh_component.bOnlyOwnerSee and not string.find(melee_mesh_component:get_full_name(), "DESTROYED") then
+            melee_root = melee_mesh_component
+            equipped_melee_weapon_actor = actor
+            
+            break 
+        end
+    end
+end
+
+if melee_root then
+    local melee_mesh_name = melee_root:get_full_name()
+    print(melee_root:get_full_name())
+
+    if string.find(melee_mesh_name, "Stiletto") then
+        attach_weapon(melee_root) --(mesh, rot_x, rot_y, rot_z, pos_x, pos_y, pos_z)
+    
+    -- elseif string.find(melee_mesh_name, "Warhammer") then
+    -- attach_weapon(melee_root, 1.175, -1.665, -0.007, 2.376, 5.972, 0.9)
+
+    -- elseif string.find(melee_mesh_name, "FireAxe") then
+    -- attach_weapon(melee_root, 0.31, 0.14, 0.02, 1.37, 30, -4.51)
+    
+    elseif string.find(melee_mesh_name, "Katana") then
+    attach_weapon(melee_root)
+
+    -- elseif string.find(melee_mesh_name, "SingleBladeStaff") then
+    -- attach_weapon(melee_root, 0.31, 0.14, 0.02, 1.37, 30, -4.51)
+    end
+
+end
+
+
+for i, actor in ipairs(attached_actors) do
+    if actor and not string.find(actor:get_full_name(),"DESTROYED") then
+        local ranged_mesh_component = actor.SkeletalMesh
+        if ranged_mesh_component and ranged_mesh_component.bOnlyOwnerSee == true then
+            ranged_root = ranged_mesh_component
+            equipped_ranged_weapon_actor = actor 
+           
+            break 
+        end
+    end
+end
+
+if ranged_root then
+    local ranged_mesh_name = ranged_root:get_full_name()
+
+    if equipped_ranged_weapon_actor then
+        print ("Ranged weapon equipped: " .. equipped_ranged_weapon_actor:get_full_name())
+    end
+
+end
+
+end)
