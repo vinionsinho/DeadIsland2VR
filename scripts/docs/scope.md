@@ -1,3 +1,0 @@
-## Scopes
-
-Guide coming soon
