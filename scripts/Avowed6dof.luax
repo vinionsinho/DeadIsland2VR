@@ -1,0 +1,2069 @@
+local api = uevr.api
+local vr = uevr.params.vr
+
+local VERSION = "1.08"
+local uevrUtils = require('libs/uevr_utils')
+local controllers = require('libs/controllers')
+local config_filename = "avowed.txt"
+local help_filename = "avowedhelp.txt"
+local help_data = ""
+local debug_type = 0 -- 0 for no debug, 1 for console, 2 for log.txt, 3 for both console and log.txt
+local needs_config_write = false
+local right_stick_down_b = 1
+local right_stick_up_sprint = 1
+local remap_lb_button = 1
+local USE_ATTACHED_WIDGETS = false
+local USE_OLD_OBJ_HOOK_METHOD = 0
+
+vr.set_mod_value("VR_MotionControlsInactivityTimer","9999.000000")
+--remap.init()
+
+local AttachedLowerHud = nil
+local AttachedMinimap = nil
+local AttachedQuests = nil
+local is_hud_attached = false
+
+local hud_switcher_hook = false
+local unsheath_hook = false
+local was_left_trigger_down = false
+local was_right_trigger_down = false
+
+local is_in_menu = false
+local is_in_main_menu = false
+local melee_swing = true
+local should_fix_weapon_spread = true
+
+local frame_counter = 0        -- Simulated frame counter (incremented each callback)
+local combo_timer = 0          -- Tracks time elapsed for the combo
+local left_swipe_in_progress = nil
+local new_level_timer = 0.0
+local new_level_hud_timer = 0.0
+
+-- Define Constants for Return Values
+local NO_SWIPE = 0
+local LEFT_SWIPE = 1 -- Corresponds to Right-to-Left movement (-X direction)
+local RIGHT_SWIPE = 2 -- Corresponds to Left-to-Right movement (+X direction)
+
+-- Gesture Detection Parameters
+local SWIPE_THRESHOLD = 0.2 -- Minimum distance to complete a swipe (e.g., 10cm)
+local COMBO_THRESHOLD = 0.15 -- Maximum time in seconds to complete the swipe
+local DELTA_X_START_THRESHOLD = 0.005 -- Minimum movement to START the swipe
+local BLOCK_THRESHOLD = 0.25
+local CHARGE_THRESHOLD = 0.18 -- Adjust this value (e.g., 0.35m or 35cm) for desired height
+local NEW_LEVEL_THRESHOLD = 10.0
+local NEW_LEVEL_HUD_THRESHOLD = 15.0
+local MELEE_SWING_AND_BLOCK = 1
+local SWORD_BLOCK_DEGREES_THRESHOLD = 30
+local USE_SIMPLE_SWORD_BLOCK = 0
+local SHIELD_BLOCK_SIZE = 0.35
+local SHIELD_NORMAL_SIZE = 0.50
+local NORMAL_UI_SIZE = 6.5
+
+
+local PUNCH_DISTANCE_THRESHOLD = 0.2 -- Total distance required for a punch (e.g., 25 cm)
+local PUNCH_START_THRESHOLD = 0.005  -- Minimum Z movement per frame to initiate the punch (must be fast)
+local PUNCH_COMBO_THRESHOLD = 0.15   -- Maximum time allowed for the entire punch (e.g., 0.4 seconds)
+
+local CHEAT_AUTO_REGEN_ESSENCE = 1
+local CHEAT_AUTO_REGEN_HEALTH = 1
+local CHEAT_AUTO_REGEN_PERC = 1.67
+local CHEAT_GUN_SPEED_MULT = 1.0
+
+local left_swipe_result = false
+local right_swipe_result = false
+
+local right_haptic_timer = 0.0
+local left_haptic_timer = 0.0
+
+local current_aim_method = vr:get_mod_value("VR_AimMethod")
+local was_in_menu = false
+local prev_level = nil
+
+local previous_left_weapon = nil
+local previous_right_weapon = nil
+
+local current_right_weapon = nil
+local current_left_weapon = nil
+local current_right_weapon_base = nil
+local current_left_weapon_base = nil
+
+local attached_right_weapon = nil
+local attached_left_weapon = nil
+local attached_right_weapon = nil
+local attached_left_weapon = nil
+local slow_timer = 0.0
+local changed_loadout = true
+
+local weapon_swing_hook = nil
+local menu_open_hook = nil
+local menu_close_hook = nil
+local was_sword_block = false
+
+local ENABLE_LUMEN = 1
+
+local function debugOut(message)
+    if debug_type == 0 then return end
+    if debug_type == 1 then 
+        print(message) 
+    elseif debug_type == 2 then 
+        uevr.params.functions.log_info("avowed6dof.lua: " .. message) 
+    elseif debug_type == 3 then
+        print(message)
+        uevr.params.functions.log_info("avowed6dof.lua: " .. message)
+    end
+end
+
+-- used for our swipe function
+if gesture_state == nil then
+    gesture_state = {
+        -- State structure is now simplified since we only need to track LtoR and RtoL per controller
+        left_LtoR = { in_progress = false, start_pos = UEVR_Vector3f.new(), timer = 0.0 },
+        left_RtoL = { in_progress = false, start_pos = UEVR_Vector3f.new(), timer = 0.0 },
+        right_LtoR = { in_progress = false, start_pos = UEVR_Vector3f.new(), timer = 0.0 },
+        right_RtoL = { in_progress = false, start_pos = UEVR_Vector3f.new(), timer = 0.0 },
+        left_punch = { in_progress = false, start_pos = UEVR_Vector3f.new(), timer = 0.0 },
+        right_punch = { in_progress = false, start_pos = UEVR_Vector3f.new(), timer = 0.0 },
+
+        -- Last known position for each controller index
+        last_positions = {},
+    }
+end
+
+local function find_required_object(name)
+    local obj = uevr.api:find_uobject(name)
+    if not obj then
+        return nil
+    end
+
+    return obj
+end
+
+local find_static_class = function(name)
+    local c = uevr.api:find_uobject(name)
+    if(c ~= nil) then
+        return c:get_class_default_object()
+    else
+        return nil
+    end
+end
+
+
+
+local kismet_system_library = nil
+
+local function get_cvar_int(name)
+    local IntVal = 0
+    
+    if kismet_system_library == nil then 
+        kismet_system_library = find_static_class("Class /Script/Engine.KismetSystemLibrary")
+    end
+    local console_manager = api:get_console_manager()
+    if console_manager ~= nil and console_manager.find_variable then
+        local var = console_manager:find_variable(name)
+        
+        if kismet_system_library ~= nil and var ~= nil then
+            if kismet_system_library.GetConsoleVariableIntValue then
+                IntVal = kismet_system_library:GetConsoleVariableIntValue(name)
+            end
+        end
+    end
+    -- Return the integer value AND the boolean status
+    return IntVal 
+end
+
+local function get_cvar_float(name)
+    local FloatVal = 0.0 -- Initialize to a float value
+    local readable = false -- Initialize the status flag
+    
+    if disableMod == 0 then
+        if kismet_system_library == nil then 
+            kismet_system_library = find_static_class("Class /Script/Engine.KismetSystemLibrary")
+        end
+        local console_manager = api:get_console_manager()
+        if console_manager ~= nil and console_manager.find_variable then
+            local var = console_manager:find_variable(name)
+
+            if kismet_system_library ~= nil and var ~= nil then
+                if kismet_system_library.GetConsoleVariableFloatValue then
+                    FloatVal = kismet_system_library:GetConsoleVariableFloatValue(name)
+                    readable = true -- Reading was successful
+                end
+            end
+        end
+    end
+    
+    -- Return the float value AND the boolean status
+    return FloatVal, readable
+end
+
+
+local function set_cvar_int(cvar, value)
+	local old_cvar_val, readable = get_cvar_int(cvar)
+	
+	if value ~= old_cvar_val or readable == false then 
+		local console_manager = api:get_console_manager()
+		local var = console_manager:find_variable(cvar)
+		if var ~= nil then
+			var:set_int(value)
+		end
+	end
+end
+
+
+local function set_cvar_float(cvar, value)
+	local old_cvar_val, readable = get_cvar_float(cvar)
+	
+	if value ~= old_cvar_val or readable == false then 
+		local console_manager = api:get_console_manager()
+		local var = console_manager:find_variable(cvar)
+		if var ~= nil then
+			var:set_float(value)
+		end
+	end
+end
+
+local equipment_enchant_c = find_required_object("Class /Script/Alabama.InventoryItemEnchantListWidget")
+local equipment_upgrade_c = find_required_object("Class /Script/Alabama.EquipmentUpgradeWidget")
+local ledger_sub_page_c = find_required_object("Class /Script/Alabama.LedgerSubPage")
+local vitals_bar_c = find_required_object("Class /Script/Alabama.VitalsBar")
+local conditional_lib_c = find_required_object("Class /Script/Alabama.AlabamaConditionalLibrary")
+
+local wbp_vitals_bar_c = nil
+local CineClassObj = find_required_object("Class /Script/CinematicCamera.CineCameraActor")
+local EquippedItem_c = find_required_object("Class /Script/Alabama.EquippedItem")
+local temp_vec3f = Vector3f.new(0, 0, 0)
+
+local function fix_weapon_speed_for_weapon(weapon, value)
+    new_value = value / CHEAT_GUN_SPEED_MULT -- gun multipliers are done globally, so we need to divide by that if its set.
+    
+    if weapon ~= nil and weapon.AttackAttributeSet ~= nil then
+        if weapon.AttackAttributeSet.AttackSpeedMult ~= nil then
+            if weapon.AttackAttributeSet.AttackSpeedMult.BaseValue ~= nil and weapon.AttackAttributeSet.AttackSpeedMult.CurrentValue ~= nil then
+                weapon.AttackAttributeSet.AttackSpeedMult.BaseValue = new_value
+                weapon.AttackAttributeSet.AttackSpeedMult.CurrentValue = new_value
+            end
+        end
+    end
+end
+
+local function is_weapon_melee(weapon)
+            -- Buckler (shield)
+            -- 1H_Axe, 1H_Club, 1H_Dagger, 1H_Rod_Proto, 1H_Sword, 1H_Wand
+            -- 2H_Axe, 2H_Sword, 2H_Bow, 
+            -- 0H_Grimoire
+            -- OgreFist (creature?), 1H_Unarmed
+            -- 1H_Pistol, 
+    if weapon ~= nil then
+        local status, weapon_name = pcall(function() return weapon:get_full_name() end)
+        if string.find(weapon_name, "Dagger") or 
+		   string.find(weapon_name, "Sword") or
+		   string.find(weapon_name, "Spear") or
+		   string.find(weapon_name, "Club") or
+		   string.find(weapon_name, "Axe") or
+		   string.find(weapon_name, "Hammer") or
+		   string.find(weapon_name, "Mace") then
+            return true
+        end
+    else -- unarmed are melee
+        return true 
+    end
+    
+    return false
+end
+
+local function is_shield(weapon)
+    if weapon ~= nil then
+        local status, weapon_name = pcall(function() return weapon:get_full_name() end)
+        if string.find(weapon_name, "Shield") or 
+		   string.find(weapon_name, "Buckler")then
+            return true
+        end
+    end
+    
+    return false
+end
+
+local function set_visibility_for_component_chain(item, visible)
+    if item == nil then return end -- Guard clause for nil item
+
+    local visual_components = item.SpawnedVisualComponents
+    if visual_components ~= nil then
+        for _, visual_component in ipairs(visual_components) do
+            local component_name = visual_component:get_fname():to_string()
+            
+            -- Check if the name ends with an underscore followed by one or more digits
+            -- only match components that end in _248109865  (some number)
+            if string.match(component_name, "_%d+$") then
+                debugOut("Set visibility for component: " .. component_name)
+                visual_component:SetVisibility(visible, true)
+            end
+        end
+    end
+end
+
+local function get_equipped_items(slot)
+    local pawn = api:get_local_pawn()
+
+    if pawn == nil then
+        return nil
+    end
+
+    local items = EquippedItem_c:get_objects_matching(false)
+    
+    if items ~= nil then
+        for _, item in ipairs(items) do
+            if item.OwningAlabamaCharacter == pawn and not string.find(item:get_full_name(), "Unarmed") then
+                local ItemSlot = item.EquipSlot
+                local Equip_Tag = ItemSlot.TagName:to_string()
+                if string.find(Equip_Tag, slot) and item:IsUnsheathed() then
+                    local visual_components = item.SpawnedVisualComponents
+                    if visual_components ~= nil then
+                        for _, visual_component in ipairs(visual_components) do
+                            if string.find(visual_component:get_fname():to_string(), "Skeletal") or string.find(visual_component:get_fname():to_string(), "Static") then
+                                if is_weapon_melee(visual_component) == true then
+                                    fix_weapon_speed_for_weapon(item, 10.0)
+                                end
+                                
+                                return visual_component, item
+                            end
+                        end
+                    end
+                end 
+            end
+        end
+    end
+    return nil, nil
+end
+
+-------------------------------------------------------------------------------
+-- Pass in the class from find_required_object and the name to match and get
+-- the first instance that matches the string.
+-------------------------------------------------------------------------------
+local function GetFirstMatchingObject(class_object_c, match_string)
+	local object_list = class_object_c:get_objects_matching(false)
+    for i, instance in ipairs(object_list) do
+        if not string.find(instance:get_full_name(), match_string, 1, true) then
+			return instance
+		end
+	end
+    
+    return nil
+end
+
+
+-------------------------------------------------------------------------------
+-- hook_function
+--
+-- Hooks a UEVR function. 
+--
+-- class_name = the class to find, such as "Class /Script.GunfireRuntime.RangedWeapon"
+-- function_name = the function to Hook
+-- native = true or false whether or not to set the native function flag.
+-- prefn = the function to run if you hook pre. Pass nil to not use
+-- postfn = the function to run if you hook post. Pass nil to not use.
+-- dbgout = true to print the debug outputs, false to not
+--
+-- Example:
+--    hook_function("Class /Script/GunfireRuntime.RangedWeapon", "OnFireBegin", true, nil, gun_firingbegin_hook, true)
+--
+-- Returns: true on success, false on failure.
+-------------------------------------------------------------------------------
+local function hook_function(class_name, function_name, native, prefn, postfn, dbgout)
+    local status, result = pcall(function()
+        local class_obj = uevr.api:find_uobject(class_name)
+        if(class_obj ~= nil) then
+            if dbgout then print("hook_function: found class obj for", class_name) end
+            local class_fn = class_obj:find_function(function_name)
+            if(class_fn ~= nil) then 
+                if dbgout then print("hook_function: found function", function_name, "for", class_name) end
+                if (native == true) then
+                    class_fn:set_function_flags(class_fn:get_function_flags() | 0x400)
+                    if dbgout then print("hook_function: set native flag") end
+                else
+                    class_fn:set_function_flags(class_fn:get_function_flags() & ~0x400)
+                    if dbgout then print("hook_function: cleared native flag") end
+                end
+                
+                class_fn:hook_ptr(prefn, postfn)
+                result = true
+                if dbgout then print("hook_function: set function hook for", prefn, "and", postfn) end
+            else
+                if dbgout then print("hook_function cannot find function for", function_name) end
+            end
+        else
+            if dbgout then print("class obj was nil in hook_function") end
+        end
+        
+        return result
+    end)
+    
+    return result
+end
+
+local PrevClassName = nil
+
+local function check_cutscene_or_conversation()
+    local cutscene = false
+    local conversation = false
+    
+    if CineClassObj == nil then
+        CineClassObj = find_required_object("Class /Script/CinematicCamera.CineCameraActor")
+    end
+    if CineClassObj == nil then return false end
+    
+    local PC = api:get_player_controller(0)
+    if PC == nil then return false end
+    
+    local CamMgr = PC.PlayerCameraManager
+    if CamMgr == nil then return false end
+    
+    local ViewTarget = CamMgr.ViewTarget
+    if ViewTarget == nil then return false end
+    
+    local TargetObj = ViewTarget.Target
+    if TargetObj == nil then return false end
+    if TargetObj.is_a == nil then return false end
+    
+    local ClassType = TargetObj:get_class()
+    if ClassType ~= nil then
+        if PrevClassName ~= ClassType:get_full_name() then
+            PrevClassName = ClassType:get_full_name()
+            if PrevClassName == "Class /Script/Alabama.AlabamaStageCameraActor" then
+                IsActor = true
+                conversation = true -- in conversation
+                vr.set_mod_value("VR_AimMethod", "0")
+                vr.set_mod_value("UI_Size", "0.250000")
+                vr.set_mod_value("UI_Distance", "0.500000")
+            else
+                IsActor = false
+                conversation = false -- left conversation
+                vr.set_mod_value("VR_AimMethod", current_aim_method)
+                vr.set_mod_value("UI_Size", tostring(NORMAL_UI_SIZE))
+                vr.set_mod_value("UI_Distance", "10.000000")
+            end
+            
+            if IsActor == false then
+                if PrevClassName == "Class /Script/Engine.CameraActor" then
+                    IsActor = true
+                    debugOut("In 2d cinema")
+                    cutscene = true
+                end
+            end
+        end
+    end
+    
+    if IsActor == false and IsActor ~= TargetObj:is_a(CineClassObj) then
+        if TargetObj:is_a(CineClassObj) then
+            IsActor = true
+        else
+            IsActor = false
+        end
+    end
+        
+    return IsActor
+end
+
+--callback from uevrUtils that fires whenever the level changes
+function level_change(level, levelName)
+    -- "MainMenu", "ADR_04_SS"
+    debugOut("****Level changed to " .. levelName)
+    
+    if levelName ~= "MainMenu" then
+        is_in_main_menu = false
+        -- flag to rescan for these objects
+        hud_switcher_hook = false
+        unsheath_hook = false
+        is_hud_attached = false -- flag to reattach hud objects.
+        new_level_timer = 0.0
+        new_level_hud_timer = 0.0
+        wbp_vitals_bar_c = nil
+    else
+        is_in_main_menu = true
+    end
+end
+
+local function UpdateVitalsBar(which_bar, current_val, max_val)
+    if wbp_vitals_bar_c == nil then
+        wbp_vitals_bar_c = find_required_object("WidgetBlueprintGeneratedClass /Game/UI/Widgets/HudLayer/Vitals/WBP_VitalsBar.WBP_VitalsBar_C")
+    end
+    
+    if wbp_vitals_bar_c == nil then return end
+    
+    local bar_inst = nil
+    if which_bar == "health" then
+        print("updating health to ", current_val, max_val)
+        bar_inst = GetFirstMatchingObject(wbp_vitals_bar_c, "WBP_VitalsBar_Health")
+    elseif which_bar == "essence" then
+        print("updating essence to ", current_val, max_val)
+        bar_inst = GetFirstMatchingObject(wbp_vitals_bar_c, "WBP_VitalsBar_Essence")
+    end
+    
+    if bar_inst == nil then
+        print("couldnt get a valid vitals bar, returning")
+        return
+    end
+    
+    if bar_inst.UpdateBarStrings ~= nil then
+        bar_inst:UpdateBarStrings(true, true, false, current_val, max_val, 0.0)
+    end
+end
+
+local function check_single_direction_swipe(controller_index, required_direction_sign, swipe_state_obj, delta)
+    
+    local is_swipe_complete = false
+    
+    -- --- 1. Get Current Pose & Delta X ---
+    local current_position = UEVR_Vector3f.new()
+    local controller_rotation = UEVR_Quaternionf.new()
+    vr.get_pose(controller_index, current_position, controller_rotation)
+    
+    local last_position = gesture_state.last_positions[controller_index]
+    
+    if last_position then
+        local delta_x_frame = current_position.x - last_position.x
+        
+        -- --- 2. START GESTURE LOGIC ---
+        if not swipe_state_obj.in_progress then
+            local is_starting = (delta_x_frame * required_direction_sign) > DELTA_X_START_THRESHOLD
+            
+            if is_starting then
+                swipe_state_obj.timer = 0.0
+                swipe_state_obj.in_progress = true
+                -- Store the starting position (only X is strictly necessary for horizontal swipe)
+                swipe_state_obj.start_pos.x = current_position.x
+            end
+        
+        -- --- 3. SWIPE IN PROGRESS LOGIC ---
+        else
+            swipe_state_obj.timer = swipe_state_obj.timer + delta
+
+            local total_delta_x = current_position.x - swipe_state_obj.start_pos.x
+            
+            local is_distance_met = (total_delta_x * required_direction_sign) >= SWIPE_THRESHOLD
+            local is_in_time = swipe_state_obj.timer <= COMBO_THRESHOLD
+            
+            if is_distance_met and is_in_time then
+                is_swipe_complete = true
+            end
+            
+            -- --- 4. CHECK GESTURE END/TIMEOUT ---
+            local is_timeout = swipe_state_obj.timer > COMBO_THRESHOLD
+            
+            if is_swipe_complete or is_timeout then
+                swipe_state_obj.in_progress = false
+                swipe_state_obj.timer = 0.0
+            end
+        end
+    end
+    
+    -- --- 5. We return the current position along with the swipe status
+    return is_swipe_complete, current_position
+end
+
+-- This function detects if the right controller is rolled approximately 90 degrees
+-- (like holding a sword horizontally for a block).
+
+-- This function detects a specific block pose: Right controller rolled 90 degrees 
+-- (horizontal sword), AND the controller is not significantly pitched (sword not
+-- pointed forward or backward).
+
+-- This function detects a specific block pose: Right controller rolled 90 degrees 
+-- (horizontal sword), by checking for a large PITCH angle and a near-zero ROLL angle.
+
+local function GetSwordBlockSimple()
+    local controller_index = vr.get_right_controller_index()
+    
+    -- Ensure the right controller is connected/tracked
+    if controller_index ~= -1 then
+        local controller_pos = UEVR_Vector3f.new()
+        local controller_rot = UEVR_Quaternionf.new() -- This holds the rotation (x, y, z, w)
+        vr.get_pose(controller_index, controller_pos, controller_rot)
+        
+        -- Use shorthand for quaternion components
+        local qw, qx, qy, qz = controller_rot.w, controller_rot.x, controller_rot.y, controller_rot.z
+        
+        if qy > 0.45 and qy < 0.65 then
+            return true
+        end
+    end
+    
+    return false
+end
+
+local function GetSwordBlock()
+    if USE_SIMPLE_SWORD_BLOCK == 1 then return GetSwordBlockSimple() end
+    
+    local threshold_angle_degrees = SWORD_BLOCK_DEGREES_THRESHOLD
+    
+    -- Only the right hand holds the sword for block detection
+    local controller_index = vr.get_right_controller_index()
+    if controller_index == -1 then
+        return false
+    end
+
+    -- Get controller pose
+    local pos = UEVR_Vector3f.new()
+    local rot = UEVR_Quaternionf.new()
+    vr.get_pose(controller_index, pos, rot)
+
+    -- Convert quaternion to a forward vector
+    -- Assumes forward = controller's -Z axis.
+    -- If your sword points the opposite direction, flip signs.
+    local x = 2*(rot.x*rot.z + rot.w*rot.y)
+    local y = 2*(rot.y*rot.z - rot.w*rot.x)
+    local z = 1 - 2*(rot.x*rot.x + rot.y*rot.y)
+    
+    -- forward vector is (x, y, -z) depending on coordinate system 
+    -- but for rotation comparison we only need relative components.
+    local forward = { x = x, y = y, z = z }
+
+    -- Normalize forward vector
+    local len = math.sqrt(x*x + y*y + z*z)
+    if len == 0 then return false end
+    forward.x = forward.x / len
+    forward.y = forward.y / len
+    forward.z = forward.z / len
+    
+    forward.x = -forward.x
+    forward.y = -forward.y
+    forward.z = -forward.z
+    ----------------------------------------------------
+    -- Sword block orientation criteria
+    ----------------------------------------------------
+    -- 1. Sword pointing left (tip rotated ~90° from forward)
+    --    forward.x should be strongly negative.
+    --
+    -- 2. Sword roughly horizontal (not pointed up or down)
+    --    forward.y should be near 0.
+    ----------------------------------------------------
+    
+    -- Left direction vector in world space
+    local left = { x = -1, y = 0, z = 0 }
+    
+    -- Dot product between sword direction and "left"
+    local dot = forward.x * left.x + forward.y * left.y + forward.z * left.z
+    
+    -- Convert dot to degrees
+    local angle = math.deg(math.acos(dot))
+
+    -- If the tip is facing left within angle threshold => block
+    return angle < threshold_angle_degrees
+end
+
+local function GetBlock(which_hand, threshold)
+    local controller_index = vr.get_left_controller_index()
+    if which_hand == "right" then
+        controller_index = vr.get_right_controller_index()
+    end
+    
+    local hmd_index = vr.get_hmd_index()
+    
+    -- Ensure both devices are connected/tracked
+    if controller_index ~= -1 and hmd_index ~= -1 then
+        
+        -- Get Poses
+        local controller_pos = UEVR_Vector3f.new()
+        local controller_rot = UEVR_Quaternionf.new()
+        vr.get_pose(controller_index, controller_pos, controller_rot)
+        
+        local hmd_pos = UEVR_Vector3f.new()
+        local hmd_rot = UEVR_Quaternionf.new()
+        vr.get_pose(hmd_index, hmd_pos, hmd_rot)
+        
+        -- Calculate the Euclidean distance between the two points (Vector subtraction, then length/magnitude)
+        local dx = controller_pos.x - hmd_pos.x
+        local dy = controller_pos.y - hmd_pos.y
+        local dz = controller_pos.z - hmd_pos.z
+        
+        -- Distance = sqrt(dx^2 + dy^2 + dz^2)
+        local distance = math.sqrt(dx*dx + dy*dy + dz*dz)
+        
+        -- Check if the distance is within the blocking threshold
+        if distance <= threshold then
+            return true
+        else
+            return false
+        end
+    end
+    
+    return false    
+end
+
+
+local function GetSwipe(controller_index, delta)
+
+    -- If the index is -1 (controller not present), return NO_SWIPE
+    if controller_index == -1 then
+        return NO_SWIPE
+    end
+
+    local is_left_controller = (controller_index == vr.get_left_controller_index())
+    local current_position = UEVR_Vector3f.new() -- Will hold the position from the first successful check
+    local swipe_result = NO_SWIPE
+
+    -- Determine which state objects to use based on the controller index
+    local state_LtoR = is_left_controller and gesture_state.left_LtoR or gesture_state.right_LtoR
+    local state_RtoL = is_left_controller and gesture_state.left_RtoL or gesture_state.right_RtoL
+    
+    -- --- 1. Check Left-to-Right Swipe (+X Direction) ---
+    -- L-to-R motion corresponds to a "Right Swipe" (code 2)
+    local is_l_to_r_complete, pos_l_to_r = check_single_direction_swipe(controller_index, 1.0, state_LtoR, delta)
+    if is_l_to_r_complete then
+        swipe_result = RIGHT_SWIPE 
+        current_position = pos_l_to_r
+    end
+
+    -- --- 2. Check Right-to-Left Swipe (-X Direction) ---
+    -- R-to-L motion corresponds to a "Left Swipe" (code 1)
+    if swipe_result == NO_SWIPE then
+        local is_r_to_l_complete, pos_r_to_l = check_single_direction_swipe(controller_index, -1.0, state_RtoL, delta)
+        if is_r_to_l_complete then
+            swipe_result = LEFT_SWIPE
+            current_position = pos_r_to_l
+        elseif pos_r_to_l then
+            -- If no swipe was completed, use the position from the second check
+            -- since it was performed last and is the freshest data.
+            current_position = pos_r_to_l 
+        end
+    else
+        -- We still need to call the second check to update its state, even if the first succeeded.
+        -- But we ignore the return value as we already found a swipe.
+        local _, temp_pos = check_single_direction_swipe(controller_index, -1.0, state_RtoL, delta)
+        if temp_pos then
+             -- The position from the last check is always the freshest
+             current_position = temp_pos
+        end
+    end
+
+    -- --- 3. Update last position ONCE for the NEXT frame's delta calculation ---
+    if current_position and current_position.x ~= 0 then
+        gesture_state.last_positions[controller_index] = current_position
+    end
+    
+    return swipe_result
+end
+
+local function hook_on_loadout_change_core(fn, obj, locals, result)
+    debugOut("changed loadout core")
+
+    -- note these can be not nil but no longer valid if they're moved back to inventory.
+    pcall(function()
+        if previous_left_weapon ~= nil then
+            detach_weapon("left")
+            --UEVR_UObjectHook.remove_motion_controller_state(previous_left_weapon)
+            previous_left_weapon:SetVisibility(false, true)
+            previous_left_weapon = nil
+        end
+    end)
+    
+    pcall(function()
+        if previous_right_weapon ~= nil then
+            detach_weapon("right")
+            --UEVR_UObjectHook.remove_motion_controller_state(previous_right_weapon)
+            previous_right_weapon:SetVisibility(false, true)
+            previous_right_weapon = nil
+        end
+    end)
+    
+    changed_loadout = true
+end
+
+local function regen_health_and_essence()
+    if CHEAT_AUTO_REGEN_ESSENCE == 0 and CHEAT_AUTO_REGEN_HEALTH == 0 then return end
+    
+    local pawn = api:get_local_pawn()
+    if pawn ~= nil then
+        local attribute_set = pawn.AttributeSetCore
+        if attribute_set ~= nil then
+            if CHEAT_AUTO_REGEN_HEALTH == 1 and attribute_set.Health ~= nil and attribute_set.MaxHealth ~= nil then
+                local Health = attribute_set.Health.CurrentValue
+                local MaxHealth = attribute_set.MaxHealth.CurrentValue
+                if Health < MaxHealth then
+                    local NewHealth = Health + ((CHEAT_AUTO_REGEN_PERC / 100) * MaxHealth)
+                    if NewHealth > MaxHealth then NewHealth = MaxHealth end
+                    attribute_set.Health.CurrentValue = NewHealth
+                    attribute_set.Health.BaseValue = NewHealth
+                    --UpdateVitalsBar("health", NewHealth, MaxHealth)
+                end
+            end
+            
+            if CHEAT_AUTO_REGEN_ESSENCE == 1 and attribute_set.Essence ~= nil and attribute_set.MaxEssence ~= nil then
+                local Essence = attribute_set.Essence.CurrentValue
+                local MaxEssence = attribute_set.MaxEssence.CurrentValue
+                if Essence < MaxEssence then
+                    local NewEssence = Essence + ((CHEAT_AUTO_REGEN_PERC / 100) * MaxEssence)
+                    if NewEssence > MaxEssence then NewEssence = MaxEssence end
+                    attribute_set.Essence.CurrentValue = NewEssence
+                    attribute_set.Essence.BaseValue = NewEssence
+                    --UpdateVitalsBar("essence", NewEssence, MaxEssence)
+                end
+            end
+        end
+    end
+end
+
+local function fix_weapon_spread(spread)
+    local pawn = api:get_local_pawn()
+    if pawn ~= nil then
+        local attribute_set = pawn.AttributeSetCore
+        if attribute_set ~= nil then
+            debugOut("Found attribute set: ")
+            if attribute_set.WeaponSpreadMultiplier and attribute_set.WeaponSpreadMultiplier.BaseValue then
+                attribute_set.WeaponSpreadMultiplier.BaseValue = spread
+            end
+            
+            if attribute_set.WeaponSpreadMultiplier and attribute_set.WeaponSpreadMultiplier.CurrentValue then
+                attribute_set.WeaponSpreadMultiplier.CurrentValue = spread
+            end
+        end
+    end
+end
+
+
+local function fix_weapon_speed(value)
+   
+    local pawn = api:get_local_pawn()
+    if pawn ~= nil then
+        local attribute_set = pawn.AttributeSetCore
+        if attribute_set ~= nil then
+            if attribute_set.AttackSpeedMultiplier and attribute_set.AttackSpeedMultiplier.BaseValue then
+                attribute_set.AttackSpeedMultiplier.BaseValue = value
+            end
+            
+            if attribute_set.AttackSpeedMultiplier and attribute_set.AttackSpeedMultiplier.CurrentValue then
+                attribute_set.AttackSpeedMultiplier.CurrentValue = value
+            end
+        end
+    end
+end
+
+local function is_menu_open()
+    local in_menu = false
+    if ledger_sub_page_c == nil then return false end
+    
+    local obj_instances = ledger_sub_page_c:get_objects_matching(false)
+    if obj_instances == nil then return false end
+    local count = #obj_instances
+    
+    if count > 10 then
+        in_menu = true
+    end
+    
+    if equipment_upgrade_c == nil then equipment_upgrade_c = find_required_object("Class /Script/Alabama.EquipmentUpgradeWidget") end
+    if in_menu == false and equipment_upgrade_c ~= nil then
+        local equip_instances = equipment_upgrade_c:get_objects_matching(false)
+        if equip_instances ~= nil and #equip_instances > 1 then
+            in_menu = true
+        end
+    end
+    
+    if equipment_enchant_c == nil then equipment_enchant_c = find_required_object("Class /Script/Alabama.InventoryItemEnchantListWidget") end
+    if in_menu == false and equipment_enchant_c ~= nil then
+        local enchant_instances = equipment_enchant_c:get_objects_matching(false)
+        if enchant_instances ~= nil and #enchant_instances > 1 then
+            in_menu = true
+        end
+    end
+    
+    
+    return in_menu
+    
+end
+
+local function set_weapon_opacity(current_weapon, enable)
+--ShieldMaterial->SetScalarParameterValue("AlphaMask", 0.5);   // Half visible
+--ShieldMaterial->SetScalarParameterValue("MaskAxis", 0);      // Horizontal
+--ShieldMaterial->SetScalarParameterValue("EnableAlphaMask", 1.0);
+-- RuneDynamicMaterial
+    debugOut(string.format("Setting shield opacity: %s", enable))
+	if current_weapon ~= nil then
+		local material = current_weapon.RuneDynamicMaterial
+		if material ~= nil and material.SetScalarParameterValue ~= nil then
+			if enable == true then
+                debugOut("setting opacity 0.5")
+				material:SetScalarParameterValue("AlphaMask", 0.5)
+				material:SetScalarParameterValue("MaskAxis", 0)
+				material:SetScalarParameterValue("EnableAlphaMask", 1.0)
+			else
+                debugOut("setting opacity 1.0")
+				material:SetScalarParameterValue("AlphaMask", 1.0)
+				material:SetScalarParameterValue("MaskAxis", 0)
+				material:SetScalarParameterValue("EnableAlphaMask", 0.0)
+			end
+		end
+	end
+end
+
+
+local function detach_weapon_old(which_hand)
+    if which_hand == "right" then
+        if attached_right_weapon ~= nil then
+            pcall(function()
+                UEVR_UObjectHook.remove_motion_controller_state(attached_right_weapon)
+                attached_right_weapon:SetVisibility(false, true)
+                attached_right_weapon = nil
+            end)
+        end
+    else
+        if attached_left_weapon ~= nil then
+            pcall(function()
+                UEVR_UObjectHook.remove_motion_controller_state(attached_left_weapon)
+                attached_left_weapon:SetVisibility(false, true)
+                attached_left_weapon = nil
+            end)
+        end
+    end
+end
+
+local function detach_weapon(which_hand)
+    if USE_OLD_OBJ_HOOK_METHOD == 1 then
+        return detach_weapon_old(which_hand)
+    end
+    
+    if which_hand == "right" then
+        if attached_right_weapon ~= nil then
+            pcall(function()
+                --set_visibility_for_component_chain(current_right_weapon_base, false)
+                attached_right_weapon:SetVisibility(false, true)
+				--controllers.destroyController(1)
+                attached_right_weapon = nil
+            end)
+        end
+    else
+        if attached_left_weapon ~= nil then
+            pcall(function()
+                attached_left_weapon:SetVisibility(false, true)
+				--controllers.destroyController(0)
+                attached_left_weapon = nil
+            end)
+        end
+    end
+end
+
+local UPrimitiveComponent_C = find_required_object("Class /Script.Engine.PrimitiveComponent")
+
+local function reattach_weapon_old(current_weapon, which_hand)
+	local changed = false
+	local status = false
+    
+    local hand_number = 0
+    if which_hand == "right" then hand_number = 1 end
+    local attach = nil
+    
+    debugOut("Weapon changed for hand " .. which_hand .. " detaching..")
+
+    if which_hand == "right" then
+        detach_weapon("right")
+        attached_right_weapon = current_weapon
+    else
+        detach_weapon("left")
+        attached_left_weapon = current_weapon
+    end
+    
+    -- Buckler (shield)
+    -- 1H_Axe, 1H_Club, 1H_Dagger, 1H_Rod_Proto, 1H_Sword, 1H_Wand
+    -- 2H_Axe, 2H_Sword, 2H_Bow, 
+    -- 0H_Grimoire
+    -- OgreFist (creature?), 1H_Unarmed
+    -- 1H_Pistol, 
+    if current_weapon ~= nil then -- Attach new weapon if it exists
+        status, changed = pcall(function()
+            debugOut("Weapon is valid, attaching")
+            local weapon_name = current_weapon.AttachParent:get_full_name()
+			
+            attach = UEVR_UObjectHook.get_or_add_motion_controller_state(current_weapon)
+            current_weapon:SetVisibility(true, false)
+            
+            attach:set_hand(hand_number)
+            attach:set_permanent(true)
+            
+            if string.find(weapon_name, "Wand") then
+                attach:set_rotation_offset(temp_vec3f:set(1.570, 0, 0))
+            elseif string.find(weapon_name, "Bow") then
+                attach:set_rotation_offset(temp_vec3f:set(.1, -.10, 0))
+            elseif string.find(weapon_name, "Arquebus") then
+                attach:set_rotation_offset(temp_vec3f:set(0, 0, 0))
+            elseif string.find(weapon_name, "Shield") then
+                attach:set_rotation_offset(temp_vec3f:set(0, 0, .75))
+                if current_weapon.RelativeScale3D ~= nil then
+                    current_weapon.RelativeScale3D.X = SHIELD_NORMAL_SIZE
+                    current_weapon.RelativeScale3D.Y = SHIELD_NORMAL_SIZE
+                    current_weapon.RelativeScale3D.Z = SHIELD_NORMAL_SIZE
+                end
+            elseif not string.find(weapon_name, "Pistol") then
+                attach:set_rotation_offset(temp_vec3f:set(1.000, 0, 0))
+            end
+            return true 
+        end)
+    end
+
+	return changed
+end
+
+local function reattach_weapon(current_weapon, which_hand)
+    if USE_OLD_OBJ_HOOK_METHOD == 1 then
+        return reattach_weapon_old(current_weapon, which_hand)
+    end
+
+	local changed = false
+	local status = false
+    local current_weapon_base = nil
+	
+    local hand_number = 0
+    if which_hand == "right" then hand_number = 1 end
+    local attach = nil
+    
+    debugOut("Weapon changed for hand " .. which_hand .. " detaching..")
+
+    if which_hand == "right" then
+        detach_weapon("right")
+        attached_right_weapon = current_weapon
+		if controllers.getController(1) == nil then
+			debugOut("Creating controller 1")
+			controllers.createController(1)
+		end
+		current_weapon_base = current_left_weapon_base
+    else
+        detach_weapon("left")
+        attached_left_weapon = current_weapon
+		if controllers.getController(0) == nil then
+			debugOut("Creating controller 0")
+			controllers.createController(0)
+		end
+		current_weapon_base = current_right_weapon_base
+    end
+
+    -- Buckler (shield)
+    -- 1H_Axe, 1H_Club, 1H_Dagger, 1H_Rod_Proto, 1H_Sword, 1H_Wand
+    -- 2H_Axe, 2H_Sword, 2H_Bow, 
+    -- 0H_Grimoire
+    -- OgreFist (creature?), 1H_Unarmed
+    -- 1H_Pistol, 
+    if current_weapon ~= nil then -- Attach new weapon if it exists
+        status, changed = pcall(function()
+            debugOut("Weapon is valid, attaching")
+            local weapon_name = current_weapon:get_full_name()
+			debugOut("Weapon Name: " .. weapon_name)
+			current_weapon:DetachFromParent(false,false)
+			current_weapon:SetVisibility(true, true)
+			current_weapon:SetHiddenInGame(false, true)
+            -- current_weapon:K2_AttachToComponent(current_weapon_base,"Root",0,0,0,false)
+			weaponConnected = controllers.attachComponentToController(hand_number, current_weapon)
+            
+            if string.find(weapon_name, "Wand") then
+				uevrUtils.set_component_relative_transform(current_weapon, {X=0,Y=0,Z=0}, {Pitch=270.0,Yaw=0.0,Roll=0.0})
+            elseif string.find(weapon_name, "Bow") then
+				uevrUtils.set_component_relative_transform(current_weapon, {X=0,Y=0,Z=0}, {Pitch=-5.0,Yaw=6.0,Roll=0.0})
+            elseif string.find(weapon_name, "Arquebus") or string.find(weapon_name, "Pistol") then
+				uevrUtils.set_component_relative_transform(current_weapon, {X=0,Y=0,Z=0}, {Pitch=0,Yaw=0,Roll=0})
+            elseif string.find(weapon_name, "Shield") then
+				uevrUtils.set_component_relative_transform(current_weapon, {X=0,Y=0,Z=0}, {Pitch=0,Yaw=0,Roll=0.0}, {X=SHIELD_NORMAL_SIZE, Y=SHIELD_NORMAL_SIZE, Z=SHIELD_NORMAL_SIZE})
+            else
+				uevrUtils.set_component_relative_transform(current_weapon, {X=0,Y=0,Z=0}, {Pitch=-50.0,Yaw=0.0,Roll=0.0})
+            end
+                        
+            return true 
+        end)
+    end
+
+	return changed
+end
+
+local function reinit_level_objects()
+    hud_switcher_hook = false
+    unsheath_hook = false
+    changed_loadout = true
+end
+
+-- Sheath / unsheath weapon callback (based on crosshair)
+local function set_sheathed(fn, obj, locals, result)
+    local Visible = true
+    if locals.bIsSheathed == true then Visible = false end
+    
+    if Visible == true then
+        changed_loadout = true
+        -- flags a weapon change so the weapons will be reattached
+        previous_right_weapon = nil
+        previous_left_weapon = nil
+    else
+        detach_weapon("right")
+        detach_weapon("left")
+    end
+end
+
+
+
+-- health, essense, the whole lower left
+local function SetLowerLeftWidgetParams(Widget)
+    uevrUtils.set_component_relative_transform(
+        Widget,
+        {X=0.0, Y=0.0, Z=10.0},      -- location
+        {Pitch=48.0, Yaw=155.0, Roll=-19.0},  -- rotation
+        {X=0.02, Y=0.02, Z=0.02}  -- scale
+    )
+end
+
+local function SetMinimapWidgetParams(Widget)
+    uevrUtils.set_component_relative_transform(
+        Widget,
+        {X=-8.8, Y=4.4, Z=2.9},      -- location
+        {Pitch=58.0, Yaw=155.0, Roll=-19.0},  -- rotation
+        {X=0.04, Y=0.04, Z=0.04}  -- scale
+    )
+end
+
+local function SetQuestWidgetParams(Widget)
+    uevrUtils.set_component_relative_transform(
+        Widget,
+        {X=-2.1, Y=-1.8, Z=8.8},      -- location
+        {Pitch=178.0, Yaw=86.0, Roll=-34.0},  -- rotation
+        {X=0.025, Y=0.025, Z=0.025}  -- scale
+    )
+end
+
+
+local function AttachWidgets()
+    local success = false
+    local left_corner_hud = nil
+    local mini_map_hud = nil
+    local quest_hud = nil
+    
+    -- note find_required_object can be costly, but these are blueprint generated and only exist once the level is loaded.
+    -- this function is also called only after level load and on timer not every tick.
+    -- when this function returns true, it will be considered done otherwise it will keep running every timer iteration.
+    
+    -- left controller
+    if controllers.getController(0) == nil then
+        debugOut("Creating controller 0")
+        controllers.createController(0)
+    end
+    
+    -- right controller
+    if controllers.getController(1) == nil then
+        debugOut("Creating controller 1")
+        controllers.createController(1)
+    end
+
+    -- find the lower left HUD element.
+    debugOut("Scanning for class hud_elements_c")
+    local hud_elements_c = find_required_object("WidgetBlueprintGeneratedClass /Game/UI/Screens/PlayerHUD/SBP_HUDElements.SBP_HUDElements_C")
+    if hud_elements_c ~= nil then
+        if AttachedLowerHud ~= nil then uevrUtils.detachAndDestroyComponent(AttachedLowerHud, false, false) end
+        AttachedLowerHud = uevrUtils.createWidgetComponent("WidgetBlueprintGeneratedClass /Game/UI/Screens/PlayerHUD/SBP_HUDElements.SBP_HUDElements_C", {manualAttachment=false, removeFromViewport=true, twoSided=false, drawSize=vector_2(2000, 1000)})
+        if AttachedLowerHud ~= nil then 
+            SetLowerLeftWidgetParams(AttachedLowerHud) 
+            AttachedLowerHud.WidgetClass = hud_elements_c
+			AttachedLowerHud.BlendMode = 2 -- Set to transparent
+			AttachedLowerHud.TimingPolicy = 0 -- Set to realtime
+        end
+        debugOut("Attach to controllers")
+        success = controllers.attachComponentToController(0, AttachedLowerHud, "LowerLeft", nil, nil, true)
+    end
+    
+    if success == false then
+        debugOut("Bailing on attaching the rest because lower left hud failed attach. Will try next loop")
+        return success
+    end
+
+    -- Find the compass (minimap)
+    debugOut("Scanning for class hud_minimap_c")
+    local hud_minimap_c = find_required_object("WidgetBlueprintGeneratedClass /Game/UI/Widgets/Minimap/MinimapWidget.MinimapWidget_C")
+    if hud_minimap_c ~= nil then
+        if AttachedMinimap ~= nil then uevrUtils.detachAndDestroyComponent(AttachedMinimap, false, false) end
+        AttachedMinimap = uevrUtils.createWidgetComponent("WidgetBlueprintGeneratedClass /Game/UI/Widgets/Minimap/MinimapWidget.MinimapWidget_C", {manualAttachment=false, removeFromViewport=true, twoSided=false, drawSize=vector_2(1000, 1000)})
+        if AttachedMinimap ~= nil then 
+            SetMinimapWidgetParams(AttachedMinimap) 
+            AttachedMinimap.WidgetClass = hud_minimap_c
+			AttachedMinimap.BlendMode = 2 -- Set to transparent
+			AttachedMinimap.TimingPolicy = 0 -- Set to realtime
+        end
+        debugOut("Attach to controllers")
+        success = controllers.attachComponentToController(0, AttachedMinimap, "Minimap", nil, nil, true)
+
+--[[
+        if success == true then
+            -- fix minimap color and transparency
+            local minimap_instance = uevrUtils.getActiveWidgetByClass("WidgetBlueprintGeneratedClass /Game/UI/Widgets/Minimap/MinimapWidget.MinimapWidget_C")
+            if minimap_instance ~= nil and minimap_instance.SetColorAndOpacity ~= nil then
+                local Color = minimap_instance:GetLinearColor__DelegateSignature()
+                Color.R = 0.5
+                Color.G = 0.5
+                Color.B = 0.5
+                Color.A = 0.75
+                
+                minimap_instance:SetColorAndOpacity(Color)
+                
+                if minimap_instance.RemoveFromParent then 
+                   -- minimap_instance:RemoveFromParent()
+                end
+            end
+        end
+]]
+    end
+    
+    if success == false then
+        debugOut("Bailing on attaching the rest because minimap failed attach. Will try next loop")
+        return success
+    end
+
+    -- Find the quest hud
+    debugOut("Scanning for class hud_quest_c")
+    local hud_quest_c = find_required_object("WidgetBlueprintGeneratedClass /Game/UI/Widgets/Overlay/WBP_QuestTracker.WBP_QuestTracker_C")
+    if hud_quest_c ~= nil then
+        if AttachedQuests ~= nil then uevrUtils.detachAndDestroyComponent(AttachedQuests, false, false) end
+        AttachedQuests = uevrUtils.createWidgetComponent("WidgetBlueprintGeneratedClass /Game/UI/Widgets/Overlay/WBP_QuestTracker.WBP_QuestTracker_C", {manualAttachment=false, removeFromViewport=true, twoSided=false, drawSize=vector_2(1000, 1000)})
+        if AttachedQuests ~= nil then 
+            SetQuestWidgetParams(AttachedQuests) 
+            AttachedQuests.WidgetClass = hud_quest_c
+        end
+        debugOut("Attach to controllers")
+        success = controllers.attachComponentToController(0, AttachedQuests, "QuestList", nil, nil, true)
+    end
+    return success
+end
+
+local function hook_handle_item_equipped(fn, obj, locals, result)
+    debugOut("Item equipped")    
+    changed_loadout = true
+end
+
+local function hook_handle_item_unequipped(fn, obj, locals, result)
+    debugOut("Item unequipped")    
+    changed_loadout = true
+end
+
+hook_function("Class /Script/Alabama.CrosshairWidget", "OnLoadoutChanged", true, nil, hook_on_loadout_change_core, (debug_type > 0))
+hook_function("Class /Script/Alabama.InventorySubPage", "OnHandleItemEquipped", true, nil, hook_handle_item_equipped, (debug_type > 0))
+hook_function("Class /Script/Alabama.InventorySubPage", "OnHandleItemUnquipped", true, nil, hook_handle_item_unequipped, (debug_type > 0))
+
+uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
+    slow_timer = slow_timer + delta
+
+    if is_in_main_menu == false then
+        combo_timer = combo_timer + delta 
+        
+		-- these are timer based things to do when a new level is loaded
+        if new_level_timer < NEW_LEVEL_THRESHOLD then
+            new_level_timer = new_level_timer + delta
+            if new_level_timer > NEW_LEVEL_THRESHOLD then
+                reinit_level_objects()
+            end
+        end
+        
+		-- attach the HUD to the left controller. This works only on some levels.
+		-- on other levels the widgets are black.
+		if USE_ATTACHED_WIDGETS == true then
+			if new_level_hud_timer < NEW_LEVEL_HUD_THRESHOLD then
+				new_level_hud_timer = new_level_hud_timer + delta
+				--debugOut(string.format("new_level_hud_timer = %f, delta = %f, NEW_LEVEL_HUD_THRESHOLD = %f", new_level_hud_timer, delta, NEW_LEVEL_HUD_THRESHOLD))
+				if new_level_hud_timer > NEW_LEVEL_HUD_THRESHOLD then
+					if is_hud_attached == false then 
+						is_hud_attached = AttachWidgets()
+					end
+					
+					if is_hud_attached == false then
+						debugOut("HUD attach failed first run, setting to run again.")
+						new_level_hud_timer = 0.0
+					else
+						debugOut("HUD created and attached!")
+					end
+				end
+			end
+		end
+
+        if right_haptic_timer > 0.0 then 
+            right_haptic_timer = right_haptic_timer - delta
+        end
+        
+        if left_haptic_timer > 0.0 then
+            left_haptic_timer = left_haptic_timer - delta
+        end
+        
+        if right_haptic_timer < 0.0 then
+            right_haptic_timer = 0.0
+            -- secs from now (dont think this works), duration, frequency, amplitude
+            vr.trigger_haptic_vibration(0, 0.10, 200.0, 30.0, vr.get_right_joystick_source());
+        end
+
+        if left_haptic_timer < 0.0 then
+            left_haptic_timer = 0.0
+            vr.trigger_haptic_vibration(0, 0.10, 200.0, 30.0, vr.get_left_joystick_source());
+        end
+    end
+    
+	-- These things don't need to run every tick so we timer them
+    if slow_timer >= 2.0 then
+        slow_timer = 0.0
+    
+        local world = uevrUtils.get_world()
+        if world ~= nil then
+            local level = world.PersistentLevel
+            if level ~= nil and level ~= prev_level then
+                prev_level = level
+                level_change(level, uevrUtils.getShortName(level:get_outer()))
+            end
+        end
+        
+        if is_in_main_menu == true then return end
+
+--[[        
+        if hud_switcher_hook == false then 
+            hud_switcher_hook = hook_function("WidgetBlueprintGeneratedClass /Game/UI/Widgets/HudLayer/WBP_HUDLoadoutSwitcher.WBP_HUDLoadoutSwitcher_C", "OnLoadoutChanged", false, nil, hook_on_loadout_change, true)
+        end
+]]        
+        if unsheath_hook == false then
+            unsheath_hook = hook_function("WidgetBlueprintGeneratedClass /Game/UI/Screens/PlayerHUD/WBP_CrosshairManager.WBP_CrosshairManager_C", "SetSheathedVisual", false, set_sheathed, nil, (debug_type > 0))
+        end
+        
+        regen_health_and_essence()
+        
+        local pawn = api:get_local_pawn()
+
+        if pawn == nil then
+            return
+        end
+
+        local FPMesh = pawn.FirstPersonMesh
+        local children = FPMesh.AttachChildren
+
+        --UEVR can't handle multiname via uobject hook profiles so it must be scripted
+        for _, child in ipairs(children) do
+            if string.find(child:get_full_name(), "Poseable") then
+                child:SetVisibility(false, false) -- Hide upper body
+            end
+        end
+        
+    end
+    
+    if (melee_swing and is_in_menu == false) then
+        local left_index = vr.get_left_controller_index()
+        local right_index = vr.get_right_controller_index()
+        
+        -- Pass delta time to the function
+        left_swipe_result = GetSwipe(left_index, delta)
+        right_swipe_result = GetSwipe(right_index, delta)
+    end   
+    
+    
+end)
+
+local function is_unarmed(weapon)
+    if weapon ~= nil then
+        local status, weapon_name = pcall(function() return weapon:get_full_name() end)
+        if string.find(weapon_name, "Unarmed") then
+            return true
+		else
+			return false
+        end
+    else
+        return true
+    end
+end
+
+local function is_weapon_grimoire(weapon)
+    if weapon ~= nil then
+        local status, weapon_name = pcall(function() return weapon:get_full_name() end)
+        if string.find(weapon_name, "Grimoire") then
+            return true
+        end
+    end
+    
+    return false
+end
+
+local function is_weapon_2_handed(weapon)
+    -- Capture both the success status and the actual result
+    local success, is_2handed = pcall(function()
+        -- Dagger, Sword, Wand, Grimoire, Pistol
+        if weapon ~= nil then
+            local status, weapon_name = pcall(function() return weapon:get_full_name() end)
+            -- Note: If get_full_name() or string.find() causes an error,
+            -- this logic will still be protected by pcall.
+            if string.find(weapon_name, "_2H_") then
+                -- This debugOut *will* run if pcall is successful and the string check is true.
+                return true
+            end
+        end
+        
+        return false
+    end)
+
+    -- You can add logic here to handle if pcall failed (i.e., success is false)
+    if not success then
+        -- Handle error, e.g., if weapon was nil and it crashed trying to call it.
+        -- 'is_2handed' now holds the error message.
+        debugOut("Error in is_weapon_2_handed: " .. tostring(is_2handed))
+        return false -- Default to false on error
+    end
+    
+    -- If successful, return the actual result from the inner function.
+    return is_2handed
+end
+
+local function debug_print_weapons()
+    pcall(function()
+    debugOut("Loadout changed weapons are: ")
+    if current_right_weapon ~= nil then
+        debugOut("current right: " .. current_right_weapon:get_full_name())
+    else
+        debugOut("current right: nil")
+    end
+    
+    if current_left_weapon ~= nil then
+        debugOut("current left: " .. current_left_weapon:get_full_name())
+    else
+        debugOut("current left: nil")
+    end
+
+    if previous_right_weapon ~= nil then
+       pcall(function() debugOut("prev right: " .. previous_right_weapon:get_full_name()) end)
+    else
+       debugOut("prev right: nil")
+    end
+    if previous_left_weapon ~= nil then
+       pcall(function() debugOut("prev left: " .. previous_left_weapon:get_full_name()) end)
+    else
+       debugOut("prev left: nil")
+    end
+    end)
+end
+
+local was_shield_block = false
+uevr.sdk.callbacks.on_xinput_get_state(function(retval, user_index, state)
+    is_in_menu = is_menu_open()
+    if is_in_menu == true or is_in_main_menu == true then
+        if was_in_menu == false then
+            was_in_menu = true
+            vr.set_mod_value("VR_AimMethod", "0")
+            vr.set_mod_value("UI_Size", "0.250000")
+            vr.set_mod_value("UI_Distance", "0.500000")
+        end
+        return
+    else
+        if was_in_menu == true then
+            was_in_menu = false
+            vr.set_mod_value("UI_Distance", "10.000000")
+            vr.set_mod_value("UI_Size", tostring(NORMAL_UI_SIZE))
+            vr.set_mod_value("VR_AimMethod", current_aim_method)
+        end
+    end
+    
+    local is_in_event = check_cutscene_or_conversation()
+    if is_in_event == true then return end
+    
+    -- note everything below here requires not being in Menu or conversation etc.
+
+    -- wait for level to stabilize
+    if new_level_timer < NEW_LEVEL_THRESHOLD then
+        return
+    end
+
+    local grimoire_hand = "none"
+    local grimoire_trigger = 0
+    local is_2_handed = is_weapon_2_handed(current_right_weapon)
+
+    -- Weapon Hooks per hand and loadout.
+    if changed_loadout == true then
+        fix_weapon_speed(CHEAT_GUN_SPEED_MULT)
+        current_right_weapon, current_right_weapon_base = get_equipped_items("Right")
+        current_left_weapon, current_left_weapon_base = get_equipped_items("Left")
+    else
+        if current_right_weapon == nil then 
+            current_right_weapon, current_right_weapon_base = get_equipped_items("Right") 
+            if current_right_weapon ~= nil then 
+                changed_loadout = true 
+            end
+        end
+        if current_left_weapon == nil and is_2_handed == false then  
+            current_left_weapon, current_left_weapon_base = get_equipped_items("Left") 
+            if current_left_weapon ~= nil then 
+                changed_loadout = true 
+            end
+        end
+    end
+    
+    local loadout_changed_check_hand = false
+    
+    local pawn = api:get_local_pawn()
+    
+    if changed_loadout == true then
+        debug_print_weapons()
+        
+        if reattach_weapon(current_right_weapon, "right") == true then
+            debugOut("Right weapon attach complete")
+            previous_right_weapon = current_right_weapon
+        end
+        
+        if is_2_handed == false then
+            debugOut("right weapon 1H or unarmed, checking left")
+            if reattach_weapon(current_left_weapon, "left") == true then
+                if current_left_weapon ~= nil then debugOut("left: " .. current_left_weapon:get_full_name()) end
+                previous_left_weapon = current_left_weapon
+            end
+        else
+            debugOut(string.format("is_2_handed = %s", is_2_handed))
+        end
+        -- tightens the weapon spread for aimed weapons. Especially the wand.
+        if current_right_weapon ~= nil or current_left_weapon ~= nil then
+            if should_fix_weapon_spread == true then
+                debugOut("Fixing weapon spread")
+                fix_weapon_spread(0.1)
+            end
+        end
+        
+        changed_loadout = false
+
+        -- there's more we want to do but need some data outside this if scope for it.
+        if changed_loadout == false then
+            loadout_changed_check_hand = true
+            if current_right_weapon_base ~= nil then current_right_weapon_base:OnInitialize() end
+            -- tested to get rid of vanishing weapon, no impact
+            --if pawn ~= nil then
+                --pawn:OnEquippedItemVisualsConstructed(current_right_weapon_base)
+            --end
+        end
+    end
+    
+    
+	-- all this can move into hook weapon change for performance
+	local is_left_weapon_melee    = is_weapon_melee(current_left_weapon)
+	local is_right_weapon_melee   = is_weapon_melee(current_right_weapon)
+    local is_right_weapon_ranged  = not is_right_weapon_melee
+    local is_left_weapon_ranged   = not is_left_weapon_melee
+    local is_left_weapon_shield   = is_shield(current_left_weapon)
+	local is_right_weapon_unarmed = is_unarmed(current_right_weapon)
+	local is_left_weapon_unarmed  = false
+    
+	if is_2_handed == false then
+		is_left_weapon_unarmed = is_unarmed(current_left_weapon)
+    else
+        is_left_weapon_melee = false
+        is_left_weapon_unarmed = false
+	end
+
+    if is_left_weapon_unarmed == true then 
+        is_left_weapon_melee = true 
+        is_left_weapon_unarmed = false
+    end
+    if is_right_weapon_unarmed == true then 
+        is_right_weapon_melee = true 
+        is_right_weapon_unarmed = false
+    end
+    
+    if is_left_weapon_shield then
+        is_left_weapon_ranged = false
+    end
+    
+    local aim_hand = "2"
+    -- setup default aim before user selects it with trigger.
+    if loadout_changed_check_hand == true then
+        loadout_changed_check_hand = false
+        
+        -- default to right hand except some circumstances.
+        aim_hand = "2" -- Right
+        
+        -- left weapon is only ranged weapon
+        if is_right_weapon_ranged == false and is_left_weapon_ranged == true then
+            aim_hand = "3"
+        end
+        
+        -- using 2 handed sword
+        if is_2_handed == true and is_right_weapon_melee then
+            aim_hand = "3"
+        end
+        
+        vr.set_mod_value("VR_AimMethod", aim_hand)
+    end
+    
+    -- Change aim method based on last activated weapon
+    if UEVR_UObjectHook.exists(current_left_weapon) or UEVR_UObjectHook.exists(current_right_weapon) then 
+        if is_2_handed == true then
+            -- aim on left hand so you can aim your strikes
+            if is_right_weapon_melee == true then
+                vr.set_mod_value("VR_AimMethod", "3")
+            else
+                vr.set_mod_value("VR_AimMethod", "2")
+            end
+        else
+            if (state.Gamepad.bLeftTrigger > 200) then
+                vr.set_mod_value("VR_AimMethod", "3")
+            elseif (state.Gamepad.bRightTrigger > 200) then
+                vr.set_mod_value("VR_AimMethod", "2")
+            end
+        end
+        current_aim_method = vr:get_mod_value("VR_AimMethod")
+    end
+    
+    -- this is all grimoire control using right stick while trigger is down
+    if is_left_weapon_melee == false then
+        if is_weapon_grimoire(current_left_weapon) == true then
+            grimoire_hand = "left"
+        end
+    end
+
+    if is_right_weapon_melee == false then
+        if is_weapon_grimoire(current_right_weapon) == true then
+            grimoire_hand = "right"
+        end
+    end
+    
+    if grimoire_hand == "left" then
+        grimoire_trigger = state.Gamepad.bLeftTrigger
+    elseif grimoire_hand == "right" then
+        grimoire_trigger = state.Gamepad.bRightTrigger
+    end
+    
+    if grimoire_trigger > 200 then
+        if state.Gamepad.bLeftTrigger > 200 then
+            if state.Gamepad.sThumbLY > 25000 then 
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_Y
+                state.Gamepad.sThumbLY = 0
+            elseif state.Gamepad.sThumbLY < -25000 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_A
+                state.Gamepad.sThumbLY = 0
+            elseif state.Gamepad.sThumbLX > 25000 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_B
+                state.Gamepad.sThumbLX = 0
+            elseif state.Gamepad.sThumbLX < -25000 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_X
+                state.Gamepad.sThumbLX = 0
+            end
+        end
+    end
+    -- end grimoire control
+    
+    -- optional control remaps
+    -- if LB is down, set aim to left hand.
+    if remap_lb_button == 1 then
+        if state.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER > 0 then
+            vr.set_mod_value("VR_AimMethod", "3")
+            -- clear LB
+            state.Gamepad.wButtons = state.Gamepad.wButtons & ~XINPUT_GAMEPAD_LEFT_SHOULDER
+            
+            -- LB + B = LB, the spell wheel, so add LB and clear B
+            if state.Gamepad.wButtons & XINPUT_GAMEPAD_B > 0 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_LEFT_SHOULDER
+                state.Gamepad.wButtons = state.Gamepad.wButtons & ~XINPUT_GAMEPAD_B
+            elseif state.Gamepad.sThumbLY > 25000 then 
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_DPAD_UP
+                state.Gamepad.sThumbLY = 0
+            elseif state.Gamepad.sThumbLY < -25000 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_DPAD_DOWN
+                state.Gamepad.sThumbLY = 0
+            elseif state.Gamepad.sThumbLX > 25000 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_DPAD_RIGHT
+                state.Gamepad.sThumbLX = 0
+            elseif state.Gamepad.sThumbLX < -25000 then
+                state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_DPAD_LEFT
+                state.Gamepad.sThumbLX = 0
+            end
+            
+        end
+    end
+
+    if right_stick_down_b == 1 then
+        if state.Gamepad.sThumbRY <= -25000 then
+            state.Gamepad.sThumbRY = 0
+            state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_B
+        end
+    end
+    
+    if right_stick_up_sprint == 1 then
+        if state.Gamepad.sThumbRY >= 25000 then
+            state.Gamepad.sThumbRY = 0
+            state.Gamepad.wButtons = state.Gamepad.wButtons | XINPUT_GAMEPAD_LEFT_THUMB
+        end
+    end
+    
+	------------------------------------------------------------------
+	-- GESTURE SYSTEM BELOW --
+	------------------------------------------------------------------
+	
+	-- return here if no gesture swipes are used.
+	if MELEE_SWING_AND_BLOCK == 0 then return end
+	
+    -- read swipes and disable RT / LT for melee actions
+    if is_left_weapon_melee == true then
+        if left_swipe_result > 0 then
+            debugOut("left_swipe_result detected swinging left weapon")
+            state.Gamepad.bLeftTrigger = 255
+            left_haptic_timer = 0.15
+            fix_weapon_speed_for_weapon(current_left_weapon_base, 10.0)
+        elseif GetBlock("left", CHARGE_THRESHOLD) == true then -- block gesture also used for charge attack
+            state.Gamepad.bLeftTrigger = 255
+            fix_weapon_speed_for_weapon(current_left_weapon_base, 0.5)
+            vr.trigger_haptic_vibration(0, 0.20, 100.0, 30.0, vr.get_left_joystick_source())
+            was_left_trigger_down = true
+            vr.set_mod_value("VR_AimMethod", "2") -- set aim to other hand while charge is overhead.
+        else
+            fix_weapon_speed_for_weapon(current_left_weapon_base, 10.0)
+            state.Gamepad.bLeftTrigger = 0
+            if was_left_trigger_down == true then
+                vr.set_mod_value("VR_AimMethod", aim_hand)
+            end
+            was_left_trigger_down = false
+        end
+    end
+    
+    if is_right_weapon_melee == true then
+        if right_swipe_result > 0 then
+            debugOut("right_swipe_result detected swinging right weapon")
+            state.Gamepad.bRightTrigger = 255
+            right_haptic_timer = 0.15
+            fix_weapon_speed_for_weapon(current_right_weapon_base, 10.0)
+        elseif GetBlock("right", CHARGE_THRESHOLD) == true then -- block gesture also used for charge attack
+            state.Gamepad.bRightTrigger = 255
+            fix_weapon_speed_for_weapon(current_right_weapon_base, 0.5)
+            vr.trigger_haptic_vibration(0, 0.20, 100.0, 30.0, vr.get_right_joystick_source())
+            was_right_trigger_down = true
+            vr.set_mod_value("VR_AimMethod", "3") -- set aim to other hand while charge is overhead.
+        else
+            fix_weapon_speed_for_weapon(current_right_weapon_base, 10.0) -- while swinging
+            state.Gamepad.bRightTrigger = 0
+            if was_right_trigger_down == true then
+                vr.set_mod_value("VR_AimMethod", aim_hand)
+            end
+            was_right_trigger_down = false
+        end
+        
+        if is_2_handed == true then
+            if GetSwordBlock() == true then
+                state.Gamepad.bLeftTrigger = 255
+                if was_sword_block == false then
+                    was_sword_block = true
+                    vr.trigger_haptic_vibration(0.0, 0.05, 1.0, 1000.0, vr.get_right_joystick_source());
+                end
+            else
+                state.Gamepad.bLeftTrigger = 0
+                if was_sword_block == true then
+                    was_sword_block = false
+                    vr.trigger_haptic_vibration(0.0, 0.05, 1.0, 1500.0, vr.get_right_joystick_source());
+                end
+            end
+        end
+    end
+    
+    if is_left_weapon_shield == true then
+        if GetBlock("left", BLOCK_THRESHOLD) == true then
+            state.Gamepad.bLeftTrigger = 255
+			if was_shield_block == false then
+				was_shield_block = true
+				vr.trigger_haptic_vibration(0.0, 0.05, 1.0, 1000.0, vr.get_left_joystick_source())
+                if current_left_weapon.RelativeScale3D ~= nil then
+                    current_left_weapon.RelativeScale3D.X = SHIELD_BLOCK_SIZE
+                    current_left_weapon.RelativeScale3D.Y = SHIELD_BLOCK_SIZE
+                    current_left_weapon.RelativeScale3D.Z = SHIELD_BLOCK_SIZE
+                end
+
+				--set_weapon_opacity(current_left_weapon, true)
+			end
+        else
+			state.Gamepad.bLeftTrigger = 0
+			if was_shield_block == true then
+				was_shield_block = false
+				vr.trigger_haptic_vibration(0.0, 0.05, 1.0, 1500.0, vr.get_left_joystick_source());
+                if current_left_weapon.RelativeScale3D ~= nil then
+                    current_left_weapon.RelativeScale3D.X = SHIELD_NORMAL_SIZE
+                    current_left_weapon.RelativeScale3D.Y = SHIELD_NORMAL_SIZE
+                    current_left_weapon.RelativeScale3D.Z = SHIELD_NORMAL_SIZE
+                end
+			end
+        end
+    end
+
+end)
+
+local function toggle_lumen(enabled)
+    set_cvar_int("r.Lumen.DiffuseIndirect.Allow", enabled)
+    if enabled == 1 then 
+        set_cvar_float("r.TonemapperGamma", 0.0)
+    else
+        set_cvar_float("r.TonemapperGamma", 1.5)
+    end
+end
+
+local function read_config()
+    local config_data = fs.read(config_filename)
+    if config_data then
+        for key, value in config_data:gmatch("([^=]+)=([^\n]+)\n?") do
+		
+            local num_val = tonumber(value)
+            if key == "debug_type" then 
+				debug_type = num_val 
+            end
+			
+			if key == "SWIPE_THRESHOLD" then
+				SWIPE_THRESHOLD = num_val
+			end
+
+            if key == "COMBO_THRESHOLD" then
+                COMBO_THRESHOLD = num_val
+            end
+            
+            if key == "BLOCK_THRESHOLD" then
+                BLOCK_THRESHOLD = num_val
+            end
+            
+            if key == "CHARGE_THRESHOLD" then
+                CHARGE_THRESHOLD = num_val
+            end
+    
+            if key == "CHEAT_AUTO_REGEN_ESSENCE" then
+                CHEAT_AUTO_REGEN_ESSENCE = num_val
+            end
+            
+            if key == "CHEAT_AUTO_REGEN_HEALTH" then
+                CHEAT_AUTO_REGEN_HEALTH = num_val
+            end
+            
+			if key == "CHEAT_AUTO_REGEN_PERC" then
+				CHEAT_AUTO_REGEN_PERC = num_val
+			end
+			
+			if key == "CHEAT_GUN_SPEED_MULT" then
+				CHEAT_GUN_SPEED_MULT = num_val
+			end
+
+			if key == "MELEE_SWING_AND_BLOCK" then
+				MELEE_SWING_AND_BLOCK = num_val
+			end
+            
+			if key == "right_stick_down_b" then
+				right_stick_down_b = num_val
+			end
+            
+            if key == "right_stick_up_sprint" then
+                right_stick_up_sprint = num_val
+            end
+            
+            if key == "remap_lb_button" then 
+                remap_lb_button = num_val
+            end
+            
+            if key == "USE_SIMPLE_SWORD_BLOCK" then
+                USE_SIMPLE_SWORD_BLOCK = num_val
+            end
+            
+            if key == "SWORD_BLOCK_DEGREES_THRESHOLD" then
+                SWORD_BLOCK_DEGREES_THRESHOLD = num_val
+            end
+            
+            if key == "ENABLE_LUMEN" then
+                ENABLE_LUMEN = num_val
+                toggle_lumen(ENABLE_LUMEN)
+            end
+                       
+            if key == "SHIELD_NORMAL_SIZE" then
+                SHIELD_NORMAL_SIZE = num_val
+            end
+            
+            if key == "SHIELD_BLOCK_SIZE" then
+                SHIELD_BLOCK_SIZE = num_val
+            end
+            
+            if key == "NORMAL_UI_SIZE" then
+                NORMAL_UI_SIZE = num_val
+            end
+            
+            if key == "USE_OLD_OBJ_HOOK_METHOD" then
+                USE_OLD_OBJ_HOOK_METHOD = num_val
+            end
+       end
+    end
+    
+    
+    help_data = fs.read(help_filename)
+    
+end
+
+local function write_config()
+    local config = "" -- Initialize config as an empty string
+
+	config = config .. string.format("MELEE_SWING_AND_BLOCK=%d\n", MELEE_SWING_AND_BLOCK)
+	config = config .. string.format("SWIPE_THRESHOLD=%f\n", SWIPE_THRESHOLD) 
+    config = config .. string.format("COMBO_THRESHOLD=%f\n", COMBO_THRESHOLD)
+	config = config .. string.format("BLOCK_THRESHOLD=%f\n", BLOCK_THRESHOLD) 
+    config = config .. string.format("CHARGE_THRESHOLD=%f\n", CHARGE_THRESHOLD) 
+	config = config .. string.format("CHEAT_AUTO_REGEN_ESSENCE=%d\n", CHEAT_AUTO_REGEN_ESSENCE) 
+    config = config .. string.format("CHEAT_AUTO_REGEN_HEALTH=%d\n", CHEAT_AUTO_REGEN_HEALTH) 
+    config = config .. string.format("CHEAT_AUTO_REGEN_PERC=%.2f\n", CHEAT_AUTO_REGEN_PERC)
+    config = config .. string.format("CHEAT_GUN_SPEED_MULT=%.2f\n", CHEAT_GUN_SPEED_MULT)
+	config = config .. string.format("right_stick_down_b=%d\n", right_stick_down_b) 
+    config = config .. string.format("right_stick_up_sprint=%d\n", right_stick_up_sprint) 
+    config = config .. string.format("remap_lb_button=%d\n", remap_lb_button)
+    config = config .. string.format("debug_type=%d\n", debug_type)
+    config = config .. string.format("SWORD_BLOCK_DEGREES_THRESHOLD=%d\n", SWORD_BLOCK_DEGREES_THRESHOLD)
+    config = config .. string.format("USE_SIMPLE_SWORD_BLOCK=%d\n", USE_SIMPLE_SWORD_BLOCK)
+    config = config .. string.format("SHIELD_BLOCK_SIZE=%.2f\n", SHIELD_BLOCK_SIZE)
+    config = config .. string.format("SHIELD_NORMAL_SIZE=%.2f\n", SHIELD_NORMAL_SIZE)
+    config = config .. string.format("NORMAL_UI_SIZE=%.6f\n", NORMAL_UI_SIZE)
+    config = config .. string.format("USE_OLD_OBJ_HOOK_METHOD=%d\n", USE_OLD_OBJ_HOOK_METHOD)
+    config = config .. string.format("ENABLE_LUMEN=%d\n", ENABLE_LUMEN)
+
+    fs.write(config_filename, config)
+end
+
+
+
+uevr.lua.add_script_panel("Avowed Config", function()
+    imgui.text("Avowed Mod v" .. VERSION .. " by MarkMon")
+    imgui.spacing()
+    imgui.spacing()
+
+	if imgui.collapsing_header("Help and Readme") then
+        local changed, new_index = imgui.combo("Debug Logging", debug_type+1, {"Disabled", "Console", "log.txt", "log.txt + Console"})
+        if changed then debug_type = new_index - 1; needs_config_write = true;  end
+
+        imgui.spacing()
+        imgui.spacing()
+        imgui.text("Toggle weapon attach only if weapon hooks are problematic. The old method uses uevr")
+        imgui.text("internal hooking system. But some weapons vanished after using magic or")
+        imgui.text("swapping weapon sets. The new method uses jbusfield's library for attachments")
+        imgui.text("and seems to work better. Weapons may flicker a little but dont go away.")
+        changed, new_value = imgui.checkbox("Use Old Weapon Attach Method", USE_OLD_OBJ_HOOK_METHOD == 1)
+        if changed then USE_OLD_OBJ_HOOK_METHOD = new_value and 1 or 0; needs_config_write = true; end
+
+        imgui.spacing()
+        imgui.spacing()
+        imgui.spacing()
+        imgui.text(help_data)
+    end
+    imgui.spacing()
+
+    if imgui.collapsing_header("Gameplay Options") then
+		changed, new_value = imgui.slider_float("Normal UI Size", NORMAL_UI_SIZE, 1.0, 10.0)
+        if changed then 
+            NORMAL_UI_SIZE = new_value; 
+            needs_config_write = true 
+            vr.set_mod_value("UI_Size", tostring(NORMAL_UI_SIZE))
+        end
+
+        changed, new_value = imgui.checkbox("Health Auto Regenerate", CHEAT_AUTO_REGEN_HEALTH == 1)
+        if changed then CHEAT_AUTO_REGEN_HEALTH = new_value and 1 or 0; needs_config_write = true; end
+        
+        changed, new_value = imgui.checkbox("Essence Auto Regenerate", CHEAT_AUTO_REGEN_ESSENCE == 1)
+        if changed then CHEAT_AUTO_REGEN_ESSENCE = new_value and 1 or 0; needs_config_write = true; end
+        
+		changed, new_value = imgui.slider_float("Regen % Per Sec.", CHEAT_AUTO_REGEN_PERC, 0.0, 5.0)
+        if changed then CHEAT_AUTO_REGEN_PERC = new_value; needs_config_write = true end
+        
+		changed, new_value = imgui.slider_float("Ranged Speed Mult.", CHEAT_GUN_SPEED_MULT, 1.0, 10.0)
+        if changed then 
+            CHEAT_GUN_SPEED_MULT = new_value; 
+            needs_config_write = true 
+        end
+        imgui.text("Swap weapons after setting to see effect.\n")
+	end
+    
+    imgui.spacing()
+    if imgui.collapsing_header("Gestures and Controls") then
+        
+        changed, new_value = imgui.checkbox("Right Stick Down Dodge (B)", right_stick_down_b == 1)
+        if changed then right_stick_down_b = new_value and 1 or 0; needs_config_write = true; end
+
+        changed, new_value = imgui.checkbox("Right Stick Up Sprint (L3)", right_stick_up_sprint == 1)
+        if changed then right_stick_up_sprint = new_value and 1 or 0; needs_config_write = true; end
+
+        changed, new_value = imgui.checkbox("Assign LB + Left Stick for dpad hotkeys", remap_lb_button == 1)
+        if changed then remap_lb_button = new_value and 1 or 0; needs_config_write = true; end
+
+	    imgui.spacing()
+        imgui.text("Gestures are:\n")
+        imgui.text("-Normal Attack: Melee weapon swing left and right for normal melee combo.\n")
+        imgui.text("-Combo Attack: Hold melee weapon to your head, controller vibrates while\n")
+        imgui.text("               charges, swipe down to hit\n")
+        imgui.text("-Shield Block: Hold shield weapon to your head. Block UI shows on HUD\n")
+        imgui.spacing()
+        imgui.text("Melee gestures work for melee and unarmed. If using ranged weapon on off hand,\n")
+        imgui.text("the offhand weapon directs the melee aim.\n")
+        imgui.spacing()
+        imgui.text("Distance is in virtual meters. Larger number requires bigger swing to register.")
+        imgui.spacing()
+		
+        imgui.spacing()
+        changed, new_value = imgui.checkbox("Use Melee Gesture System.", MELEE_SWING_AND_BLOCK == 1)
+        if changed then MELEE_SWING_AND_BLOCK = new_value and 1 or 0; needs_config_write = true; end
+
+		local changed, new_value = imgui.slider_float("Swing Threshold", SWIPE_THRESHOLD, 0.1, 1.0)
+        if changed then
+            local step = 0.1
+            
+            -- 3. Multiply by the step size (e.g., 5.0 * 0.5 = 2.5)
+            new_value = math.floor((new_value / step) + 0.5) * step
+
+            swipe_threshold = new_value
+            needs_config_write = true
+        end
+            
+        imgui.spacing()
+        imgui.text("Distance is in virtual meters. Larger number requires bigger swing to register.")
+        imgui.spacing()
+
+        imgui.spacing()
+        local changed, new_value = imgui.slider_float("Charge Threshold", CHARGE_THRESHOLD, 0.1, 0.4)
+        if changed then
+            local step = 0.05
+            
+            new_value = math.floor((new_value / step) + 0.5) * step
+
+            CHARGE_THRESHOLD = new_value
+            needs_config_write = true
+        end
+        imgui.text("Distance is in virtual meters. Left is closer to head to trigger.")
+
+        imgui.spacing()
+        local changed, new_value = imgui.slider_float("Shield Threshold", BLOCK_THRESHOLD, 0.1, 0.4)
+        if changed then
+            local step = 0.05
+            
+            new_value = math.floor((new_value / step) + 0.5) * step
+
+            BLOCK_THRESHOLD = new_value
+            needs_config_write = true
+        end
+        imgui.text("Distance is in virtual meters. Left is closer to head to trigger.")
+        
+        imgui.spacing()
+        local changed, new_value = imgui.slider_int("Sword Block Threshold", SWORD_BLOCK_DEGREES_THRESHOLD, 15, 60)
+        if changed then SWORD_BLOCK_DEGREES_THRESHOLD = new_value; needs_config_write = true; end
+        imgui.text("Value is in degrees.")
+
+        imgui.spacing()
+        local changed, new_value = imgui.slider_float("Shield Size (Normal)", SHIELD_NORMAL_SIZE, 0.1, 1.0)
+        if changed then
+            SHIELD_NORMAL_SIZE = new_value
+            needs_config_write = true
+        end
+        imgui.text("Shields are big and block gameplay visibility. You can shrink when equipped")
+        
+        imgui.spacing()
+        local changed, new_value = imgui.slider_float("Shield Size (Blocking)", SHIELD_BLOCK_SIZE, 0.1, 1.0)
+        if changed then
+            SHIELD_BLOCK_SIZE = new_value
+            needs_config_write = true
+        end
+        imgui.text("Blocking covers your eyes. Smaller shield for better visibility")
+        
+        imgui.spacing()
+        changed, new_value = imgui.checkbox("Alternate Sword Block Detection.", USE_SIMPLE_SWORD_BLOCK == 1)
+        if changed then USE_SIMPLE_SWORD_BLOCK = new_value and 1 or 0; needs_config_write = true; end
+        imgui.text("A simpler but less precise detection of sword position. Hopefully\nthis is never needed.")
+
+    end
+    
+    imgui.spacing()
+    if imgui.collapsing_header("Lumen (Performance) Settings") then
+        changed, new_value = imgui.checkbox("Enable Lumen", ENABLE_LUMEN == 1)
+        if changed then 
+            ENABLE_LUMEN = new_value and 1 or 0; 
+            needs_config_write = true
+            toggle_lumen(ENABLE_LUMEN)
+        end
+    end
+    
+    if needs_config_write == true then
+        write_config()
+	end
+end)
+
+read_config()

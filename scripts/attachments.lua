@@ -13,9 +13,12 @@ uevrUtils.setLogLevel(LogLevel.Debug)
 -- replace this --
 attachments.init()
 function getWeaponMesh()
+local pawn = uevrUtils.get_local_pawn()
+    if not pawn then
+	return
+    end
 local melee_root = nil
 local ranged_root = nil
-local pawn = uevrUtils.getValid(pawn)
 local attached_actors = {}
 	if pawn then
 		pawn:GetAttachedActors(attached_actors, true)
@@ -26,13 +29,13 @@ local attached_actors = {}
 				if melee_mesh_component and melee_mesh_component.bOnlyOwnerSee 
 					and not string.find(melee_mesh_component:get_full_name(), "DESTROYED") then
 					melee_root = melee_mesh_component
-					print ("A:" .. melee_root:get_full_name())
+					-- print ("A:" .. melee_root:get_full_name())
 					break 
 				end
 				if ranged_mesh_component and ranged_mesh_component.bOnlyOwnerSee 
 					and not string.find(ranged_mesh_component:get_full_name(), "DESTROYED") then
 					ranged_root = ranged_mesh_component
-					print ("B:" .. ranged_root:get_full_name())
+					-- print ("B:" .. ranged_root:get_full_name())
 					break 
 				end
 			end
@@ -41,8 +44,6 @@ local attached_actors = {}
 	end
 end
 ------------------
-
-
 
 ------------------------------------------------------------------------------
 -- This works for Robocop: Rogue City and Robocop: Unfinished Business
@@ -127,7 +128,7 @@ end
 ------------------------------------------------------------------------------
 
 attachments.registerOnGripUpdateCallback(function()	
-	return getWeaponMesh()
-	--return getWeaponMesh(), controllers.getController(Handed.Right)
+	-- return getWeaponMesh()
+	return getWeaponMesh(), controllers.getController(Handed.Right)
 end)
 

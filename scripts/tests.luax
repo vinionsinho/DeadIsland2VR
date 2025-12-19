@@ -1,0 +1,12 @@
+local uevrUtils = require('libs/uevr_utils')
+
+local pawn = uevrUtils.getValid(pawn)
+local api = uevr.api
+local vr = uevr.params.vr
+local callbacks = uevr.sdk.callbacks
+
+uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
+
+
+
+end)

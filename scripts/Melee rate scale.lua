@@ -4,7 +4,6 @@ local callbacks = uevr.sdk.callbacks
 local pawn = api:get_local_pawn(0)
 local swinging_fast = nil
 
-
 local melee_data = {
     cooldown_time = 0.0,
     accumulated_time = 0.0,
@@ -102,8 +101,7 @@ local weapon_class_path = nil
             cur_mon.RateScale = 1.0
         end
     end
-
-
+    
 end)
 
 uevr.sdk.callbacks.on_xinput_get_state(function(retval, user_index, state)
