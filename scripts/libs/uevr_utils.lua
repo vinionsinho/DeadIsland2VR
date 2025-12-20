@@ -475,6 +475,11 @@ Usage
 			local hudComponent = uevrUtils.createWidgetComponent(widget, {removeFromViewport=true, twoSided=true, drawSize=vector_2(620, 75)})	
 			local hudComponent = uevrUtils.createWidgetComponent("WidgetBlueprintGeneratedClass /Game/UI/HUD/Reticle/Reticle_BP.Reticle_BP_C", {removeFromViewport=true, twoSided=true, drawSize=vector_2(100, 100)})	
 	
+	uevrUtils.setWidgetLayout(widget, scale, alignment) - sets the layout of a widget, including scale and alignment in the viewport
+		scale and alignment are Vector2D structs representing normalized values (0.0 to 1.0) for scale and (-1.0 to 1.0) for alignment
+		example:
+			uevrUtils.setWidgetLayout(myWidget, uevrUtils.vector2D(0.5, 0.5), uevrUtils.vector2D(0.5, 0.5))
+	
 	uevrUtils.fixMeshFOV(mesh, propertyName, value, (optional)includeChildren, (optional)includeNiagara, (optional)showDebug) --Removes the FOV distortions that 
 		many flat FPS games apply to player and weapon meshes using ScalarParameterValues
 		example:
@@ -768,6 +773,7 @@ pawn = nil -- updated every tick
 ---@field [any] any
 Statics = nil
 WidgetBlueprintLibrary = nil
+WidgetLayoutLibrary = nil
 ---@class kismet_system_library
 ---@field [any] any
 kismet_system_library = nil
@@ -975,10 +981,20 @@ end
 
 local timerList = {}
 function setInterval(msec, func)
-	table.insert(timerList, {period = msec/1000, countDown = msec/1000, func = func})
+	local id = M.guid()
+	table.insert(timerList, {id = id,period = msec/1000, countDown = msec/1000, func = func})
+	return id
 end
 function M.setInterval(msec, func)
-	setInterval(msec, func)
+	return setInterval(msec, func)
+end
+function M.clearInterval(id)
+	for i = #timerList, 1, -1 do
+		if timerList[i].id == id then
+			table.remove(timerList, i)
+			break
+		end
+	end
 end
 
 local function updateTimer(delta)
@@ -1455,6 +1471,8 @@ function M.initUEVR(UEVR, callbackFunc)
 	kismet_rendering_library = M.find_default_instance("Class /Script/Engine.KismetRenderingLibrary")
 	Statics = M.find_default_instance("Class /Script/Engine.GameplayStatics")
 	WidgetBlueprintLibrary = M.find_default_instance("Class /Script/UMG.WidgetBlueprintLibrary")
+    WidgetLayoutLibrary = M.find_default_instance("Class /Script/UMG.WidgetLayoutLibrary")
+    
 
 	game_engine = M.find_first_of("Class /Script/Engine.GameEngine")
 
@@ -3182,6 +3200,28 @@ function M.createWidgetComponent(widget, options)
 	end
 	return component, widgetAlignment
 end
+
+function M.setWidgetLayout(widget, scale, alignment)
+    if widget ~= nil and WidgetLayoutLibrary ~= nil then
+        if scale ~= nil then
+            scale = M.vector2D(scale)
+            if scale ~= nil then
+                local viewportSize = WidgetLayoutLibrary:GetViewportSize(M.get_world())
+                local viewportScale = WidgetLayoutLibrary:GetViewportScale(M.get_world())
+                local newSizeX = viewportSize.X * scale.X / viewportScale
+                local newSizeY = viewportSize.Y * scale.Y / viewportScale
+                widget:SetDesiredSizeInViewport(M.vector2D(newSizeX, newSizeY))
+            end
+        end
+        if alignment ~= nil then
+            alignment = M.vector2D(alignment)
+            if alignment ~= nil then
+                widget:SetAlignmentInViewport(M.vector2D(-alignment.X, -alignment.Y))
+            end
+        end
+    end
+end
+
 
 function M.fixMeshFOV(mesh, propertyName, value, includeChildren, includeNiagara, showDebug)
 	local logLevel = showDebug == true and LogLevel.Debug or LogLevel.Ignore

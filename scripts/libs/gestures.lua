@@ -34,6 +34,7 @@ M.Gesture =
 	SWIPE_UP = 13,
 	SWIPE_DOWN = 14,
 	SNATCH = 15,
+	GRIP_COMPONENT = 16,
 }
 
 local currentLogLevel = LogLevel.Error
@@ -542,6 +543,21 @@ function M.detectGestureWithState(id, state, hand, continuous)
 		local gripMouth, gripEyes, gripHead, gripEar, triggerMouth, triggerEyes, triggerHead, triggerEar = detectFace(state, hand, continuous)
 		return triggerEar
 	end
+end
+
+function M.detectComponentGrab(state, hand, component, maxDistance)
+	if component ~= nil then
+		if uevrUtils.isButtonPressed(state, hand == Handed.Left and XINPUT_GAMEPAD_LEFT_SHOULDER or XINPUT_GAMEPAD_RIGHT_SHOULDER) then 
+			--check if the hand is close to a component
+			local distance = controllers.getDistanceFromController(hand, component)
+			--print(distance)
+			if distance ~= nil and distance < (maxDistance or 10) then
+				--print("Grabbing component")
+				return true, distance
+			end
+		end
+	end
+	return false, nil
 end
 
 function M.getHeadGestures(state, hand, continuous)

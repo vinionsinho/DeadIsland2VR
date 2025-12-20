@@ -345,6 +345,20 @@ function M.doAnimateForFinger(anim, component, boneList, fingerIndex)
 	M.doAnimate(filteredAnim, component)
 end
 
+function M.doAnimateForFingerWithIndices(anim, component, boneList)
+	local boneSpace = 0
+	local filteredAnim = {}
+	local bone1Name = component:GetBoneName(boneList[1] - 1, boneSpace):to_string()
+	local bone2Name = component:GetBoneName(boneList[2] - 1, boneSpace):to_string()
+	local bone3Name = component:GetBoneName(boneList[3] - 1, boneSpace):to_string()
+	for name, item in pairs(anim) do
+		if name == bone1Name or name == bone2Name or name == bone3Name then
+			filteredAnim[name] = item
+		end
+	end
+	M.doAnimate(filteredAnim, component)
+end
+
 function M.animate(animID, animName, val)
 	M.print("Called animate with " .. animID .. " " .. animName .. " " .. val, LogLevel.Info)
 	local animation = animations[animID]
@@ -633,6 +647,12 @@ function M.setBoneRotation(component, boneName, rotation, isDelta)
 	end
 end
 
+local function getBoneName(component, boneList, fingerIndex, jointIndex)
+	local boneSpace = 0
+	local boneFName = component:GetBoneName(boneList[fingerIndex] + jointIndex - 1, boneSpace)
+	return boneFName
+end
+
 --used by mod devs to update bone angles interactively
 function M.setFingerAngles(component, boneList, fingerIndex, jointIndex, angleID, angle, isDelta, showDebug)
 	if showDebug == nil then showDebug = true end
@@ -667,6 +687,39 @@ function M.setFingerAngles(component, boneList, fingerIndex, jointIndex, angleID
 	if showDebug then M.logBoneRotators(component, boneList) end
 end
 
+function M.setFingerAnglesByIndex(component, index, angleID, angle, isDelta, showDebug)
+	if showDebug == nil then showDebug = true end
+	if isDelta == nil then isDelta = true end
+	local boneSpace = 0
+	local boneFName = component:GetBoneName(index - 1, boneSpace)
+
+	local localRotator, pTransform = M.getBoneSpaceLocalRotator(component, boneFName, boneSpace)
+	--if showDebug and localRotator ~= nil then M.print(boneFName:to_string() .. " Local Space Before: " .. fingerIndex .. " " .. jointIndex .. " " .. localRotator.Pitch .. " " .. localRotator.Yaw .. " " .. localRotator.Roll, LogLevel.Info) end
+	if angleID == 0 then
+		if isDelta and localRotator ~= nil then
+			localRotator.Pitch = localRotator.Pitch + angle
+		else
+			localRotator.Pitch = angle
+		end
+	elseif angleID == 1 then
+		if isDelta and localRotator ~= nil then
+			localRotator.Yaw = localRotator.Yaw + angle
+		else
+			localRotator.Yaw = angle
+		end
+	elseif angleID == 2 then
+		if isDelta and localRotator ~= nil then
+			localRotator.Roll = localRotator.Roll + angle
+		else
+			localRotator.Roll = angle
+		end
+	end
+	--if showDebug and localRotator ~= nil then M.print(boneFName:to_string() .. " Local Space After: " .. fingerIndex .. " " .. jointIndex .. " " .. localRotator.Pitch .. " " .. localRotator.Yaw .. " " .. localRotator.Roll, LogLevel.Info) end
+	M.setBoneSpaceLocalRotator(component, boneFName, localRotator, boneSpace, pTransform)
+
+	-- if showDebug then M.logBoneRotators(component, boneList) end
+end
+
 
 function cleanFloat(num)
 	if num < 0.0001 and num > -0.0001 then num = 0 end
@@ -677,6 +730,15 @@ end
 function M.getBoneRotator(component, boneList, fingerIndex, jointIndex)
 	local boneSpace = 0
 	local boneFName = component:GetBoneName(boneList[fingerIndex] + jointIndex - 1, boneSpace)
+
+	local localRotator, pTransform = M.getBoneSpaceLocalRotator(component, boneFName, boneSpace)
+	--M.print(boneFName:to_string() .. " Local Space Before: " .. fingerIndex .. " " .. jointIndex .. " " .. localRotator.Pitch .. " " .. localRotator.Yaw .. " " .. localRotator.Roll, LogLevel.Info)
+	return localRotator
+end
+
+function M.getBoneRotatorByIndex(component, index)
+	local boneSpace = 0
+	local boneFName = component:GetBoneName(index - 1, boneSpace)
 
 	local localRotator, pTransform = M.getBoneSpaceLocalRotator(component, boneFName, boneSpace)
 	--M.print(boneFName:to_string() .. " Local Space Before: " .. fingerIndex .. " " .. jointIndex .. " " .. localRotator.Pitch .. " " .. localRotator.Yaw .. " " .. localRotator.Roll, LogLevel.Info)
@@ -708,6 +770,35 @@ function M.getBoneTransforms(component, boneList, includeRotation, includeLocati
 					if includeScale and scale ~= nil then
 						rotators[fName:to_string()] = {cleanFloat(scale.X), cleanFloat(scale.Y), cleanFloat(scale.Z)}
 					end
+				end
+			end
+		end
+	end
+	return rotators
+end
+
+function M.getBoneTransformsByIndexList(component, boneIndexList, includeRotation, includeLocation, includeScale)
+	if includeRotation == nil then includeRotation = true end
+	if includeLocation == nil then includeLocation = false end
+	if includeScale == nil then includeScale = false end
+	local boneSpace = 0
+	local rotators = {}
+	if component ~= nil  then
+		if component.GetBoneTransformByName == nil then
+			M.print("Component does not support retrieval of bone transforms in function logBoneRotators() (eg not a poseableMeshComponent)")
+		else
+			for j = 1, #boneIndexList do
+				local fName = component:GetBoneName(boneIndexList[j] - 1)
+				local rotation, location, scale = M.getBoneSpaceLocalTransform(component, fName, boneSpace)
+
+				if includeRotation and rotation ~= nil then
+					rotators[fName:to_string()] = {cleanFloat(rotation.Pitch), cleanFloat(rotation.Yaw), cleanFloat(rotation.Roll)}
+				end
+				if includeLocation and location ~= nil then
+					rotators[fName:to_string()] = {cleanFloat(location.X), cleanFloat(location.Y), cleanFloat(location.Z)}
+				end
+				if includeScale and scale ~= nil then
+					rotators[fName:to_string()] = {cleanFloat(scale.X), cleanFloat(scale.Y), cleanFloat(scale.Z)}
 				end
 			end
 		end

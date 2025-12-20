@@ -168,6 +168,27 @@ function M.print(text, logLevel)
 	end
 end
 
+local function executeOnCreatedCallback(...)
+	return uevrUtils.executeUEVRCallbacks("on_hands_created", table.unpack({...}))
+end
+function M.onCreatedCallback(func)
+	uevrUtils.registerUEVRCallback("on_hands_created", func)
+end
+
+local function executeIsHiddenCallback(...)
+	return uevrUtils.executeUEVRCallbacksWithPriorityBooleanResult("is_hands_hidden", table.unpack({...}))
+end
+function M.registerIsHiddenCallback(func)
+	uevrUtils.registerUEVRCallback("is_hands_hidden", func)
+end
+
+local function executeIsAnimatingFromMeshCallback(...)
+	return uevrUtils.executeUEVRCallbacksWithPriorityBooleanResult("is_hands_animating_from_mesh", table.unpack({...}))
+end
+function M.registerIsAnimatingFromMeshCallback(func)
+	uevrUtils.registerUEVRCallback("is_hands_animating_from_mesh", func)
+end
+
 local createInputHandler = doOnce(function()
 	attachments.registerOnGripAnimationCallback(function(gripAnimation, gripHand)
 		M.print("Grip animation changed to " .. (gripAnimation and tostring(gripAnimation) or "None") .. " for " .. (gripHand == Handed.Left and "Left" or "Right") .. " hand", LogLevel.Debug)
@@ -415,6 +436,7 @@ function M.create(skeletalMeshComponent, definition, handAnimations)
 							animation.add(animID, handComponents[name][index], handAnimations)
 							animation.initialize(animID, handComponents[name][index])
 						end
+						executeOnCreatedCallback(index, handComponents[name][index])
 					end
 				end
 				if autoHandleInput == true then
@@ -652,6 +674,17 @@ function M.handleInputForHands(state, rightAttachment, leftAttachment, overrideT
 	end
 end
 
+function M.hideHand(hand, val)
+	if val == nil then return end
+	for name, components in pairs(handComponents) do
+		if uevrUtils.getValid(components[hand]) ~= nil and components[hand].SetVisibility ~= nil then
+			M.print((val and "Hiding " or "Showing ") .. components[hand]:get_full_name() .. " hand component " .. tostring(hand), LogLevel.Debug)
+			components[hand]:SetVisibility(not val, true)
+		end
+	end
+end
+
+
 function M.hideHands(val)
 	if val == nil then return end
 	for name, components in pairs(handComponents) do
@@ -665,19 +698,6 @@ function M.hideHands(val)
 	end
 end
 
-local function executeIsHiddenCallback(...)
-	return uevrUtils.executeUEVRCallbacksWithPriorityBooleanResult("is_hands_hidden", table.unpack({...}))
-end
-function M.registerIsHiddenCallback(func)
-	uevrUtils.registerUEVRCallback("is_hands_hidden", func)
-end
-
-local function executeIsAnimatingFromMeshCallback(...)
-	return uevrUtils.executeUEVRCallbacksWithPriorityBooleanResult("is_hands_animating_from_mesh", table.unpack({...}))
-end
-function M.registerIsAnimatingFromMeshCallback(func)
-	uevrUtils.registerUEVRCallback("is_hands_animating_from_mesh", func)
-end
 
 function M.destroyHands()
 	--since we didnt use an existing actor as parent in createComponent(), destroy the owner actor too

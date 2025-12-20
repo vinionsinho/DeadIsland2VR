@@ -499,13 +499,13 @@ function M.clearRecentMontages()
     recentMontages = {}
 end
 
-function M.playMontage(montageName)
+function M.playMontage(montageName, speed)
 	if uevrUtils.getValid(pawn) ~= nil and parameters ~= nil and montageName ~= nil and montageName ~= "" and parameters["montagelist"][montageName] ~= nil then
 		local className = parameters["montagelist"][montageName]["class_name"]
 		if className ~= nil then
 			local montage = uevrUtils.find_required_object(className)
 			if montage ~= nil then
-				local result = pawn:PlayAnimMontage(montage, 1.0, uevrUtils.fname_from_string(""))
+				local result = pawn:PlayAnimMontage(montage, speed or 1.0, uevrUtils.fname_from_string(""))
 			end
 		end
 	end

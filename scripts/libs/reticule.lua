@@ -347,21 +347,8 @@ function M.setParametersFileName(fileName)
     parametersFileName = fileName
 end
 
-function M.init(isDeveloperMode, logLevel)
-    if logLevel ~= nil then
-        M.setLogLevel(logLevel)
-    end
-    if isDeveloperMode == nil and uevrUtils.getDeveloperMode() ~= nil then
-        isDeveloperMode = uevrUtils.getDeveloperMode()
-    end
-
-    M.loadParameters()
-    setReticuleAutoCreationTypeFromParameters()
-
-    if isDeveloperMode then
-        reticuleConfigDev = require("libs/config/reticule_dev_config")
-        reticuleConfigDev.setParametersFileName(parametersFileName)
-        reticuleConfigDev.init(isDeveloperMode, logLevel)
+local createDevConfigMonitor = doOnce(function()
+	if reticuleConfigDev ~= nil then
 		reticuleConfigDev.registerParametersChangedCallback(function(params, options)
 			if params ~= nil then
 				parameters = params
@@ -376,9 +363,8 @@ function M.init(isDeveloperMode, logLevel)
 				end
 			end
 		end)
-    else
-    end
-end
+	end
+end, Once.EVER)
 
 local createConfigMonitor = doOnce(function()
 	if reticuleConfig ~= nil then
@@ -395,6 +381,41 @@ local createConfigMonitor = doOnce(function()
 		end)
 	end
 end, Once.EVER)
+
+
+function M.init(isDeveloperMode, logLevel)
+    if logLevel ~= nil then
+        M.setLogLevel(logLevel)
+    end
+    if isDeveloperMode == nil and uevrUtils.getDeveloperMode() ~= nil then
+        isDeveloperMode = uevrUtils.getDeveloperMode()
+    end
+
+    M.loadParameters()
+    setReticuleAutoCreationTypeFromParameters()
+
+    if isDeveloperMode then
+        reticuleConfigDev = require("libs/config/reticule_dev_config")
+        reticuleConfigDev.setParametersFileName(parametersFileName)
+        reticuleConfigDev.init(isDeveloperMode, logLevel)
+		createDevConfigMonitor()
+		-- reticuleConfigDev.registerParametersChangedCallback(function(params, options)
+		-- 	if params ~= nil then
+		-- 		parameters = params
+		-- 		if options ~= nil then
+		-- 			M.print("Reticule parameters changed via config UI, updating parameters of current reticule")
+		-- 			currentReticuleOptions = initOptionsDefaults(options, reticuleAutoCreationType == M.ReticuleType.WIDGET)
+		-- 		else
+		-- 			M.print("Reticule parameters changed via config UI, creating new reticule")
+		-- 			M.destroy()
+		-- 			M.reset()
+    	-- 			setReticuleAutoCreationTypeFromParameters()
+		-- 		end
+		-- 	end
+		-- end)
+    else
+    end
+end
 
 function M.getConfigurationWidgets(options)
 	if reticuleConfig == nil then

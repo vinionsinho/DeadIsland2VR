@@ -451,6 +451,21 @@ function M.getControllerTargetLocation(handed, collisionChannel, ignoreActors, t
 	return nil
 end
 
+-- returns an float or nil
+function M.getDistanceFromController(controllerID, component)
+	if component ~= nil then
+		local loc1 = M.getControllerLocation(controllerID)
+		if loc1 ~= nil then
+			local loc2 = component:K2_GetComponentLocation()
+			if loc2 ~= nil then
+				return uevrUtils.distanceBetween(loc1, loc2)
+			end
+		end
+	end
+	return nil
+end
+
+
 local isRestored = false
 uevrUtils.registerPreLevelChangeCallback(function(level)
 	M.print("Pre-Level changed in controllers")

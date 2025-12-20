@@ -1,8 +1,6 @@
 --Credits to Pande4360
-
-require(".\\Trackers\\Trackers")
-require(".\\Subsystems\\UEHelper")
-
+local uevrUtils = require("libs/uevr_utils")
+local controllers = require("libs/controllers")
 local api = uevr.api
 local params = uevr.params
 local callbacks = params.sdk.callbacks
@@ -50,8 +48,15 @@ local RXState=0
 local SnapAngle=0
 local is_left_shoulder_pressed = false
 
+function on_level_change(level)
+				print("Level changed\n")
+				controllers.onLevelChange()
+				controllers.createController(0)
+				controllers.createController(1)
+				controllers.createController(2) 
+			end
+
 callbacks.on_xinput_get_state(function(retval, user_index, state)
-    -- Verificação de segurança
     if not state or not state.Gamepad or user_index ~= 0 then
         return
     end
@@ -63,15 +68,17 @@ callbacks.on_xinput_get_state(function(retval, user_index, state)
     end
 end)
 
-uevr.sdk.callbacks.on_pre_engine_tick(
-function(engine, delta)
+-- controllerID=0 Left controller
+-- controllerID=1 Right controller
+-- controllerID=2 HMD
+
+uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
 	local pawn = api:get_local_pawn(0)
-	local player =api:get_player_controller(0)
-	local RotatorXYZ= right_hand_component:K2_GetComponentRotation()
-	HmdVector=hmd_component:GetForwardVector()
-	HandVector= right_hand_component:GetForwardVector()
-	
-	local HmdXY= hmd_component:K2_GetComponentRotation()
+	local player = api:get_player_controller(0)
+	local RotatorXYZ = controllers.getControllerRotation(1) --Right hand rotation
+	local HmdVector = controllers.getControllerDirection(2)
+	local HandVector = controllers.getControllerDirection(1)
+	local HmdXY = controllers.getControllerRotation(2)
 
 	local attached_actors = {} -- Necessary array considering GetAttachedActors give us two weapon objects
 	local root = nil
@@ -95,8 +102,8 @@ for i, act in ipairs(attached_actors) do
     end
 end
 	
-	local left_hand_pos = left_hand_component:K2_GetComponentLocation()
-    local right_hand_pos = right_hand_component:K2_GetComponentLocation()
+	local left_hand_pos = controllers.getControllerLocation(0)
+    local right_hand_pos = controllers.getControllerLocation(1)
     local dir_to_left_hand = (left_hand_pos - right_hand_pos):normalized()
     local weapon_up_vector = root:GetUpVector() --
     local final_rotation = kismet_math_library:MakeRotFromXZ(dir_to_left_hand, weapon_up_vector)
@@ -105,7 +112,7 @@ end
 	player:ClientSetRotation(final_rotation,false)
 
 else
-	local customrot = right_hand_component:K2_GetComponentRotation()
+	local customrot = controllers.getControllerRotation(1)
 	player:ClientSetRotation(customrot,false)
 end
 

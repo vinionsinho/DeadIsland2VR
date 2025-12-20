@@ -3,7 +3,7 @@
 local api = uevr.api
 local vr = uevr.params.vr
 
-local CHARGE_THRESHOLD = 0.20 -- 20 cm
+local CHARGE_THRESHOLD = 0.25 -- 20 cm
 local was_gesture_active = false
 
 -- Function to check distance between a hand and the head
@@ -39,8 +39,8 @@ local function GetGesture(which_hand, threshold)
         -- Check if the distance is within the threshold
         if distance <= threshold then
             return true
-        else
-            return false
+        -- else
+        --     return false
         end
     end
     
@@ -55,8 +55,9 @@ uevr.sdk.callbacks.on_xinput_get_state(function(retval, user_index, state)
         
         if was_gesture_active == false then
             was_gesture_active = true
-            -- Optional: Haptic feedback when entering the pose
-            vr.trigger_haptic_vibration(0.0, 0.1, 1.0, 100.0, vr.get_right_joystick_source())
+            -- Optional: Haptic feedback when entering the pose.
+            -- Dead Island 2 already provides precise haptic feedback so let's not worry with it.
+            -- vr.trigger_haptic_vibration(0.0, 0.1, 300.0, 1.0, vr.get_right_joystick_source())
             print("Charged Attack Gesture: STARTED") 
         end
     else
