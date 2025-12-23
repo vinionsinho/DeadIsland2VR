@@ -17,6 +17,25 @@
         1.0,
         1.0
     ],
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_any_child": false,
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_any_parent": false,
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_is_melee": false,
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_position": [
+        2.299999952316284,
+        -7.300000190734863,
+        -23.799999237060547
+    ],
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_rotation": [
+        -18.299999237060547,
+        9.399999618530273,
+        2.700000047683716
+    ],
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
     "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_any_child": false,
     "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_any_parent": false,
     "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_grip_animation": 1,
@@ -35,18 +54,53 @@
         1.0,
         1.0
     ],
-    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_child": false,
-    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_parent": false,
-    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_grip_animation": 1,
-    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_is_melee": true,
-    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_position": [
-        0.0,
-        0.0,
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_any_child": false,
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_any_parent": false,
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_grip_animation": 1,
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_position": [
+        4.800000190734863,
+        -3.700000047683716,
+        -17.899999618530273
+    ],
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_rotation": [
+        -11.899999618530273,
+        -2.299999952316284,
         0.0
     ],
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg_any_child": false,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg_any_parent": false,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg_position": [
+        1.100000023841858,
+        -5.099999904632568,
+        -19.700000762939453
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg_rotation": [
+        -19.100000381469727,
+        4.199999809265137,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_child": false,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_parent": false,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_position": [
+        1.100000023841858,
+        -5.099999904632568,
+        -19.700000762939453
+    ],
     "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_rotation": [
-        0.0,
-        0.0,
+        -19.100000381469727,
+        4.199999809265137,
         0.0
     ],
     "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_scale": [
@@ -54,49 +108,31 @@
         1.0,
         1.0
     ],
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_Dmg_any_child": false,
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_Dmg_any_parent": false,
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_Dmg_grip_animation": 1,
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_Dmg_position": [
-        0.0,
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_any_child": false,
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_any_parent": false,
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_position": [
+        7.800000190734863,
+        -4.5,
+        -8.699999809265137
+    ],
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_rotation": [
+        -13.5,
         0.0,
         0.0
     ],
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_Dmg_rotation": [
-        0.0,
-        0.0,
-        0.0
-    ],
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_Dmg_scale": [
-        1.0,
-        1.0,
-        1.0
-    ],
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_any_child": false,
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_any_parent": false,
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_grip_animation": 1,
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_position": [
-        -1.2999999523162842,
-        4.5,
-        -11.899999618530273
-    ],
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_rotation": [
-        -20.799999237060547,
-        2.5,
-        -21.100000381469727
-    ],
-    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_scale": [
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_scale": [
         1.0,
         1.0,
         1.0
     ],
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_any_child": false,
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_grip_animation": 1,
+    "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_position": [
-        0.0,
-        0.0,
-        0.0
+        6.099999904632568,
+        -4.5,
+        -4.400000095367432
     ],
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_rotation": [
         0.0,
@@ -128,11 +164,11 @@
     ],
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_any_child": false,
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_grip_animation": 1,
+    "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_position": [
-        0.0,
-        0.0,
-        0.0
+        8.899999618530273,
+        -5.0,
+        -6.199999809265137
     ],
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_rotation": [
         0.0,
@@ -164,11 +200,11 @@
     ],
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_child": false,
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 1,
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_position": [
-        0.0,
-        0.0,
-        0.0
+        6.099999904632568,
+        -4.0,
+        -4.800000190734863
     ],
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_rotation": [
         0.0,
@@ -176,6 +212,24 @@
         0.0
     ],
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_MeatBait_C_SK_MeatBait_any_child": false,
+    "attachment_BP_ThrowingWeaponVisuals_MeatBait_C_SK_MeatBait_any_parent": false,
+    "attachment_BP_ThrowingWeaponVisuals_MeatBait_C_SK_MeatBait_grip_animation": 1,
+    "attachment_BP_ThrowingWeaponVisuals_MeatBait_C_SK_MeatBait_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_MeatBait_C_SK_MeatBait_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_MeatBait_C_SK_MeatBait_scale": [
         1.0,
         1.0,
         1.0

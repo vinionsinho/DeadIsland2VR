@@ -21,7 +21,6 @@ local CHARGE_THRESHOLD = 0.25 -- 25 cm
 local was_gesture_active = false
 
 -- Function to check distance between a hand and the head
--- Based on 'GetBlock' from Avowed6dof.lua
 local function GetGesture(which_hand, threshold)
     local controller_index = vr.get_left_controller_index()
     if which_hand == "right" then
@@ -71,6 +70,8 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     if not pawn then
         return
     end
+    
+    -- God mode
 
     if pawn then
         local health_component = pawn.HealthComponent
@@ -136,11 +137,10 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
 
 
     local cur_mon = pawn:GetCurrentMontage()
-    
     if cur_mon then
     -- print(cur_mon:get_full_name())
         if is_melee and not string.find(cur_mon:get_full_name(), "Knockdown") then
-            cur_mon.RateScale = 5.0
+            cur_mon.RateScale = 4.0 -- Maximum working value of 5.0. Lower values may work better
         else
             cur_mon.RateScale = 1.0
         end
@@ -148,8 +148,10 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     
 end)
 
+
 uevr.sdk.callbacks.on_xinput_get_state(function(retval, user_index, state)
 
+    
 	if (state ~= nil) and is_melee then			
 		if swinging_fast == true then
 			if state.Gamepad.bRightTrigger >= 200 then 
@@ -184,3 +186,4 @@ uevr.sdk.callbacks.on_xinput_get_state(function(retval, user_index, state)
         
 	end
 end)
+

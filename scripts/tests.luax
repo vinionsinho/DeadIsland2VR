@@ -1,12 +1,20 @@
 local uevrUtils = require('libs/uevr_utils')
-
+local controllers = require("libs/controllers")
+controllers.autoMonitorHands()
 local pawn = uevrUtils.getValid(pawn)
 local api = uevr.api
 local vr = uevr.params.vr
 local callbacks = uevr.sdk.callbacks
 
+-- local HmdXY = controllers.getControllerRotation(2)
+-- local RightRotator = controllers.getControllerRotation(1)
+
 uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
-
-
-
+    local rightLocation = controllers.getControllerLocation(1)
+    local rightRotation = controllers.getControllerRotation(1)
+    
+    if rightLocation and rightRotation then
+        print(string.format("Right Hand - Pos: (%.2f, %.2f, %.2f) | Yaw: %.2f", 
+            rightLocation.X, rightLocation.Y, rightLocation.Z, rightRotation.Yaw))
+    end
 end)

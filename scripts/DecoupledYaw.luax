@@ -1,0 +1,351 @@
+--Credits to Pande4360
+-- require(".\\Subsystems\\UEHelper")
+require("Subsystems/UEHelper")
+local uevrUtils = require("libs/uevr_utils")
+local controllers = require("libs/controllers")
+local api = uevr.api
+local params = uevr.params
+local callbacks = params.sdk.callbacks
+local vr=uevr.params.vr
+local function find_required_object(name)
+    local obj = uevr.api:find_uobject(name)
+    if not obj then
+        error("Cannot find " .. name)
+        return nil
+    end
+
+    return obj
+end
+local find_static_class = function(name)
+    local c = find_required_object(name)
+    return c:get_class_default_object()
+end
+
+local hitresult_c = find_required_object("ScriptStruct /Script/Engine.HitResult")
+local reusable_hit_result1 = StructObject.new(hitresult_c)
+--local POIDataStruct= find_required_object("UserDefinedStruct /Game/GlobalData/Structs/Struct_CameraPOIVar.Struct_CameraPOIVar")
+--local reusable_POIData= StructObject.new(POIDataStruct)
+local kismet_math_library = find_static_class("Class /Script/Engine.KismetMathLibrary")
+--local Actor= find_required_object("BOG_Global_Snd_C /Game/Levels/Bogano/BOGGlobal/SubLevels/BOG_Global_Snd.BOG_Global_Snd.PersistentLevel.BOG_Global_Snd_C_3")
+--reusable_POIData.FocusActor = Actor
+
+
+local CamAngle=RightRotator
+local AttackDelta=0
+local HandVector= Vector3f.new(0.0,0.0,0.0)
+local HmdVector = Vector3f.new(0.0,0.0,0.0)
+local VecAlpha  = Vector3f.new(0,0,0)
+local Alpha  	= nil
+local AlphaDiff =0
+local LastState= isBow
+local ConditionChagned=false
+local isMenuEnter=false
+local YawLast=0
+
+local LeftRightScaleFactor		=0
+local ForwardBackwardScaleFactor=0
+	
+local DecoupledYawCurrentRot = 0
+local RXState=0
+local SnapAngle=0
+local is_left_shoulder_pressed = false
+
+function on_level_change(level)
+				print("Level changed\n")
+				controllers.onLevelChange()
+				controllers.createController(0)
+				controllers.createController(1)
+				controllers.createController(2) 
+			end
+
+callbacks.on_xinput_get_state(function(retval, user_index, state)
+    if not state or not state.Gamepad or user_index ~= 0 then
+        return
+    end
+
+    if (state.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) ~= 0 then --
+        is_left_shoulder_pressed = true
+    else
+        is_left_shoulder_pressed = false
+    end
+end)
+
+-- controllerID=0 Left controller
+-- controllerID=1 Right controller
+-- controllerID=2 HMD
+
+uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
+	local pawn = api:get_local_pawn(0)
+	local player = api:get_player_controller(0)
+	local RotatorXYZ = controllers.getControllerRotation(1) --Right hand rotation
+	local HmdVector = controllers.getControllerDirection(2)
+	local HandVector = controllers.getControllerDirection(1)
+	local HmdXY = controllers.getControllerRotation(2)
+
+	local attached_actors = {} -- Necessary array considering GetAttachedActors give us two weapon objects
+	local root = nil
+	local weapon_equipped = nil
+
+if is_left_shoulder_pressed then
+
+    pawn:GetAttachedActors(attached_actors, true)
+
+for i, act in ipairs(attached_actors) do
+    if act and string.find(act:get_full_name(), "BP_RangedWeaponVisuals_") 
+    and not string.find(act:get_full_name(), "DESTROYED") then -- Ranged detection while avoiding the detection of previous selected weapons
+        local mesh_component = act.SkeletalMesh
+        if mesh_component and mesh_component:get_property('bOnlyOwnerSee') == true then -- Property exclusive to first person meshes
+           
+            root = mesh_component
+            weapon_equipped = act 
+            
+            break 
+        end
+    end
+end
+	
+	local left_hand_pos = controllers.getControllerLocation(0)
+    local right_hand_pos = controllers.getControllerLocation(1)
+    local dir_to_left_hand = (left_hand_pos - right_hand_pos):normalized()
+    local weapon_up_vector = root:GetUpVector() --
+    local final_rotation = kismet_math_library:MakeRotFromXZ(dir_to_left_hand, weapon_up_vector)
+
+	--player:SetCameraRotation(RotatorXYZ,false,false,false,true)
+	player:ClientSetRotation(final_rotation,false)
+
+else
+	local customrot = controllers.getControllerRotation(1)
+	player:ClientSetRotation(customrot,false)
+end
+
+--	pawn.Instigator:RotateToAlignXY({HmdXY.x,HmdXY.y})
+	
+if isMenu then
+	uevr.params.vr.set_mod_value("VR_DecoupledPitch", "false")
+else uevr.params.vr.set_mod_value("VR_DecoupledPitch", "true") end
+
+--print(isRiding
+
+
+		
+		
+		--print(isBow)
+		
+		-- Diff_Rotator_LR
+	
+	----pcall(function()
+	
+	
+	--end)
+	
+		
+		
+		
+		
+		
+		
+	--	VecAlpha = (HandVector.x - HmdVector.x, HandVector.y - HmdVector.y, HandVector.z - HmdVector.z)
+							local VecAlphaX= HandVector.x - HmdVector.x
+							local VecAlphaY= HandVector.y - HmdVector.y
+							local Alpha1
+							local Alpha2
+							if HandVector.x >=0 and HandVector.y>=0 then	
+							Alpha1 =math.pi/2-math.asin( HandVector.x/ math.sqrt(HandVector.y^2+HandVector.x^2))
+							--print("Quad1")
+							elseif HandVector.x <0 and HandVector.y>=0 then
+							--print("Quad2")
+							Alpha1 =math.pi/2-math.asin( HandVector.x/ math.sqrt(HandVector.y^2+HandVector.x^2))
+							elseif HandVector.x <0 and HandVector.y<0 then
+							--print("Quad3")
+							Alpha1 =math.pi+math.pi/2+math.asin( HandVector.x/ math.sqrt(HandVector.y^2+HandVector.x^2))
+							elseif HandVector.x >=0 and HandVector.y<0 then
+							--print("Quad4")
+							Alpha1 =3/2*math.pi+math.asin( HandVector.x/ math.sqrt(HandVector.y^2+HandVector.x^2))
+							end
+							
+							if HmdVector.x >=0 and HmdVector.y>=0 then	
+							Alpha2 =math.pi/2-math.asin( HmdVector.x/ math.sqrt(HmdVector.y^2+HmdVector.x^2))
+							--print("Quad1")
+							elseif HmdVector.x <0 and HmdVector.y>=0 then
+							--print("Quad2")
+							Alpha2 =math.pi/2-math.asin( HmdVector.x/ math.sqrt(HmdVector.y^2+HmdVector.x^2))
+							elseif HmdVector.x <0 and HmdVector.y<0 then
+							--print("Quad3")
+							Alpha2 =math.pi+math.pi/2+math.asin( HmdVector.x/ math.sqrt(HmdVector.y^2+HmdVector.x^2))
+							elseif HmdVector.x >=0 and HmdVector.y<0 then
+							--print("Quad4")
+							Alpha2 =3/2*math.pi+math.asin( HmdVector.x/ math.sqrt(HmdVector.y^2+HmdVector.x^2))
+							end
+							
+							
+							AlphaDiff= Alpha2-Alpha1
+							if isBow and RTrigger ~= 0 then
+								AlphaDiff=AlphaDiff-math.pi*20/180
+							end
+		
+		
+		
+--	elseif HeadBasedMovement then uevr.params.vr.set_mod_value("VR_MovementOrientation", "1")
+--	elseif HeadBasedMovement==false then uevr.params.vr.set_mod_value("VR_MovementOrientation", "2")
+--	end
+	
+	
+			
+	--if not isSprinting then
+	--	LeftRightScaleFactor= ThumbLX/32767		
+	--	ForwardBackwardScaleFactor = ThumbLY/32767
+	--	if HeadBasedMovement then
+	--		--HandVector= right_hand_component:GetForwardVector()
+	--		hmd_component:GetForwardVector()
+	--						
+	--		pawn:AddMovementInput(hmd_component:GetForwardVector(),ForwardBackwardScaleFactor,true)
+	--		pawn:AddMovementInput(hmd_component:GetRightVector(),LeftRightScaleFactor,true)
+	--		uevr.params.vr.set_mod_value("VR_MovementOrientation", "0")
+	--	elseif not HeadBasedMovement then
+	--		--HandVector= right_hand_component:GetForwardVector()
+	--		right_hand_component:GetForwardVector()
+	--							
+	--		pawn:AddMovementInput(right_hand_component:GetForwardVector(),ForwardBackwardScaleFactor,true)
+	--		pawn:AddMovementInput(right_hand_component:GetRightVector(),LeftRightScaleFactor,true)
+	--		uevr.params.vr.set_mod_value("VR_MovementOrientation", "0")
+	--	end
+	--end
+	
+
+
+	SnapAngle = PositiveIntegerMask(uevr.params.vr:get_mod_value("VR_SnapturnTurnAngle"))
+	if SnapTurn then
+		if ThumbRX >200 and RXState ==0 and not isMenu then
+			DecoupledYawCurrentRot=DecoupledYawCurrentRot + SnapAngle
+			RXState=1
+		elseif ThumbRX <-200 and RXState ==0 and not isMenu  then
+			DecoupledYawCurrentRot=DecoupledYawCurrentRot - SnapAngle
+			RXState=1
+		elseif ThumbRX <= 200 and ThumbRX >=-200  then
+			RXState=0
+		end
+ 
+	
+	else
+		
+		SmoothTurnRate = PositiveIntegerMask(uevr.params.vr:get_mod_value("VR_SnapturnTurnAngle"))/360
+	
+	
+		local rate = (ThumbRX/32767)
+					
+		if ThumbRX >2200 and not isMenu   then
+			DecoupledYawCurrentRot=DecoupledYawCurrentRot + SmoothTurnRate * rate* delta*555
+			print(rate)
+		elseif ThumbRX <-2200 and not isMenu   then
+			DecoupledYawCurrentRot=DecoupledYawCurrentRot + SmoothTurnRate * rate* delta*555
+		end
+		if DecoupledYawCurrentRot > 360 or DecoupledYawCurrentRot < -360 then
+			DecoupledYawCurrentRot=0
+		end
+	end
+
+
+end)
+
+
+ 
+
+
+
+uevr.sdk.callbacks.on_xinput_get_state(
+function(retval, user_index, state)
+
+
+--Read Gamepad stick input for rotation compensation
+	--if HeadBasedMovement   then
+	
+	
+	
+	
+	if  not isMenu then
+		state.Gamepad.sThumbLX= ThumbLX*math.cos(-AlphaDiff)- ThumbLY*math.sin(-AlphaDiff)
+				
+		state.Gamepad.sThumbLY= math.sin(-AlphaDiff)*ThumbLX + ThumbLY*math.cos(-AlphaDiff)
+	end	
+	--end
+
+
+
+
+end)
+
+
+
+local PreRot
+local DiffRot
+local DecoupledYawCurrentRotLast=0
+uevr.sdk.callbacks.on_early_calculate_stereo_view_offset(function(device, view_index, world_to_meters, position, rotation, is_double)
+local HmdRotator = controllers.getControllerRotation(2)
+local RightRotator = controllers.getControllerRotation(1)
+PreRot=rotation.y
+DiffRot= HmdRotator.y - RightRotator.y
+
+if not isCinematic then
+	rotation.y = DecoupledYawCurrentRot
+end	
+	
+	--vr.recenter_view()
+local pawn = api:get_local_pawn(0)	
+local player =api:get_player_controller(0)
+if pawn~=nil then
+	--local Mesh=pawn.Mesh
+	--local default_transform = Mesh:GetSocketTransform("rootSocket",2)--Transform(attach_socket_name, 2)
+	--local offset_transform = Mesh:GetSocketTransform("head_socket",2)--weapon_mesh:GetSocketTransform("jnt_offset", 2)
+	--
+	----local middle_translation = kismet_math_library:Add_VectorVector(default_transform.Translation, offset_transform.Translation)
+	--local location_diff = kismet_math_library:Subtract_VectorVector(
+	--	Vector3f.new(0,0,0),
+	--	offset_transform.Translation--Vector3f.new(0,0,0)
+	--)
+	---- from UE to UEVR X->Z Y->-X, Z->-Y
+	---- Z - forward, X - negative right, Y - negative up
+	--local lossy_offset = Vector3f.new(-location_diff.y, -location_diff.z, location_diff.x)
+end
+
+--print(isCinematic)
+if not isCinematic and not isMenu then
+	--if   player.PlayerCameraManager.ActiveCameraMode.ModeName:to_string()=="NavFollow"  then
+		position.z = pawn:K2_GetActorLocation().z+80
+		--local BaseFactor= pawn.Mesh:GetSocketTransform("headSocket").Translation - pawn.Mesh:GetSocketTransform("rootSocket").Translation
+		--
+		--local DIst= math.sqrt(BaseFactor.x^2+BaseFactor.y^2)
+		
+		
+		
+			
+		--if BaseFactor~=0 then
+			position.x = pawn:K2_GetActorLocation().x +pawn:GetActorForwardVector().x*(-0)--*DIst	+pawn:GetActorForwardVector().x*10
+			position.y = pawn:K2_GetActorLocation().y +pawn:GetActorForwardVector().y*(-0)--*DIst   +pawn:GetActorForwardVector().y*10
+		--else
+		--	position.x = pawn:K2_GetActorLocation().x
+		--	position.y = pawn:K2_GetActorLocation().y
+		--end
+	--elseif not player.PlayerCameraManager.ActiveCameraMode.ModeName:to_string()=="NavFollow" then
+	--	position.z = pawn.Mesh:GetSocketTransform("headSocket").Translation.z				--pawn:K2_GetActorLocation().z+80
+	--	position.x = pawn.Mesh:GetSocketTransform("headSocket").Translation.y				--pawn:K2_GetActorLocation().x
+	--	position.y = pawn.Mesh:GetSocketTransform("headSocket").Translation.x			--pawn:K2_GetActorLocation().y
+	--end
+
+end
+
+end)
+
+uevr.sdk.callbacks.on_post_calculate_stereo_view_offset(function(device, view_index, world_to_meters, position, rotation, is_double)
+	--print(DecoupledYawCurrentRot)
+local pawn=api:get_local_pawn(0)
+local player =api:get_player_controller(0)
+
+	DecoupledYawCurrentRotLast=rotation.y	
+-- if ConditionChagned then
+	--print("ok2")
+	-- ConditionChagned=false
+	---- vr.recenter_view()
+	-- rotation.y=DecoupledYawCurrentRotLast	
+	--end
+
+end)

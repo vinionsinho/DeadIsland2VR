@@ -9,6 +9,6 @@ function on_level_change(level)
 
 	local paramsFile = 'hands_parameters' -- found in the [game profile]/data directory
 	local configName = 'Main' -- the name you gave your config
-	local animationName = '' -- the name you gave your animation
+	local animationName = 'Shared' -- the name you gave your animation
 	hands.createFromConfig(paramsFile, configName, animationName)
 end

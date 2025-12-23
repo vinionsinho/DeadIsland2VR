@@ -1,64 +1,75 @@
 {
     "animation_data": null,
     "animation_finger": 1,
-    "animation_finger_bone_pitch": -4.500001430511475,
+    "animation_finger_bone_pitch": -3.8857216835021973,
     "animation_finger_bone_pitch_mirror": false,
-    "animation_finger_bone_roll": -12.137602806091309,
+    "animation_finger_bone_roll": -2.6072494983673096,
     "animation_finger_bone_roll_mirror": false,
-    "animation_finger_bone_yaw": -108.92201232910156,
+    "animation_finger_bone_yaw": -64.95098876953125,
     "animation_finger_bone_yaw_mirror": false,
+    "animation_finger_bones_advanced_checkbox": true,
     "animation_hand": 2,
     "animation_hands_profile_mesh_list": 1,
-    "animation_joint": 1,
-    "animation_name": "Melee",
-    "animation_state": 2,
+    "animation_joint": 2,
+    "animation_name": "Shared",
+    "animation_state": 1,
     "animation_test_active_weapon_mode": false,
     "animation_test_left_handed_mode": false,
     "animation_type": 5,
     "animations_list": 2,
-    "attachments_list": 1,
+    "attachments_list": 3,
     "character_mesh": 2,
-    "code_text": "",
+    "code_text": "local uevrUtils = require('libs/uevr_utils')\nlocal hands = require('libs/hands')\nlocal controllers = require('libs/controllers')\n\nfunction on_level_change(level)\n\tcontrollers.createController(0)\n\tcontrollers.createController(1)\n\thands.reset()\n\n\tlocal paramsFile = 'hands_parameters' -- found in the [game profile]/data directory\n\tlocal configName = 'Main' -- the name you gave your config\n\tlocal animationName = '' -- the name you gave your animation\n\thands.createFromConfig(paramsFile, configName, animationName)\nend",
     "code_text_2": "",
     "cutoff_children_bone_picker": 1,
     "cutoff_children_hand_picker": 1,
     "cutoff_children_location": [
-        26.240234375,
-        0.00390625,
-        -0.00146484375
+        26.244140625,
+        0.001953125,
+        -0.0029296875
     ],
     "cutoff_children_rotation": [
-        -13.430282592773438,
-        1.5256633758544922,
-        -100.89482879638672
+        -13.430309295654297,
+        1.5256683826446533,
+        -100.89481353759766
     ],
     "fov_param_name": "",
     "hands_profile_list": 2,
-    "hands_profile_mesh_list": 1,
+    "hands_profile_mesh_list": 2,
     "hands_profile_mesh_name": "Arms",
     "hands_profile_name": "Main",
     "include_children_in_mesh_search": false,
     "knuckle_bone_search_pattern": "",
     "left_cutoff_bone": 20,
     "left_hand_location": [
-        10.300000190734863,
-        -30.399999618530273,
-        0.5
+        0.0,
+        -23.0,
+        0.0
     ],
     "left_hand_rotation": [
         0.0,
-        110.0,
-        -70.0
+        90.0,
+        -90.0
     ],
     "left_hand_scale": [
         1.0,
         1.0,
         1.0
     ],
+    "left_index_joint2": 26,
+    "left_index_joint3": 29,
     "left_index_knuckle": 22,
+    "left_middle_joint2": 35,
+    "left_middle_joint3": 38,
     "left_middle_knuckle": 31,
+    "left_pinky_joint2": 42,
+    "left_pinky_joint3": 43,
     "left_pinky_knuckle": 41,
+    "left_ring_joint2": 51,
+    "left_ring_joint3": 52,
     "left_ring_knuckle": 50,
+    "left_thumb_joint2": 60,
+    "left_thumb_joint3": 61,
     "left_thumb_knuckle": 59,
     "mesh_rotation": [
         0.0,
@@ -72,24 +83,34 @@
     "right_cutoff_bone": 77,
     "right_cutoff_bone_name": "",
     "right_hand_location": [
-        -1.2999999523162842,
-        -30.399999618530273,
-        0.5
+        0.0,
+        -23.0,
+        0.0
     ],
     "right_hand_rotation": [
         0.0,
-        -85.0,
-        120.0
+        -90.0,
+        90.0
     ],
     "right_hand_scale": [
         1.0,
         1.0,
         1.0
     ],
+    "right_index_joint2": 83,
+    "right_index_joint3": 86,
     "right_index_knuckle": 79,
+    "right_middle_joint2": 92,
+    "right_middle_joint3": 95,
     "right_middle_knuckle": 88,
+    "right_pinky_joint2": 99,
+    "right_pinky_joint3": 100,
     "right_pinky_knuckle": 98,
+    "right_ring_joint2": 108,
+    "right_ring_joint3": 109,
     "right_ring_knuckle": 107,
+    "right_thumb_joint2": 117,
+    "right_thumb_joint3": 118,
     "right_thumb_knuckle": 116,
     "use_default_pose": true
 }
