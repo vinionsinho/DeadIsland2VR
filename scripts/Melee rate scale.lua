@@ -12,6 +12,7 @@ local melee_data = {
     right_hand_q_raw = UEVR_Quaternionf.new(),
     right_hand_pos = Vector3f.new(0, 0, 0),
     last_right_hand_raw_pos = Vector3f.new(0, 0, 0),
+    swing_active_time = 0.0,
     first = true,
 }
 
@@ -129,13 +130,27 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
 
     local vel_len = velocity:length()
 
-    if velocity.y < 0 then
-		swinging_fast = vel_len >= 2.5
-    else
-        swinging_fast = false
+    -- Decrement timers
+    if melee_data.cooldown_time > 0 then 
+        melee_data.cooldown_time = melee_data.cooldown_time - delta 
+    end
+    
+    if melee_data.swing_active_time > 0 then
+        melee_data.swing_active_time = melee_data.swing_active_time - delta
     end
 
+    -- Detection: Check direction, speed, and cooldown
+    if velocity.y < 0 and vel_len >= 2.5 and melee_data.cooldown_time <= 0 then
+         melee_data.cooldown_time = 0.5 -- Cooldown of 0.5 seconds between hits
+         melee_data.swing_active_time = 0.1 -- Hold trigger for 0.1 seconds
+    end
 
+    -- State setting
+    if melee_data.swing_active_time > 0 then
+        swinging_fast = true
+    else
+        swinging_fast = false 
+    end
     local cur_mon = pawn:GetCurrentMontage()
     if cur_mon then
     -- print(cur_mon:get_full_name())

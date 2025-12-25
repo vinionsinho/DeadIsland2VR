@@ -1,7 +1,7 @@
 local uevrUtils = require('libs/uevr_utils')
 local attachments = require('libs/attachments')
 local controllers = require('libs/controllers')
-
+local hands = require('libs/hands')
 uevrUtils.setDeveloperMode(true)
 attachments.setLogLevel(LogLevel.Debug)
 uevrUtils.setLogLevel(LogLevel.Debug)
@@ -129,6 +129,7 @@ end
 
 attachments.registerOnGripUpdateCallback(function()	
 	-- return getWeaponMesh()
-	return getWeaponMesh(), controllers.getController(Handed.Right)
+	-- return getWeaponMesh(), controllers.getController(Handed.Right)
+	return getWeaponMesh(), hands.getHandComponent(Handed.Right)
 end)
 
