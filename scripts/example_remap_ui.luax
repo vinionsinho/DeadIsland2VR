@@ -1,9 +1,0 @@
-local uevrUtils = require('libs/uevr_utils')
-local remap = require('libs/remap')
-uevrUtils.setLogLevel(LogLevel.Debug)
-
--- This example handles controller remapping from within a tab in the UEVR UI. 
--- Changes are stored in a parameters file in the data folder
-remap.init(true, LogLevel.Debug)
-
-

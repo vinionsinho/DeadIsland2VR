@@ -74,12 +74,12 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     
     -- God mode
 
-    if pawn then
-        local health_component = pawn.HealthComponent
-        if health_component then
-           health_component.Health = 3500.0 
-        end
-    end
+    -- if pawn then
+    --     local health_component = pawn.HealthComponent
+    --     if health_component then
+    --        health_component.Health = 3500.0 
+    --     end
+    -- end
 
 
     if pawn.BPC_Player_PaperDoll then
