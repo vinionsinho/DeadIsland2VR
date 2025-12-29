@@ -17,9 +17,9 @@ local pawn = uevrUtils.get_local_pawn()
     if not pawn then
 	return
     end
-local melee_root = nil
-local ranged_root = nil
-local attached_actors = {}
+	local melee_root = nil
+	local ranged_root = nil
+	local attached_actors = {}
 	if pawn then
 		pawn:GetAttachedActors(attached_actors, true)
 		for i, actor in ipairs(attached_actors) do

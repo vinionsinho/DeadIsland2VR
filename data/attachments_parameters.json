@@ -160,7 +160,8 @@
             ]
         },
         {
-            "any_child": false,
+            "animation": "",
+            "any_child": true,
             "any_parent": false,
             "child": "WeaponMesh",
             "id": "BP_MeleeWeapon_BareHands_C_WeaponMesh",
@@ -400,6 +401,30 @@
             "rotation": [
                 -18.100000381469727,
                 0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_WreckageMachete",
+            "id": "BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete",
+            "location": [
+                7.300000190734863,
+                -5.300000190734863,
+                -10.600000381469727
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_FirstWeapon_Prologue_C",
+            "rotation": [
+                -14.600000381469727,
+                -3.4000000953674316,
                 0.0
             ],
             "scale": [

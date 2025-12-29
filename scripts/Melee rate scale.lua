@@ -2,6 +2,7 @@ local api = uevr.api
 local vr = uevr.params.vr
 local callbacks = uevr.sdk.callbacks
 local pawn = api:get_local_pawn(0)
+local uevrUtils = require('libs/uevr_utils')
 local swinging_fast = nil
 local is_melee = nil
 local melee_data = {
@@ -72,42 +73,73 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
         return
     end
     
+    local melee_root = nil
+	local ranged_root = nil
+	local attached_actors = {}
+	if pawn then
+		pawn:GetAttachedActors(attached_actors, true)
+		for i, actor in ipairs(attached_actors) do
+			if uevrUtils.getValid(actor) and not string.find(actor:get_full_name(),"DESTROYED") then
+				local melee_mesh_component = actor.WeaponMesh
+				local ranged_mesh_component = actor.SkeletalMesh
+				if melee_mesh_component and melee_mesh_component.bOnlyOwnerSee 
+					and not string.find(melee_mesh_component:get_full_name(), "DESTROYED") then
+					melee_root = melee_mesh_component
+					-- print ("A:" .. melee_root:get_full_name())
+					break 
+				end
+				if ranged_mesh_component and ranged_mesh_component.bOnlyOwnerSee 
+					and not string.find(ranged_mesh_component:get_full_name(), "DESTROYED") then
+					ranged_root = ranged_mesh_component
+					-- print ("B:" .. ranged_root:get_full_name())
+					break 
+				end
+			end
+		end
+	end
+    
+    if melee_root then
+        is_melee = true
+    end
+
     -- God mode
 
-    if pawn then
-        local health_component = pawn.HealthComponent
-        if health_component then
-           health_component.Health = 3500.0 
-        end
-    end
-
-
-    if pawn.BPC_Player_PaperDoll then
-            local paper_doll_comp = pawn.BPC_Player_PaperDoll
-            local active_slot_name = paper_doll_comp.WeaponSlot
-
-        if active_slot_name then
-            local equippable_component = paper_doll_comp:GetEquippableAssignedToSlot(active_slot_name)
-            if equippable_component then
-                equipped_weapon_actor = equippable_component:get_outer()
-            end
-        end
-    end
-
-    if equipped_weapon_actor then
-        -- print (equipped_weapon_actor:get_full_name())
-        weapon_class_path = equipped_weapon_actor:get_class():get_outer()
-    end
+    -- if pawn then
+    --     local health_component = pawn.HealthComponent
+    --     if health_component then
+    --        health_component.Health = 3500.0 
+    --     end
+    -- end
 
     
-    if weapon_class_path then
-        -- print (weapon_class_path:get_full_name())
-        if string.find (weapon_class_path:get_full_name(), "Melee") then
-            is_melee = true
-        end
-    end
 
-    -- print (is_melee)
+    -- if pawn.BPC_Player_PaperDoll then
+    --         local paper_doll_comp = pawn.BPC_Player_PaperDoll
+    --         local active_slot_name = paper_doll_comp.WeaponSlot
+
+    --     if active_slot_name then
+    --         local equippable_component = paper_doll_comp:GetEquippableAssignedToSlot(active_slot_name)
+    --         if equippable_component then
+    --             equipped_weapon_actor = equippable_component:get_outer()
+    --         end
+    --     end
+    -- end
+
+    -- if equipped_weapon_actor then
+    --     -- print (equipped_weapon_actor:get_full_name())
+    --     weapon_class_path = equipped_weapon_actor:get_class():get_outer()
+    -- end
+
+    
+    -- if weapon_class_path then
+    --     --print (weapon_class_path:get_full_name())
+    --     if string.find(weapon_class_path:get_full_name(), "Melee") or 
+    --     string.find(weapon_class_path:get_full_name(), "Prologue") then
+    --         is_melee = true
+    --     end
+    -- end
+
+    --print (is_melee)
 
 
 

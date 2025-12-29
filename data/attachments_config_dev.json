@@ -1,5 +1,5 @@
 {
-    "attachment_BP_MeleeWeapon_BareHands_C_WeaponMesh_any_child": false,
+    "attachment_BP_MeleeWeapon_BareHands_C_WeaponMesh_any_child": true,
     "attachment_BP_MeleeWeapon_BareHands_C_WeaponMesh_any_parent": false,
     "attachment_BP_MeleeWeapon_BareHands_C_WeaponMesh_grip_animation": 1,
     "attachment_BP_MeleeWeapon_BareHands_C_WeaponMesh_position": [
@@ -50,6 +50,25 @@
         -1.7999999523162842
     ],
     "attachment_BP_MeleeWeapon_FireAxe_C_SK_FireAxe_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_any_child": true,
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_any_parent": false,
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_is_melee": true,
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_position": [
+        7.300000190734863,
+        -5.300000190734863,
+        -10.600000381469727
+    ],
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_rotation": [
+        -14.600000381469727,
+        -3.4000000953674316,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_scale": [
         1.0,
         1.0,
         1.0
@@ -182,7 +201,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_any_child": true,
     "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_grip_animation": 4,
+    "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_grip_animation": 5,
     "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_position": [
         6.099999904632568,
         -4.900000095367432,
@@ -218,7 +237,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_any_child": true,
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_grip_animation": 5,
+    "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver_position": [
         8.899999618530273,
         -5.0,
@@ -254,7 +273,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_child": true,
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 5,
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_position": [
         6.099999904632568,
         -4.0,
@@ -272,7 +291,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_Pistol_C_SK_Pistol_any_child": true,
     "attachment_BP_RangedWeaponVisuals_Pistol_C_SK_Pistol_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_Pistol_C_SK_Pistol_grip_animation": 5,
+    "attachment_BP_RangedWeaponVisuals_Pistol_C_SK_Pistol_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_Pistol_C_SK_Pistol_position": [
         10.600000381469727,
         -5.300000190734863,
