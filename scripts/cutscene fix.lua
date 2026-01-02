@@ -69,18 +69,18 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
         if inCutscene then 
             print("Entrando em Cutscene")
             -- Ações ao entrar na cutscene
-            -- hands.hideHands(true) -- Esconde as mãos VR do mod
-            -- pawn.hideArms(false)  -- Mostra os braços/mesh original do jogo
+            -- hands.hideHands(true)
+            -- pawn.hideArms(false) 
             vr.set_aim_method(0)
             vr.set_decoupled_pitch_enabled(false) -- Trava a câmera verticalmente ao jogo
             
         else
             print("Saindo de Cutscene")
             -- Ações ao sair da cutscene (reverter mudanças)
-            -- hands.hideHands(false) -- Mostra as mãos VR do mod
-            -- pawn.hideArms(true)    -- Esconde os braços/mesh original do jogo
-            vr.set_aim_method(2) -- Volta pro right controller
-            vr.set_decoupled_pitch_enabled(true) -- Libera a câmera verticalmente
+            -- hands.hideHands(false)
+            -- pawn.hideArms(true)    
+            vr.set_aim_method(2)
+            vr.set_decoupled_pitch_enabled(true)
         end
     end
 end)

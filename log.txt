@@ -10044,3 +10044,212 @@
 [2026-01-02 20:36:49.675] [UnrealVR] [info] Windows message hook is still intact, ignoring...
 [2026-01-02 20:36:50.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
 [2026-01-02 20:36:50.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:51.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:51.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:52.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:52.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:53.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:53.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:54.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:54.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:54.678] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:36:55.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:55.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:56.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:56.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:57.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:57.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:58.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:58.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:59.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:36:59.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:36:59.681] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:00.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:00.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:01.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:01.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:02.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:02.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:03.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:03.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:04.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:04.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:04.684] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:05.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:05.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:06.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:06.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:07.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:07.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:08.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:08.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:09.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:09.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:09.687] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:10.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:10.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:11.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:11.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:12.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:12.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:13.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:13.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:14.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:14.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:14.689] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:15.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:15.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:16.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:16.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:17.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:17.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:18.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:18.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:19.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:19.202] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:19.692] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:20.202] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:20.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:21.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:21.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:22.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:22.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:23.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:23.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:24.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:24.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:25.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:25.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:26.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:26.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:27.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:27.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:28.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:28.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:29.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:29.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:30.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:30.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:31.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:31.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:32.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:32.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:33.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:33.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:34.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:34.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:35.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:35.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:35.701] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:36.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:36.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:37.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:37.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:38.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:38.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:39.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:39.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:40.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:40.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:40.705] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:41.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:41.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:42.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:42.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:43.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:43.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:44.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:44.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:45.203] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:45.203] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:45.708] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:46.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:46.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:47.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:47.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:48.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:48.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:49.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:49.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:50.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:50.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:50.711] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:51.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:51.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:52.205] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:52.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:53.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:53.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:54.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:54.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:55.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:55.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:55.713] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:37:56.205] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:56.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:57.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:57.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:58.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:58.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:37:59.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:37:59.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:00.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:00.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:00.715] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:38:01.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:01.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:02.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:02.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:03.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:03.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:04.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:04.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:05.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:05.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:05.718] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:38:06.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:06.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:07.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:07.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:08.205] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:08.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:09.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:09.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:10.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:10.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:10.720] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:38:11.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:11.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:12.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:12.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:13.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:13.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:14.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:14.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:15.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:15.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:15.724] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:38:16.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:16.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:17.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:17.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:18.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:18.204] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:19.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:19.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:20.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:20.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:20.726] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:38:21.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:21.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:22.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:22.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:23.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:23.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:24.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:24.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:25.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:25.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
+[2026-01-02 20:38:25.729] [UnrealVR] [info] Windows message hook is still intact, ignoring...
+[2026-01-02 20:38:26.204] [UnrealVR] [info] [Plugin] [debug] [hands] Creating hand component: Arms
+[2026-01-02 20:38:26.205] [UnrealVR] [info] [Plugin] [info] [hands] Call to create Arms failed, invalid skeletalMeshComponent
