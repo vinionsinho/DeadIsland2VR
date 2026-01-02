@@ -58,49 +58,95 @@ local function GetGesture(which_hand, threshold)
         --     return false
         end
     end
-    
     return false    
 end
 
-uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
-    is_melee = false 
-    local weapon_class_path = nil
-    local equipped_weapon_actor = nil
-    local weapon_class_path = nil
+local weapon_check_started = false
 
+function CheckWeaponType()
+    if weapon_check_started then
+        return
+    end
+    weapon_check_started = true
+    uevrUtils.setInterval(200, function()
+        local pawn = api:get_local_pawn(0)
+        if not pawn then
+            return
+        end
+        local attached_actors = {}
+        is_melee = false
+        local melee_root = nil
+	    local ranged_root = nil
+        pawn:GetAttachedActors(attached_actors, true)
+            for i, actor in ipairs(attached_actors) do
+                if uevrUtils.getValid(actor) and not string.find(actor:get_full_name(),"DESTROYED") then
+                    local melee_mesh_component = actor.WeaponMesh
+                    local ranged_mesh_component = actor.SkeletalMesh
+                    if melee_mesh_component and melee_mesh_component.bOnlyOwnerSee 
+                        and not string.find(melee_mesh_component:get_full_name(), "DESTROYED") then
+                        melee_root = melee_mesh_component
+                        -- print ("A:" .. melee_root:get_full_name())
+                        break 
+                    end
+                    if ranged_mesh_component and ranged_mesh_component.bOnlyOwnerSee 
+                        and not string.find(ranged_mesh_component:get_full_name(), "DESTROYED") then
+                        ranged_root = ranged_mesh_component
+                        -- print ("B:" .. ranged_root:get_full_name())
+                        break 
+                    end
+                end
+            end
+        if melee_root then
+            --print (melee_root:get_full_name())
+            is_melee = true
+        end
+    end)
+end
+
+CheckWeaponType()
+
+uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
+    
     local pawn = api:get_local_pawn(0)
     if not pawn then
         return
     end
     
-    local melee_root = nil
-	local ranged_root = nil
-	local attached_actors = {}
-	if pawn then
-		pawn:GetAttachedActors(attached_actors, true)
-		for i, actor in ipairs(attached_actors) do
-			if uevrUtils.getValid(actor) and not string.find(actor:get_full_name(),"DESTROYED") then
-				local melee_mesh_component = actor.WeaponMesh
-				local ranged_mesh_component = actor.SkeletalMesh
-				if melee_mesh_component and melee_mesh_component.bOnlyOwnerSee 
-					and not string.find(melee_mesh_component:get_full_name(), "DESTROYED") then
-					melee_root = melee_mesh_component
-					-- print ("A:" .. melee_root:get_full_name())
-					break 
-				end
-				if ranged_mesh_component and ranged_mesh_component.bOnlyOwnerSee 
-					and not string.find(ranged_mesh_component:get_full_name(), "DESTROYED") then
-					ranged_root = ranged_mesh_component
-					-- print ("B:" .. ranged_root:get_full_name())
-					break 
-				end
-			end
-		end
-	end
+
     
-    if melee_root then
-        is_melee = true
-    end
+     -- Per tick logic, not ideal. Replaced with CheckWeaponType()
+
+    -- is_melee = false 
+   
+
+    -- local melee_root = nil
+	-- local ranged_root = nil
+	-- local attached_actors = {}
+	-- if pawn then
+    --         pawn:GetAttachedActors(attached_actors, true)
+    --         for i, actor in ipairs(attached_actors) do
+    --             if uevrUtils.getValid(actor) and not string.find(actor:get_full_name(),"DESTROYED") then
+    --                 local melee_mesh_component = actor.WeaponMesh
+    --                 local ranged_mesh_component = actor.SkeletalMesh
+    --                 if melee_mesh_component and melee_mesh_component.bOnlyOwnerSee 
+    --                     and not string.find(melee_mesh_component:get_full_name(), "DESTROYED") then
+    --                     melee_root = melee_mesh_component
+    --                     -- print ("A:" .. melee_root:get_full_name())
+    --                     break 
+    --                 end
+    --                 if ranged_mesh_component and ranged_mesh_component.bOnlyOwnerSee 
+    --                     and not string.find(ranged_mesh_component:get_full_name(), "DESTROYED") then
+    --                     ranged_root = ranged_mesh_component
+    --                     -- print ("B:" .. ranged_root:get_full_name())
+    --                     break 
+    --                 end
+    --             end
+    --         end
+	-- end
+    
+    -- if melee_root then
+    --     is_melee = true
+    -- end
 
     -- God mode
 
@@ -111,7 +157,11 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     --     end
     -- end
 
-    
+    -- Older weapon detection logic, it won't work in the prologue
+
+    -- local weapon_class_path = nil
+    -- local equipped_weapon_actor = nil
+    -- local weapon_class_path = nil
 
     -- if pawn.BPC_Player_PaperDoll then
     --         local paper_doll_comp = pawn.BPC_Player_PaperDoll
@@ -139,7 +189,7 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     --     end
     -- end
 
-    --print (is_melee)
+    -- print (is_melee)
 
 
 
@@ -186,8 +236,9 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     local cur_mon = pawn:GetCurrentMontage()
     if cur_mon then
     -- print(cur_mon:get_full_name())
-        if is_melee and not string.find(cur_mon:get_full_name(), "Knockdown") then
-            cur_mon.RateScale = 4.0 -- Maximum working value of 5.0. Lower values may work better
+        if is_melee and not string.find(cur_mon:get_full_name(), "Knockdown") 
+        and not string.find(cur_mon:get_full_name(), "Kick") then
+            cur_mon.RateScale = 4.0 -- Maximum working value of 5.0. Lower values may work better. 4.0 seems ideal.
         else
             cur_mon.RateScale = 1.0
         end

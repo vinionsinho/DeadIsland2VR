@@ -432,6 +432,216 @@
                 1.0,
                 1.0
             ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_WreckageHammer",
+            "id": "BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer",
+            "location": [
+                4.599999904632568,
+                -4.5,
+                -30.299999237060547
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C",
+            "rotation": [
+                -9.699999809265137,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_TimberBurnt",
+            "id": "BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt",
+            "location": [
+                3.799999952316284,
+                -4.900000095367432,
+                -18.700000762939453
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_BurntTimberBeam_C",
+            "rotation": [
+                -17.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_RebarSmall",
+            "id": "BP_MeleeWeapon_Rebar_C_SK_RebarSmall",
+            "location": [
+                7.699999809265137,
+                -5.300000190734863,
+                -6.0
+            ],
+            "parent": "BP_MeleeWeapon_Rebar_C",
+            "rotation": [
+                -15.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_SteelPipe",
+            "id": "BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe",
+            "location": [
+                6.5,
+                -4.800000190734863,
+                -16.5
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_SteelPipe_C",
+            "rotation": [
+                -10.899999618530273,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Wrench",
+            "id": "BP_MeleeWeapon_SmallWrench_C_SK_Wrench",
+            "location": [
+                6.800000190734863,
+                -5.300000190734863,
+                -10.0
+            ],
+            "parent": "BP_MeleeWeapon_SmallWrench_C",
+            "rotation": [
+                -16.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Rake",
+            "id": "BP_MeleeWeapon_Rake_C_SK_Rake",
+            "location": [
+                -3.9000000953674316,
+                -4.800000190734863,
+                -31.200000762939453
+            ],
+            "parent": "BP_MeleeWeapon_Rake_C",
+            "rotation": [
+                -22.700000762939453,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_PoolCue",
+            "id": "BP_MeleeWeapon_PoolCue_C_SK_PoolCue",
+            "location": [
+                5.599999904632568,
+                -6.400000095367432,
+                -29.899999618530273
+            ],
+            "parent": "BP_MeleeWeapon_PoolCue_C",
+            "rotation": [
+                -8.199999809265137,
+                -1.899999976158142,
+                3.0999999046325684
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BoloMachete",
+            "id": "BP_MeleeWeapon_Machete_C_SK_BoloMachete",
+            "location": [
+                5.400000095367432,
+                -4.699999809265137,
+                -13.699999809265137
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_Machete_C",
+            "rotation": [
+                -15.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_ScaffoldPole",
+            "id": "BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_MeleeWeapon_ScaffoldPole_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
         }
     ]
 }
