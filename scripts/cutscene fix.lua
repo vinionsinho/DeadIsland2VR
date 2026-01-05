@@ -45,17 +45,15 @@ if not pawn then
     return
 end
 
-local first_person_mesh = pawn.MeshFirstPerson
-local thigh_l = uevrUtils.fname_from_string("thigh_l")
-local thigh_r = uevrUtils.fname_from_string("thigh_r")
-first_person_mesh:HideBoneByName(thigh_l, 0)
-first_person_mesh:HideBoneByName(thigh_r, 0)
+-- local first_person_mesh = pawn.MeshFirstPerson
+-- local thigh_l = uevrUtils.fname_from_string("thighVolume_r")
+-- local thigh_r = uevrUtils.fname_from_string("thigh_r")
+-- first_person_mesh:UnHideBoneByName(thigh_l, 0)
+-- first_person_mesh:UnHideBoneByName(thigh_r, 0)
 
 local lastInCutsceneState = nil
 
 uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
-
-
 
     -- pawn.hideBodyMesh(true)
     -- pawn.hideArms(true)
@@ -67,16 +65,16 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
         lastInCutsceneState = inCutscene
 
         if inCutscene then 
-            print("Entrando em Cutscene")
-            -- Ações ao entrar na cutscene
+            print("Entering cutscene")
+            -- Cutscene enter actions
             -- hands.hideHands(true)
             -- pawn.hideArms(false) 
             vr.set_aim_method(0)
-            vr.set_decoupled_pitch_enabled(false) -- Trava a câmera verticalmente ao jogo
+            vr.set_decoupled_pitch_enabled(false)
             
         else
-            print("Saindo de Cutscene")
-            -- Ações ao sair da cutscene (reverter mudanças)
+            print("Exiting cutscene")
+            -- Cutscene exit actions
             -- hands.hideHands(false)
             -- pawn.hideArms(true)    
             vr.set_aim_method(2)
