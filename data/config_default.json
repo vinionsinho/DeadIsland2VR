@@ -1,5 +1,14 @@
 {
-    "hidePawnArmsAnimationMesh": true,
-    "hidePawnArmsMesh": true,
-    "hidePawnBodyMesh": true
+    "attachment_BP_MeleeWeapon_BaseballBatMetal_C_SK_BBatMetal_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_BoStaff_C_SK_BoStaff_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Dagger_C_SK_Dagger_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_MeatHammer_C_SK_MeatHammer_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Pickaxe_C_SK_PickAxe_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi_grip_animation": 4,
+    "attachment_BP_RangedWeaponVisuals_HeavyRevolver_C_SK_ImpactCannon_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_Pistol_C_SK_Pistol_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_ShortShotgun_C_SK_ShotGunShort_grip_animation": 5,
+    "attachment_BP_RangedWeaponVisuals_Shotgun_C_SK_ShotGun_grip_animation": 5
 }

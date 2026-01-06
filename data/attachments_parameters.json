@@ -1,22 +1,21 @@
 {
     "attachmentOffsets": [
         {
-            "animation": "melee",
+            "animation": "pistol",
             "any_child": true,
             "any_parent": false,
-            "child": "SK_SledgeHammerComp",
-            "id": "BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp",
+            "child": "SK_Pistol",
+            "id": "BP_RangedWeaponVisuals_Pistol_C_SK_Pistol",
             "location": [
-                2.299999952316284,
-                -7.300000190734863,
-                -23.799999237060547
+                8.600000381469727,
+                -6.199999809265137,
+                -4.800000190734863
             ],
-            "melee": false,
-            "parent": "BP_MeleeWeapon_CompositeSledgehammer_C",
+            "parent": "BP_RangedWeaponVisuals_Pistol_C",
             "rotation": [
-                -18.299999237060547,
-                9.399999618530273,
-                2.700000047683716
+                0.0,
+                0.0,
+                0.0
             ],
             "scale": [
                 1.0,
@@ -25,19 +24,135 @@
             ]
         },
         {
-            "animation": "ak",
+            "animation": "shotgun",
             "any_child": true,
             "any_parent": false,
-            "child": "SK_BattleAK",
-            "id": "BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK",
+            "child": "SK_ShotGunShort",
+            "id": "BP_RangedWeaponVisuals_ShortShotgun_C_SK_ShotGunShort",
             "location": [
-                6.099999904632568,
-                -4.0,
-                -4.800000190734863
+                6.900000095367432,
+                -4.599999904632568,
+                -3.700000047683716
             ],
-            "parent": "BP_RangedWeaponVisuals_LegendaryBodyCount_C",
+            "parent": "BP_RangedWeaponVisuals_ShortShotgun_C",
             "rotation": [
                 0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_PickAxe",
+            "id": "BP_MeleeWeapon_Pickaxe_C_SK_PickAxe",
+            "location": [
+                2.0,
+                -5.300000190734863,
+                -20.200000762939453
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_Pickaxe_C",
+            "rotation": [
+                -18.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_PipeBomb",
+            "id": "BP_ThrowingWeaponVisuals_PipeBomb_C_SK_PipeBomb",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_ThrowingWeaponVisuals_PipeBomb_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BoStaff",
+            "id": "BP_MeleeWeapon_BoStaff_C_SK_BoStaff",
+            "location": [
+                -2.5,
+                -5.300000190734863,
+                -29.799999237060547
+            ],
+            "parent": "BP_MeleeWeapon_BoStaff_C",
+            "rotation": [
+                -21.600000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Wakizashi",
+            "id": "BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi",
+            "location": [
+                4.5,
+                -5.5,
+                -11.199999809265137
+            ],
+            "melee": true,
+            "parent": "BP_MeleeWeapon_Wakizashi_C",
+            "rotation": [
+                -23.399999618530273,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_HeavyWrench",
+            "id": "BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench",
+            "location": [
+                1.899999976158142,
+                -5.699999809265137,
+                -12.699999809265137
+            ],
+            "parent": "BP_MeleeWeapon_HeavyWrench_C",
+            "rotation": [
+                -29.0,
                 0.0,
                 0.0
             ],
@@ -70,41 +185,19 @@
             ]
         },
         {
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_HuntingRifle",
-            "id": "BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle",
-            "location": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "parent": "BP_RangedWeaponVisuals_HuntingRifle_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "ak",
+            "animation": "melee",
             "any_child": true,
             "any_parent": false,
-            "child": "SK_Revolver",
-            "id": "BP_RangedWeaponVisuals_HeavyRevolver_C_SK_Revolver",
+            "child": "SK_Dagger",
+            "id": "BP_MeleeWeapon_Dagger_C_SK_Dagger",
             "location": [
-                8.899999618530273,
-                -5.0,
-                -6.199999809265137
+                5.400000095367432,
+                -5.400000095367432,
+                -8.5
             ],
-            "parent": "BP_RangedWeaponVisuals_HeavyRevolver_C",
+            "parent": "BP_MeleeWeapon_Dagger_C",
             "rotation": [
-                0.0,
+                -23.799999237060547,
                 0.0,
                 0.0
             ],
@@ -116,52 +209,6 @@
         },
         {
             "any_child": false,
-            "any_parent": false,
-            "child": "SK_ImpactCannon",
-            "id": "BP_RangedWeaponVisuals_HeavyRevolver_C_SK_ImpactCannon",
-            "location": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "parent": "BP_RangedWeaponVisuals_HeavyRevolver_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "autocarbine",
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_AutoCarbine",
-            "id": "BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine",
-            "location": [
-                6.099999904632568,
-                -4.5,
-                -4.400000095367432
-            ],
-            "parent": "BP_RangedWeaponVisuals_AutoCarbine_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "",
-            "any_child": true,
             "any_parent": false,
             "child": "WeaponMesh",
             "id": "BP_MeleeWeapon_BareHands_C_WeaponMesh",
@@ -186,17 +233,41 @@
             "animation": "melee",
             "any_child": true,
             "any_parent": false,
-            "child": "SK_WarScythe",
-            "id": "BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe",
+            "child": "SK_SledgeHammerComp",
+            "id": "BP_MeleeWeapon_CompositeSledgehammer_C_SK_SledgeHammerComp",
             "location": [
-                1.100000023841858,
-                -5.099999904632568,
-                -19.700000762939453
+                6.0,
+                -4.699999809265137,
+                -13.399999618530273
             ],
-            "parent": "BP_MeleeWeapon_LegendaryScythe_C",
+            "parent": "BP_MeleeWeapon_CompositeSledgehammer_C",
             "rotation": [
-                -19.100000381469727,
-                4.199999809265137,
+                -12.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "two_handed": false
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_MeatHammer",
+            "id": "BP_MeleeWeapon_MeatHammer_C_SK_MeatHammer",
+            "location": [
+                5.800000190734863,
+                -5.0,
+                -12.300000190734863
+            ],
+            "parent": "BP_MeleeWeapon_MeatHammer_C",
+            "rotation": [
+                -16.299999237060547,
+                0.0,
                 0.0
             ],
             "scale": [
@@ -206,6 +277,722 @@
             ]
         },
         {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BBatMetal",
+            "id": "BP_MeleeWeapon_BaseballBatMetal_C_SK_BBatMetal",
+            "location": [
+                3.0999999046325684,
+                -5.599999904632568,
+                -15.0
+            ],
+            "parent": "BP_MeleeWeapon_BaseballBatMetal_C",
+            "rotation": [
+                -22.299999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "pistol",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ImpactCannon",
+            "id": "BP_RangedWeaponVisuals_HeavyRevolver_C_SK_ImpactCannon",
+            "location": [
+                8.800000190734863,
+                -5.599999904632568,
+                -5.800000190734863
+            ],
+            "parent": "BP_RangedWeaponVisuals_HeavyRevolver_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "shotgun",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ShotGun",
+            "id": "BP_RangedWeaponVisuals_Shotgun_C_SK_ShotGun",
+            "location": [
+                6.800000190734863,
+                -4.900000095367432,
+                -4.300000190734863
+            ],
+            "parent": "BP_RangedWeaponVisuals_Shotgun_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "ak",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BattleAK",
+            "id": "BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK",
+            "location": [
+                7.599999904632568,
+                -5.5,
+                -4.599999904632568
+            ],
+            "parent": "BP_RangedWeaponVisuals_LegendaryBodyCount_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_JaggedSword",
+            "id": "BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword",
+            "location": [
+                3.0,
+                -4.800000190734863,
+                -13.399999618530273
+            ],
+            "melee": false,
+            "parent": "BP_MeleeWeapon_LegendaryMachete_C",
+            "rotation": [
+                -24.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_XiansStiletto",
+            "id": "BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto",
+            "location": [
+                4.5,
+                -5.199999809265137,
+                -9.899999618530273
+            ],
+            "parent": "BP_MeleeWeapon_Legendary_Stiletto_C",
+            "rotation": [
+                -22.799999237060547,
+                0.20000000298023224,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_MilitaryKnife",
+            "id": "BP_MeleeWeapon_MilitaryKnife_C_SK_MilitaryKnife",
+            "location": [
+                6.900000095367432,
+                -5.300000190734863,
+                -9.399999618530273
+            ],
+            "parent": "BP_MeleeWeapon_MilitaryKnife_C",
+            "rotation": [
+                -15.199999809265137,
+                1.600000023841858,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_WarHammer",
+            "id": "BP_MeleeWeapon_Legendary_Warhammer_C_SK_WarHammer",
+            "location": [
+                -5.099999904632568,
+                -4.699999809265137,
+                -31.299999237060547
+            ],
+            "parent": "BP_MeleeWeapon_Legendary_Warhammer_C",
+            "rotation": [
+                -25.200000762939453,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "ak",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_SportingRifle",
+            "id": "BP_RangedWeaponVisuals_SportingRifle_C_SK_SportingRifle",
+            "location": [
+                7.300000190734863,
+                -5.599999904632568,
+                -5.900000095367432
+            ],
+            "parent": "BP_RangedWeaponVisuals_SportingRifle_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_WhisperingBlade",
+            "id": "BP_MeleeWeapon_WhisperingBlade_C_SK_WhisperingBlade",
+            "location": [
+                -1.2999999523162842,
+                -5.5,
+                -24.200000762939453
+            ],
+            "parent": "BP_MeleeWeapon_WhisperingBlade_C",
+            "rotation": [
+                -23.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "ak",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_HuntingRifle",
+            "id": "BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle",
+            "location": [
+                6.800000190734863,
+                -4.800000190734863,
+                -6.300000190734863
+            ],
+            "parent": "BP_RangedWeaponVisuals_HuntingRifle_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_TacticalSword",
+            "id": "BP_MeleeWeapon_TacticalSword_C_SK_TacticalSword",
+            "location": [
+                1.100000023841858,
+                -4.900000095367432,
+                -14.399999618530273
+            ],
+            "parent": "BP_MeleeWeapon_TacticalSword_C",
+            "rotation": [
+                -30.299999237060547,
+                -3.4000000953674316,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Katana",
+            "id": "BP_MeleeWeapon_Katana_C_SK_Katana",
+            "location": [
+                4.099999904632568,
+                -4.800000190734863,
+                -15.199999809265137
+            ],
+            "melee": false,
+            "parent": "BP_MeleeWeapon_Katana_C",
+            "rotation": [
+                -19.399999618530273,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_WarScythe",
+            "id": "BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe",
+            "location": [
+                -4.0,
+                -5.0,
+                -29.299999237060547
+            ],
+            "parent": "BP_MeleeWeapon_LegendaryScythe_C",
+            "rotation": [
+                -25.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_MovieSword",
+            "id": "BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword",
+            "location": [
+                3.200000047683716,
+                -5.5,
+                -17.100000381469727
+            ],
+            "parent": "BP_MeleeWeapon_Legendary2HSword_C",
+            "rotation": [
+                -18.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_FireAxe",
+            "id": "BP_MeleeWeapon_FireAxe_C_SK_FireAxe",
+            "location": [
+                2.299999952316284,
+                -5.400000095367432,
+                -20.799999237060547
+            ],
+            "parent": "BP_MeleeWeapon_FireAxe_C",
+            "rotation": [
+                -22.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Mace",
+            "id": "BP_MeleeWeapon_Mace_C_SK_Mace",
+            "location": [
+                2.0,
+                -5.699999809265137,
+                -13.600000381469727
+            ],
+            "parent": "BP_MeleeWeapon_Mace_C",
+            "rotation": [
+                -30.100000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BoloMachete",
+            "id": "BP_MeleeWeapon_Machete_C_SK_BoloMachete",
+            "location": [
+                2.5,
+                -5.300000190734863,
+                -11.399999618530273
+            ],
+            "parent": "BP_MeleeWeapon_Machete_C",
+            "rotation": [
+                -28.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ExtNightStick",
+            "id": "BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick",
+            "location": [
+                0.800000011920929,
+                -5.0,
+                -17.600000381469727
+            ],
+            "parent": "BP_MeleeWeapon_ExtNightStick_C",
+            "rotation": [
+                -25.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Axe",
+            "id": "BP_MeleeWeapon_Axe_C_SK_Axe",
+            "location": [
+                2.299999952316284,
+                -5.400000095367432,
+                -16.299999237060547
+            ],
+            "parent": "BP_MeleeWeapon_Axe_C",
+            "rotation": [
+                -26.200000762939453,
+                -0.8999999761581421,
+                -0.699999988079071
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_SledgeHammer",
+            "id": "BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer",
+            "location": [
+                -2.0,
+                -5.300000190734863,
+                -19.799999237060547
+            ],
+            "parent": "BP_MeleeWeapon_Sledgehammer_C",
+            "rotation": [
+                -28.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "pistol",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_MachinePistol",
+            "id": "BP_RangedWeaponVisuals_MachinePistol_C_SK_MachinePistol",
+            "location": [
+                8.600000381469727,
+                -5.900000095367432,
+                -4.900000095367432
+            ],
+            "parent": "BP_RangedWeaponVisuals_MachinePistol_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "ak",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BurstCarbine",
+            "id": "BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine",
+            "location": [
+                7.099999904632568,
+                -5.599999904632568,
+                -5.5
+            ],
+            "parent": "BP_RangedWeaponVisuals_Carbine_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Saber",
+            "id": "BP_MeleeWeapon_OfficersSword_C_SK_Saber",
+            "location": [
+                4.199999809265137,
+                -5.300000190734863,
+                -11.5
+            ],
+            "melee": false,
+            "parent": "BP_MeleeWeapon_OfficersSword_C",
+            "rotation": [
+                -24.600000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_GolfClub",
+            "id": "BP_MeleeWeapon_GolfClub_C_SK_GolfClub",
+            "location": [
+                2.700000047683716,
+                -5.5,
+                -11.199999809265137
+            ],
+            "parent": "BP_MeleeWeapon_GolfClub_C",
+            "rotation": [
+                -30.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "ak",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_AutoCarbine",
+            "id": "BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine",
+            "location": [
+                6.599999904632568,
+                -5.400000095367432,
+                -5.5
+            ],
+            "parent": "BP_RangedWeaponVisuals_AutoCarbine_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "pistol",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Nailgun",
+            "id": "BP_RangedWeaponVisuals_Nailgun_C_SK_Nailgun",
+            "location": [
+                9.899999618530273,
+                -5.699999809265137,
+                -12.699999809265137
+            ],
+            "parent": "BP_RangedWeaponVisuals_Nailgun_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "shotgun",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ShotGunTactical",
+            "id": "BP_RangedWeaponVisuals_TacticalShotgun_C_SK_ShotGunTactical",
+            "location": [
+                8.0,
+                -4.599999904632568,
+                -4.300000190734863
+            ],
+            "parent": "BP_RangedWeaponVisuals_TacticalShotgun_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Claws",
+            "id": "BP_MeleeWeapon_Claws_C_SK_Claws",
+            "location": [
+                11.0,
+                -4.699999809265137,
+                -6.5
+            ],
+            "parent": "BP_MeleeWeapon_Claws_C",
+            "rotation": [
+                1.399999976158142,
+                -66.9000015258789,
+                7.300000190734863
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BrassKnuckles",
+            "id": "BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles",
+            "location": [
+                8.100000381469727,
+                -3.5999999046325684,
+                -5.800000190734863
+            ],
+            "parent": "BP_MeleeWeapon_BrassKnuckles_C",
+            "rotation": [
+                -27.5,
+                -19.899999618530273,
+                3.299999952316284
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_TireIron",
+            "id": "BP_MeleeWeapon_TireIron_C_SK_TireIron",
+            "location": [
+                0.6000000238418579,
+                -5.199999809265137,
+                -18.299999237060547
+            ],
+            "parent": "BP_MeleeWeapon_TireIron_C",
+            "rotation": [
+                -26.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
             "any_child": false,
             "any_parent": false,
             "child": "WeaponMesh",
@@ -229,63 +1016,18 @@
         },
         {
             "animation": "melee",
-            "any_child": false,
+            "any_child": true,
             "any_parent": false,
-            "child": "SK_WarScythe_Dmg",
-            "id": "BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_Dmg",
+            "child": "SK_PoolCue",
+            "id": "BP_MeleeWeapon_PoolCue_C_SK_PoolCue",
             "location": [
-                1.100000023841858,
-                -5.099999904632568,
-                -19.700000762939453
+                -10.899999618530273,
+                -5.199999809265137,
+                -48.20000076293945
             ],
-            "parent": "BP_MeleeWeapon_LegendaryScythe_C",
+            "parent": "BP_MeleeWeapon_PoolCue_C",
             "rotation": [
-                -19.100000381469727,
-                4.199999809265137,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_HeavyWrench",
-            "id": "BP_MeleeWeapon_HeavyWrench_C_SK_HeavyWrench",
-            "location": [
-                4.800000190734863,
-                -3.700000047683716,
-                -17.899999618530273
-            ],
-            "parent": "BP_MeleeWeapon_HeavyWrench_C",
-            "rotation": [
-                -11.899999618530273,
-                -2.299999952316284,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_XiansStiletto",
-            "id": "BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto",
-            "location": [
-                7.800000190734863,
-                -4.5,
-                -8.699999809265137
-            ],
-            "parent": "BP_MeleeWeapon_Legendary_Stiletto_C",
-            "rotation": [
-                -13.5,
+                -23.100000381469727,
                 0.0,
                 0.0
             ],
@@ -296,135 +1038,365 @@
             ]
         },
         {
-            "animation": "ak",
+            "animation": "melee",
             "any_child": true,
             "any_parent": false,
-            "child": "SK_Pistol",
-            "id": "BP_RangedWeaponVisuals_Pistol_C_SK_Pistol",
+            "child": "SK_WreckageMachete_Dmg",
+            "id": "BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_Dmg",
             "location": [
-                10.600000381469727,
+                6.300000190734863,
                 -5.300000190734863,
-                -5.199999809265137
+                -11.199999809265137
             ],
-            "parent": "BP_RangedWeaponVisuals_Pistol_C",
-            "rotation": [
-                0.0,
-                0.0,
-                -0.30000001192092896
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "carbine",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_BurstCarbine",
-            "id": "BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine",
-            "location": [
-                6.099999904632568,
-                -4.900000095367432,
-                -6.199999809265137
-            ],
-            "parent": "BP_RangedWeaponVisuals_Carbine_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_ElectricStar",
-            "id": "BP_ThrowingWeaponVisuals_ElectricStar_C_SK_ElectricStar",
-            "location": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "parent": "BP_ThrowingWeaponVisuals_ElectricStar_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_FireAxe",
-            "id": "BP_MeleeWeapon_FireAxe_C_SK_FireAxe",
-            "location": [
-                1.600000023841858,
-                -3.5,
-                -16.399999618530273
-            ],
-            "parent": "BP_MeleeWeapon_FireAxe_C",
-            "rotation": [
-                -28.600000381469727,
-                -5.599999904632568,
-                -1.7999999523162842
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_PickAxe",
-            "id": "BP_MeleeWeapon_Pickaxe_C_SK_PickAxe",
-            "location": [
-                1.100000023841858,
-                -4.900000095367432,
-                -26.200000762939453
-            ],
-            "parent": "BP_MeleeWeapon_Pickaxe_C",
-            "rotation": [
-                -18.100000381469727,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_WreckageMachete",
-            "id": "BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete",
-            "location": [
-                7.300000190734863,
-                -5.300000190734863,
-                -10.600000381469727
-            ],
-            "melee": true,
             "parent": "BP_MeleeWeapon_FirstWeapon_Prologue_C",
             "rotation": [
-                -14.600000381469727,
-                -3.4000000953674316,
+                -19.200000762939453,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ClawHammer",
+            "id": "BP_MeleeWeapon_ClawHammer_C_SK_ClawHammer",
+            "location": [
+                5.300000190734863,
+                -5.400000095367432,
+                -10.699999809265137
+            ],
+            "parent": "BP_MeleeWeapon_ClawHammer_C",
+            "rotation": [
+                -23.600000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ImprovClub",
+            "id": "BP_MeleeWeapon_ImprovHammer_C_SK_ImprovClub",
+            "location": [
+                3.4000000953674316,
+                -4.800000190734863,
+                -25.899999618530273
+            ],
+            "parent": "BP_MeleeWeapon_ImprovHammer_C",
+            "rotation": [
+                -13.199999809265137,
+                -2.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Katar",
+            "id": "BP_MeleeWeapon_Katar_C_SK_Katar",
+            "location": [
+                7.900000095367432,
+                -5.199999809265137,
+                -5.800000190734863
+            ],
+            "parent": "BP_MeleeWeapon_Katar_C",
+            "rotation": [
+                -20.399999618530273,
+                -21.899999618530273,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BBatWood",
+            "id": "BP_MeleeWeapon_WoodBaseballBat_C_SK_BBatWood",
+            "location": [
+                1.399999976158142,
+                -5.199999809265137,
+                -17.700000762939453
+            ],
+            "parent": "BP_MeleeWeapon_WoodBaseballBat_C",
+            "rotation": [
+                -24.399999618530273,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ZombieAxe",
+            "id": "BP_MeleeWeapon_ZombieAxe_C_SK_ZombieAxe",
+            "location": [
+                1.7000000476837158,
+                -5.400000095367432,
+                -17.799999237060547
+            ],
+            "parent": "BP_MeleeWeapon_ZombieAxe_C",
+            "rotation": [
+                -23.100000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ZombieSword",
+            "id": "BP_MeleeWeapon_ZombieSword_C_SK_ZombieSword",
+            "location": [
+                3.4000000953674316,
+                -5.400000095367432,
+                -12.100000381469727
+            ],
+            "parent": "BP_MeleeWeapon_ZombieSword_C",
+            "rotation": [
+                -22.299999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_PartyStarter",
+            "id": "BP_MeleeWeapon_LegendaryFireKnuckles_C_SK_PartyStarter",
+            "location": [
+                7.800000190734863,
+                -4.099999904632568,
+                -5.400000095367432
+            ],
+            "parent": "BP_MeleeWeapon_LegendaryFireKnuckles_C",
+            "rotation": [
+                -25.100000381469727,
+                1.0,
+                -3.4000000953674316
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_PoliceBaton",
+            "id": "BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton",
+            "location": [
+                5.099999904632568,
+                -4.699999809265137,
+                -11.300000190734863
+            ],
+            "parent": "BP_MeleeWeapon_PoliceBaton_C",
+            "rotation": [
+                -21.299999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Mattock",
+            "id": "BP_MeleeWeapon_Mattock_C_SK_Mattock",
+            "location": [
+                -1.5,
+                -5.199999809265137,
+                -25.100000381469727
+            ],
+            "parent": "BP_MeleeWeapon_Mattock_C",
+            "rotation": [
+                -23.299999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_SplittingAxe",
+            "id": "BP_SplittingAxe_C_SK_SplittingAxe",
+            "location": [
+                1.0,
+                -5.300000190734863,
+                -17.299999237060547
+            ],
+            "parent": "BP_SplittingAxe_C",
+            "rotation": [
+                -25.600000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_DuckBlade",
+            "id": "BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade",
+            "location": [
+                1.7000000476837158,
+                -4.300000190734863,
+                -15.800000190734863
+            ],
+            "parent": "BP_MeleeWeapon_CrescentBlade_C",
+            "rotation": [
+                -28.399999618530273,
+                -0.699999988079071,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Claymore",
+            "id": "BP_MeleeWeapon_Claymore_C_SK_Claymore",
+            "location": [
+                3.5,
+                -4.900000095367432,
+                -13.600000381469727
+            ],
+            "parent": "BP_MeleeWeapon_Claymore_C",
+            "rotation": [
+                -24.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_CrowBar",
+            "id": "BP_MeleeWeapon_Crowbar_C_SK_CrowBar",
+            "location": [
+                1.5,
+                -5.199999809265137,
+                -18.200000762939453
+            ],
+            "parent": "BP_MeleeWeapon_Crowbar_C",
+            "rotation": [
+                -23.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_BladeStaff",
+            "id": "BP_MeleeWeapon_SingleBladeStaff_C_SK_BladeStaff",
+            "location": [
+                -2.0999999046325684,
+                -5.0,
+                -33.099998474121094
+            ],
+            "parent": "BP_MeleeWeapon_SingleBladeStaff_C",
+            "rotation": [
+                -18.600000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Hayfork",
+            "id": "BP_MeleeWeapon_HayFork_C_SK_Hayfork",
+            "location": [
+                -2.200000047683716,
+                -4.900000095367432,
+                -31.5
+            ],
+            "parent": "BP_MeleeWeapon_HayFork_C",
+            "rotation": [
+                -20.299999237060547,
+                0.0,
                 0.0
             ],
             "scale": [
@@ -440,14 +1412,13 @@
             "child": "SK_WreckageHammer",
             "id": "BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer",
             "location": [
-                4.599999904632568,
-                -4.5,
-                -30.299999237060547
+                -0.8999999761581421,
+                -4.900000095367432,
+                -28.5
             ],
-            "melee": true,
             "parent": "BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C",
             "rotation": [
-                -9.699999809265137,
+                -19.600000381469727,
                 0.0,
                 0.0
             ],
@@ -464,37 +1435,13 @@
             "child": "SK_TimberBurnt",
             "id": "BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt",
             "location": [
-                3.799999952316284,
-                -4.900000095367432,
-                -18.700000762939453
+                2.0,
+                -5.300000190734863,
+                -17.399999618530273
             ],
-            "melee": true,
             "parent": "BP_MeleeWeapon_BurntTimberBeam_C",
             "rotation": [
-                -17.799999237060547,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_RebarSmall",
-            "id": "BP_MeleeWeapon_Rebar_C_SK_RebarSmall",
-            "location": [
-                7.699999809265137,
-                -5.300000190734863,
-                -6.0
-            ],
-            "parent": "BP_MeleeWeapon_Rebar_C",
-            "rotation": [
-                -15.5,
+                -23.399999618530273,
                 0.0,
                 0.0
             ],
@@ -511,14 +1458,36 @@
             "child": "SK_SteelPipe",
             "id": "BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe",
             "location": [
-                6.5,
-                -4.800000190734863,
-                -16.5
+                2.299999952316284,
+                -4.900000095367432,
+                -15.899999618530273
             ],
-            "melee": true,
             "parent": "BP_MeleeWeapon_SteelPipe_C",
             "rotation": [
-                -10.899999618530273,
+                -24.100000381469727,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_RebarSmall",
+            "id": "BP_MeleeWeapon_Rebar_C_SK_RebarSmall",
+            "location": [
+                5.0,
+                -5.400000095367432,
+                -9.399999618530273
+            ],
+            "parent": "BP_MeleeWeapon_Rebar_C",
+            "rotation": [
+                -22.600000381469727,
                 0.0,
                 0.0
             ],
@@ -535,13 +1504,13 @@
             "child": "SK_Wrench",
             "id": "BP_MeleeWeapon_SmallWrench_C_SK_Wrench",
             "location": [
-                6.800000190734863,
-                -5.300000190734863,
-                -10.0
+                4.199999809265137,
+                -5.699999809265137,
+                -8.699999809265137
             ],
             "parent": "BP_MeleeWeapon_SmallWrench_C",
             "rotation": [
-                -16.5,
+                -28.5,
                 0.0,
                 0.0
             ],
@@ -552,438 +1521,16 @@
             ]
         },
         {
-            "animation": "melee",
-            "any_child": true,
+            "any_child": false,
             "any_parent": false,
-            "child": "SK_Rake",
-            "id": "BP_MeleeWeapon_Rake_C_SK_Rake",
+            "child": "SK_PoolCue_Dmg",
+            "id": "BP_MeleeWeapon_PoolCue_C_SK_PoolCue_Dmg",
             "location": [
-                -3.9000000953674316,
-                -4.800000190734863,
-                -31.200000762939453
-            ],
-            "parent": "BP_MeleeWeapon_Rake_C",
-            "rotation": [
-                -22.700000762939453,
+                0.0,
                 0.0,
                 0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_PoolCue",
-            "id": "BP_MeleeWeapon_PoolCue_C_SK_PoolCue",
-            "location": [
-                5.599999904632568,
-                -6.400000095367432,
-                -29.899999618530273
             ],
             "parent": "BP_MeleeWeapon_PoolCue_C",
-            "rotation": [
-                -8.199999809265137,
-                -1.899999976158142,
-                3.0999999046325684
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_BoloMachete",
-            "id": "BP_MeleeWeapon_Machete_C_SK_BoloMachete",
-            "location": [
-                5.400000095367432,
-                -4.699999809265137,
-                -13.699999809265137
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_Machete_C",
-            "rotation": [
-                -15.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_ScaffoldPole",
-            "id": "BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole",
-            "location": [
-                6.199999809265137,
-                -5.0,
-                -18.899999618530273
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_ScaffoldPole_C",
-            "rotation": [
-                -11.399999618530273,
-                3.700000047683716,
-                -1.7000000476837158
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_GolfClub",
-            "id": "BP_MeleeWeapon_GolfClub_C_SK_GolfClub",
-            "location": [
-                6.900000095367432,
-                -5.5,
-                -9.600000381469727
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_GolfClub_C",
-            "rotation": [
-                -19.100000381469727,
-                2.4000000953674316,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_BoStaff",
-            "id": "BP_MeleeWeapon_BoStaff_C_SK_BoStaff",
-            "location": [
-                3.0999999046325684,
-                -5.300000190734863,
-                -24.0
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_BoStaff_C",
-            "rotation": [
-                -15.100000381469727,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_Cleaver",
-            "id": "BP_MeleeWeapon_Cleaver_C_SK_Cleaver",
-            "location": [
-                7.0,
-                -5.0,
-                -6.400000095367432
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_Cleaver_C",
-            "rotation": [
-                -14.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_Dagger",
-            "id": "BP_MeleeWeapon_Dagger_C_SK_Dagger",
-            "location": [
-                8.0,
-                -4.599999904632568,
-                -7.400000095367432
-            ],
-            "parent": "BP_MeleeWeapon_Dagger_C",
-            "rotation": [
-                -10.199999809265137,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_Claws",
-            "id": "BP_MeleeWeapon_Claws_C_SK_Claws",
-            "location": [
-                6.199999809265137,
-                -0.5,
-                -6.199999809265137
-            ],
-            "parent": "BP_MeleeWeapon_Claws_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_Shovel",
-            "id": "BP_MeleeWeapon_Shovel_C_SK_Shovel",
-            "location": [
-                2.700000047683716,
-                -5.300000190734863,
-                -30.799999237060547
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_Shovel_C",
-            "rotation": [
-                -12.5,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_Shuriken",
-            "id": "BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken",
-            "location": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "parent": "BP_ThrowingWeaponVisuals_Shuriken_C",
-            "rotation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_SledgeHammer",
-            "id": "BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer",
-            "location": [
-                3.0999999046325684,
-                -4.5,
-                -19.799999237060547
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_Sledgehammer_C",
-            "rotation": [
-                -18.5,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_PoliceBaton",
-            "id": "BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton",
-            "location": [
-                7.400000095367432,
-                -4.300000190734863,
-                -9.399999618530273
-            ],
-            "parent": "BP_MeleeWeapon_PoliceBaton_C",
-            "rotation": [
-                -14.600000381469727,
-                -0.5,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_SplittingAxe",
-            "id": "BP_SplittingAxe_C_SK_SplittingAxe",
-            "location": [
-                2.799999952316284,
-                -5.199999809265137,
-                -13.199999809265137
-            ],
-            "melee": true,
-            "parent": "BP_SplittingAxe_C",
-            "rotation": [
-                -24.700000762939453,
-                1.600000023841858,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_ExtNightStick",
-            "id": "BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick",
-            "location": [
-                5.800000190734863,
-                -4.900000095367432,
-                -15.100000381469727
-            ],
-            "parent": "BP_MeleeWeapon_ExtNightStick_C",
-            "rotation": [
-                -13.699999809265137,
-                0.5,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_CrowBar",
-            "id": "BP_MeleeWeapon_Crowbar_C_SK_CrowBar",
-            "location": [
-                4.800000190734863,
-                -5.400000095367432,
-                -19.0
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_Crowbar_C",
-            "rotation": [
-                -16.100000381469727,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "brass",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_BrassKnuckles",
-            "id": "BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles",
-            "location": [
-                9.199999809265137,
-                -5.400000095367432,
-                -7.0
-            ],
-            "parent": "BP_MeleeWeapon_BrassKnuckles_C",
-            "rotation": [
-                -8.100000381469727,
-                -2.9000000953674316,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "animation": "melee",
-            "any_child": true,
-            "any_parent": false,
-            "child": "SK_Wakizashi",
-            "id": "BP_MeleeWeapon_Wakizashi_C_SK_Wakizashi",
-            "location": [
-                6.5,
-                -4.800000190734863,
-                -7.400000095367432
-            ],
-            "melee": true,
-            "parent": "BP_MeleeWeapon_Wakizashi_C",
-            "rotation": [
-                -22.0,
-                0.0,
-                0.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        {
-            "any_child": false,
-            "any_parent": false,
-            "child": "SK_ChemBomb",
-            "id": "BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb",
-            "location": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "parent": "BP_ThrowingWeaponVisuals_ChemBomb_C",
             "rotation": [
                 0.0,
                 0.0,

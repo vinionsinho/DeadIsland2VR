@@ -54,10 +54,9 @@ end
 local lastInCutsceneState = nil
 
 uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
-
+    
     -- pawn.hideBodyMesh(true)
     -- pawn.hideArms(true)
-
 
     local inCutscene = IsInCutscene()
 
@@ -67,18 +66,18 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
         if inCutscene then 
             print("Entering cutscene")
             -- Cutscene enter actions
-            -- hands.hideHands(true)
+            hands.hideHands(true)
             -- pawn.hideArms(false) 
             vr.set_aim_method(0)
-            vr.set_decoupled_pitch_enabled(false)
+            -- vr.set_decoupled_pitch_enabled(true)
             
         else
             print("Exiting cutscene")
             -- Cutscene exit actions
-            -- hands.hideHands(false)
+            hands.hideHands(false)
             -- pawn.hideArms(true)    
             vr.set_aim_method(2)
-            vr.set_decoupled_pitch_enabled(true)
+            -- vr.set_decoupled_pitch_enabled(true)
         end
     end
 end)
