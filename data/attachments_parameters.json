@@ -1541,6 +1541,142 @@
                 1.0,
                 1.0
             ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Cleaver",
+            "id": "BP_MeleeWeapon_Cleaver_C_SK_Cleaver",
+            "location": [
+                7.699999809265137,
+                -4.900000095367432,
+                -7.5
+            ],
+            "parent": "BP_MeleeWeapon_Cleaver_C",
+            "rotation": [
+                -18.299999237060547,
+                0.10000000149011612,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_ChemBomb",
+            "id": "BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_ThrowingWeaponVisuals_ChemBomb_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_ScaffoldPole",
+            "id": "BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole",
+            "location": [
+                -8.699999809265137,
+                -5.599999904632568,
+                -32.79999923706055
+            ],
+            "parent": "BP_MeleeWeapon_ScaffoldPole_C",
+            "rotation": [
+                -28.799999237060547,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "any_child": false,
+            "any_parent": false,
+            "child": "SK_Shuriken",
+            "id": "BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken",
+            "location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "parent": "BP_ThrowingWeaponVisuals_Shuriken_C",
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_RebarBig",
+            "id": "BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig",
+            "location": [
+                -7.099999904632568,
+                -4.599999904632568,
+                -31.899999618530273
+            ],
+            "parent": "BP_MeleeWeapon_RebarInConcrete_C",
+            "rotation": [
+                -27.5,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        {
+            "animation": "melee",
+            "any_child": true,
+            "any_parent": false,
+            "child": "SK_Shovel",
+            "id": "BP_MeleeWeapon_Shovel_C_SK_Shovel",
+            "location": [
+                1.600000023841858,
+                -5.0,
+                -24.399999618530273
+            ],
+            "parent": "BP_MeleeWeapon_Shovel_C",
+            "rotation": [
+                -18.200000762939453,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
         }
     ]
 }

@@ -1,7 +1,7 @@
 {
     "attachment_BP_MeleeWeapon_Axe_C_SK_Axe_any_child": true,
     "attachment_BP_MeleeWeapon_Axe_C_SK_Axe_any_parent": false,
-    "attachment_BP_MeleeWeapon_Axe_C_SK_Axe_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Axe_C_SK_Axe_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Axe_C_SK_Axe_position": [
         2.299999952316284,
         -5.400000095367432,
@@ -73,7 +73,7 @@
     ],
     "attachment_BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles_any_child": true,
     "attachment_BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles_any_parent": false,
-    "attachment_BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles_grip_animation": 3,
     "attachment_BP_MeleeWeapon_BrassKnuckles_C_SK_BrassKnuckles_position": [
         8.100000381469727,
         -3.5999999046325684,
@@ -91,7 +91,7 @@
     ],
     "attachment_BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt_any_child": true,
     "attachment_BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt_any_parent": false,
-    "attachment_BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt_grip_animation": 3,
     "attachment_BP_MeleeWeapon_BurntTimberBeam_C_SK_TimberBurnt_position": [
         2.0,
         -5.300000190734863,
@@ -109,7 +109,7 @@
     ],
     "attachment_BP_MeleeWeapon_ClawHammer_C_SK_ClawHammer_any_child": true,
     "attachment_BP_MeleeWeapon_ClawHammer_C_SK_ClawHammer_any_parent": false,
-    "attachment_BP_MeleeWeapon_ClawHammer_C_SK_ClawHammer_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_ClawHammer_C_SK_ClawHammer_grip_animation": 3,
     "attachment_BP_MeleeWeapon_ClawHammer_C_SK_ClawHammer_position": [
         5.300000190734863,
         -5.400000095367432,
@@ -145,7 +145,7 @@
     ],
     "attachment_BP_MeleeWeapon_Claymore_C_SK_Claymore_any_child": true,
     "attachment_BP_MeleeWeapon_Claymore_C_SK_Claymore_any_parent": false,
-    "attachment_BP_MeleeWeapon_Claymore_C_SK_Claymore_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Claymore_C_SK_Claymore_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Claymore_C_SK_Claymore_position": [
         3.5,
         -4.900000095367432,
@@ -157,6 +157,24 @@
         0.0
     ],
     "attachment_BP_MeleeWeapon_Claymore_C_SK_Claymore_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_Cleaver_C_SK_Cleaver_any_child": true,
+    "attachment_BP_MeleeWeapon_Cleaver_C_SK_Cleaver_any_parent": false,
+    "attachment_BP_MeleeWeapon_Cleaver_C_SK_Cleaver_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_Cleaver_C_SK_Cleaver_position": [
+        7.699999809265137,
+        -4.900000095367432,
+        -7.5
+    ],
+    "attachment_BP_MeleeWeapon_Cleaver_C_SK_Cleaver_rotation": [
+        -18.299999237060547,
+        0.10000000149011612,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_Cleaver_C_SK_Cleaver_scale": [
         1.0,
         1.0,
         1.0
@@ -182,7 +200,7 @@
     ],
     "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_any_child": true,
     "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_any_parent": false,
-    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_grip_animation": 3,
     "attachment_BP_MeleeWeapon_CrescentBlade_C_SK_DuckBlade_position": [
         1.7000000476837158,
         -4.300000190734863,
@@ -200,7 +218,7 @@
     ],
     "attachment_BP_MeleeWeapon_Crowbar_C_SK_CrowBar_any_child": true,
     "attachment_BP_MeleeWeapon_Crowbar_C_SK_CrowBar_any_parent": false,
-    "attachment_BP_MeleeWeapon_Crowbar_C_SK_CrowBar_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Crowbar_C_SK_CrowBar_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Crowbar_C_SK_CrowBar_position": [
         1.5,
         -5.199999809265137,
@@ -236,7 +254,7 @@
     ],
     "attachment_BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick_any_child": true,
     "attachment_BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick_any_parent": false,
-    "attachment_BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick_grip_animation": 3,
     "attachment_BP_MeleeWeapon_ExtNightStick_C_SK_ExtNightStick_position": [
         0.800000011920929,
         -5.0,
@@ -254,7 +272,7 @@
     ],
     "attachment_BP_MeleeWeapon_FireAxe_C_SK_FireAxe_any_child": true,
     "attachment_BP_MeleeWeapon_FireAxe_C_SK_FireAxe_any_parent": false,
-    "attachment_BP_MeleeWeapon_FireAxe_C_SK_FireAxe_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_FireAxe_C_SK_FireAxe_grip_animation": 3,
     "attachment_BP_MeleeWeapon_FireAxe_C_SK_FireAxe_position": [
         2.299999952316284,
         -5.400000095367432,
@@ -272,7 +290,7 @@
     ],
     "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_Dmg_any_child": true,
     "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_Dmg_any_parent": false,
-    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_Dmg_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_Dmg_grip_animation": 3,
     "attachment_BP_MeleeWeapon_FirstWeapon_Prologue_C_SK_WreckageMachete_Dmg_position": [
         6.300000190734863,
         -5.300000190734863,
@@ -290,7 +308,7 @@
     ],
     "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_any_child": false,
     "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_any_parent": false,
-    "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_grip_animation": 3,
     "attachment_BP_MeleeWeapon_FuryFists_C_WeaponMesh_position": [
         0.0,
         0.0,
@@ -308,7 +326,7 @@
     ],
     "attachment_BP_MeleeWeapon_GolfClub_C_SK_GolfClub_any_child": true,
     "attachment_BP_MeleeWeapon_GolfClub_C_SK_GolfClub_any_parent": false,
-    "attachment_BP_MeleeWeapon_GolfClub_C_SK_GolfClub_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_GolfClub_C_SK_GolfClub_grip_animation": 3,
     "attachment_BP_MeleeWeapon_GolfClub_C_SK_GolfClub_position": [
         2.700000047683716,
         -5.5,
@@ -326,7 +344,7 @@
     ],
     "attachment_BP_MeleeWeapon_HayFork_C_SK_Hayfork_any_child": true,
     "attachment_BP_MeleeWeapon_HayFork_C_SK_Hayfork_any_parent": false,
-    "attachment_BP_MeleeWeapon_HayFork_C_SK_Hayfork_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_HayFork_C_SK_Hayfork_grip_animation": 3,
     "attachment_BP_MeleeWeapon_HayFork_C_SK_Hayfork_position": [
         -2.200000047683716,
         -4.900000095367432,
@@ -362,7 +380,7 @@
     ],
     "attachment_BP_MeleeWeapon_ImprovHammer_C_SK_ImprovClub_any_child": true,
     "attachment_BP_MeleeWeapon_ImprovHammer_C_SK_ImprovClub_any_parent": false,
-    "attachment_BP_MeleeWeapon_ImprovHammer_C_SK_ImprovClub_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_ImprovHammer_C_SK_ImprovClub_grip_animation": 3,
     "attachment_BP_MeleeWeapon_ImprovHammer_C_SK_ImprovClub_position": [
         3.4000000953674316,
         -4.800000190734863,
@@ -380,7 +398,7 @@
     ],
     "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_any_child": true,
     "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_any_parent": false,
-    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_is_melee": false,
     "attachment_BP_MeleeWeapon_Katana_C_SK_Katana_position": [
         4.099999904632568,
@@ -399,7 +417,7 @@
     ],
     "attachment_BP_MeleeWeapon_Katar_C_SK_Katar_any_child": true,
     "attachment_BP_MeleeWeapon_Katar_C_SK_Katar_any_parent": false,
-    "attachment_BP_MeleeWeapon_Katar_C_SK_Katar_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Katar_C_SK_Katar_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Katar_C_SK_Katar_position": [
         7.900000095367432,
         -5.199999809265137,
@@ -417,7 +435,7 @@
     ],
     "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_any_child": true,
     "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_any_parent": false,
-    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Legendary2HSword_C_SK_MovieSword_position": [
         3.200000047683716,
         -5.5,
@@ -435,7 +453,7 @@
     ],
     "attachment_BP_MeleeWeapon_LegendaryFireKnuckles_C_SK_PartyStarter_any_child": true,
     "attachment_BP_MeleeWeapon_LegendaryFireKnuckles_C_SK_PartyStarter_any_parent": false,
-    "attachment_BP_MeleeWeapon_LegendaryFireKnuckles_C_SK_PartyStarter_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_LegendaryFireKnuckles_C_SK_PartyStarter_grip_animation": 3,
     "attachment_BP_MeleeWeapon_LegendaryFireKnuckles_C_SK_PartyStarter_position": [
         7.800000190734863,
         -4.099999904632568,
@@ -453,7 +471,7 @@
     ],
     "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_any_child": true,
     "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_any_parent": false,
-    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_grip_animation": 3,
     "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_is_melee": false,
     "attachment_BP_MeleeWeapon_LegendaryMachete_C_SK_JaggedSword_position": [
         3.0,
@@ -472,7 +490,7 @@
     ],
     "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_child": true,
     "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_any_parent": false,
-    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_grip_animation": 3,
     "attachment_BP_MeleeWeapon_LegendaryScythe_C_SK_WarScythe_position": [
         -4.0,
         -5.0,
@@ -490,7 +508,7 @@
     ],
     "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_any_child": true,
     "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_any_parent": false,
-    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Legendary_Stiletto_C_SK_XiansStiletto_position": [
         4.5,
         -5.199999809265137,
@@ -508,7 +526,7 @@
     ],
     "attachment_BP_MeleeWeapon_Legendary_Warhammer_C_SK_WarHammer_any_child": true,
     "attachment_BP_MeleeWeapon_Legendary_Warhammer_C_SK_WarHammer_any_parent": false,
-    "attachment_BP_MeleeWeapon_Legendary_Warhammer_C_SK_WarHammer_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Legendary_Warhammer_C_SK_WarHammer_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Legendary_Warhammer_C_SK_WarHammer_position": [
         -5.099999904632568,
         -4.699999809265137,
@@ -526,7 +544,7 @@
     ],
     "attachment_BP_MeleeWeapon_Mace_C_SK_Mace_any_child": true,
     "attachment_BP_MeleeWeapon_Mace_C_SK_Mace_any_parent": false,
-    "attachment_BP_MeleeWeapon_Mace_C_SK_Mace_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Mace_C_SK_Mace_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Mace_C_SK_Mace_position": [
         2.0,
         -5.699999809265137,
@@ -544,7 +562,7 @@
     ],
     "attachment_BP_MeleeWeapon_Machete_C_SK_BoloMachete_any_child": true,
     "attachment_BP_MeleeWeapon_Machete_C_SK_BoloMachete_any_parent": false,
-    "attachment_BP_MeleeWeapon_Machete_C_SK_BoloMachete_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Machete_C_SK_BoloMachete_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Machete_C_SK_BoloMachete_position": [
         2.5,
         -5.300000190734863,
@@ -562,7 +580,7 @@
     ],
     "attachment_BP_MeleeWeapon_Mattock_C_SK_Mattock_any_child": true,
     "attachment_BP_MeleeWeapon_Mattock_C_SK_Mattock_any_parent": false,
-    "attachment_BP_MeleeWeapon_Mattock_C_SK_Mattock_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Mattock_C_SK_Mattock_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Mattock_C_SK_Mattock_position": [
         -1.5,
         -5.199999809265137,
@@ -598,7 +616,7 @@
     ],
     "attachment_BP_MeleeWeapon_MilitaryKnife_C_SK_MilitaryKnife_any_child": true,
     "attachment_BP_MeleeWeapon_MilitaryKnife_C_SK_MilitaryKnife_any_parent": false,
-    "attachment_BP_MeleeWeapon_MilitaryKnife_C_SK_MilitaryKnife_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_MilitaryKnife_C_SK_MilitaryKnife_grip_animation": 3,
     "attachment_BP_MeleeWeapon_MilitaryKnife_C_SK_MilitaryKnife_position": [
         6.900000095367432,
         -5.300000190734863,
@@ -616,7 +634,7 @@
     ],
     "attachment_BP_MeleeWeapon_OfficersSword_C_SK_Saber_any_child": true,
     "attachment_BP_MeleeWeapon_OfficersSword_C_SK_Saber_any_parent": false,
-    "attachment_BP_MeleeWeapon_OfficersSword_C_SK_Saber_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_OfficersSword_C_SK_Saber_grip_animation": 3,
     "attachment_BP_MeleeWeapon_OfficersSword_C_SK_Saber_is_melee": false,
     "attachment_BP_MeleeWeapon_OfficersSword_C_SK_Saber_position": [
         4.199999809265137,
@@ -654,7 +672,7 @@
     ],
     "attachment_BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton_any_child": true,
     "attachment_BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton_any_parent": false,
-    "attachment_BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton_grip_animation": 3,
     "attachment_BP_MeleeWeapon_PoliceBaton_C_SK_PoliceBaton_position": [
         5.099999904632568,
         -4.699999809265137,
@@ -690,7 +708,7 @@
     ],
     "attachment_BP_MeleeWeapon_PoolCue_C_SK_PoolCue_any_child": true,
     "attachment_BP_MeleeWeapon_PoolCue_C_SK_PoolCue_any_parent": false,
-    "attachment_BP_MeleeWeapon_PoolCue_C_SK_PoolCue_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_PoolCue_C_SK_PoolCue_grip_animation": 3,
     "attachment_BP_MeleeWeapon_PoolCue_C_SK_PoolCue_position": [
         -10.899999618530273,
         -5.199999809265137,
@@ -708,7 +726,7 @@
     ],
     "attachment_BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer_any_child": true,
     "attachment_BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer_any_parent": false,
-    "attachment_BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer_grip_animation": 3,
     "attachment_BP_MeleeWeapon_PrologueWeapon_WreckageHammer_C_SK_WreckageHammer_position": [
         -0.8999999761581421,
         -4.900000095367432,
@@ -724,9 +742,27 @@
         1.0,
         1.0
     ],
+    "attachment_BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig_any_child": true,
+    "attachment_BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig_any_parent": false,
+    "attachment_BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig_position": [
+        -7.099999904632568,
+        -4.599999904632568,
+        -31.899999618530273
+    ],
+    "attachment_BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig_rotation": [
+        -27.5,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_RebarInConcrete_C_SK_RebarBig_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
     "attachment_BP_MeleeWeapon_Rebar_C_SK_RebarSmall_any_child": true,
     "attachment_BP_MeleeWeapon_Rebar_C_SK_RebarSmall_any_parent": false,
-    "attachment_BP_MeleeWeapon_Rebar_C_SK_RebarSmall_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Rebar_C_SK_RebarSmall_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Rebar_C_SK_RebarSmall_position": [
         5.0,
         -5.400000095367432,
@@ -742,9 +778,45 @@
         1.0,
         1.0
     ],
+    "attachment_BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole_any_child": true,
+    "attachment_BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole_any_parent": false,
+    "attachment_BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole_position": [
+        -8.699999809265137,
+        -5.599999904632568,
+        -32.79999923706055
+    ],
+    "attachment_BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole_rotation": [
+        -28.799999237060547,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_ScaffoldPole_C_SK_ScaffoldPole_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_MeleeWeapon_Shovel_C_SK_Shovel_any_child": true,
+    "attachment_BP_MeleeWeapon_Shovel_C_SK_Shovel_any_parent": false,
+    "attachment_BP_MeleeWeapon_Shovel_C_SK_Shovel_grip_animation": 3,
+    "attachment_BP_MeleeWeapon_Shovel_C_SK_Shovel_position": [
+        1.600000023841858,
+        -5.0,
+        -24.399999618530273
+    ],
+    "attachment_BP_MeleeWeapon_Shovel_C_SK_Shovel_rotation": [
+        -18.200000762939453,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_MeleeWeapon_Shovel_C_SK_Shovel_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
     "attachment_BP_MeleeWeapon_SingleBladeStaff_C_SK_BladeStaff_any_child": true,
     "attachment_BP_MeleeWeapon_SingleBladeStaff_C_SK_BladeStaff_any_parent": false,
-    "attachment_BP_MeleeWeapon_SingleBladeStaff_C_SK_BladeStaff_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_SingleBladeStaff_C_SK_BladeStaff_grip_animation": 3,
     "attachment_BP_MeleeWeapon_SingleBladeStaff_C_SK_BladeStaff_position": [
         -2.0999999046325684,
         -5.0,
@@ -762,7 +834,7 @@
     ],
     "attachment_BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer_any_child": true,
     "attachment_BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer_any_parent": false,
-    "attachment_BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer_grip_animation": 3,
     "attachment_BP_MeleeWeapon_Sledgehammer_C_SK_SledgeHammer_position": [
         -2.0,
         -5.300000190734863,
@@ -780,7 +852,7 @@
     ],
     "attachment_BP_MeleeWeapon_SmallWrench_C_SK_Wrench_any_child": true,
     "attachment_BP_MeleeWeapon_SmallWrench_C_SK_Wrench_any_parent": false,
-    "attachment_BP_MeleeWeapon_SmallWrench_C_SK_Wrench_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_SmallWrench_C_SK_Wrench_grip_animation": 3,
     "attachment_BP_MeleeWeapon_SmallWrench_C_SK_Wrench_position": [
         4.199999809265137,
         -5.699999809265137,
@@ -798,7 +870,7 @@
     ],
     "attachment_BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe_any_child": true,
     "attachment_BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe_any_parent": false,
-    "attachment_BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe_grip_animation": 3,
     "attachment_BP_MeleeWeapon_SteelPipe_C_SK_SteelPipe_position": [
         2.299999952316284,
         -4.900000095367432,
@@ -816,7 +888,7 @@
     ],
     "attachment_BP_MeleeWeapon_TacticalSword_C_SK_TacticalSword_any_child": true,
     "attachment_BP_MeleeWeapon_TacticalSword_C_SK_TacticalSword_any_parent": false,
-    "attachment_BP_MeleeWeapon_TacticalSword_C_SK_TacticalSword_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_TacticalSword_C_SK_TacticalSword_grip_animation": 3,
     "attachment_BP_MeleeWeapon_TacticalSword_C_SK_TacticalSword_position": [
         1.100000023841858,
         -4.900000095367432,
@@ -834,7 +906,7 @@
     ],
     "attachment_BP_MeleeWeapon_TireIron_C_SK_TireIron_any_child": true,
     "attachment_BP_MeleeWeapon_TireIron_C_SK_TireIron_any_parent": false,
-    "attachment_BP_MeleeWeapon_TireIron_C_SK_TireIron_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_TireIron_C_SK_TireIron_grip_animation": 3,
     "attachment_BP_MeleeWeapon_TireIron_C_SK_TireIron_position": [
         0.6000000238418579,
         -5.199999809265137,
@@ -871,7 +943,7 @@
     ],
     "attachment_BP_MeleeWeapon_WhisperingBlade_C_SK_WhisperingBlade_any_child": true,
     "attachment_BP_MeleeWeapon_WhisperingBlade_C_SK_WhisperingBlade_any_parent": false,
-    "attachment_BP_MeleeWeapon_WhisperingBlade_C_SK_WhisperingBlade_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_WhisperingBlade_C_SK_WhisperingBlade_grip_animation": 3,
     "attachment_BP_MeleeWeapon_WhisperingBlade_C_SK_WhisperingBlade_position": [
         -1.2999999523162842,
         -5.5,
@@ -889,7 +961,7 @@
     ],
     "attachment_BP_MeleeWeapon_WoodBaseballBat_C_SK_BBatWood_any_child": true,
     "attachment_BP_MeleeWeapon_WoodBaseballBat_C_SK_BBatWood_any_parent": false,
-    "attachment_BP_MeleeWeapon_WoodBaseballBat_C_SK_BBatWood_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_WoodBaseballBat_C_SK_BBatWood_grip_animation": 3,
     "attachment_BP_MeleeWeapon_WoodBaseballBat_C_SK_BBatWood_position": [
         1.399999976158142,
         -5.199999809265137,
@@ -907,7 +979,7 @@
     ],
     "attachment_BP_MeleeWeapon_ZombieAxe_C_SK_ZombieAxe_any_child": true,
     "attachment_BP_MeleeWeapon_ZombieAxe_C_SK_ZombieAxe_any_parent": false,
-    "attachment_BP_MeleeWeapon_ZombieAxe_C_SK_ZombieAxe_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_ZombieAxe_C_SK_ZombieAxe_grip_animation": 3,
     "attachment_BP_MeleeWeapon_ZombieAxe_C_SK_ZombieAxe_position": [
         1.7000000476837158,
         -5.400000095367432,
@@ -925,7 +997,7 @@
     ],
     "attachment_BP_MeleeWeapon_ZombieSword_C_SK_ZombieSword_any_child": true,
     "attachment_BP_MeleeWeapon_ZombieSword_C_SK_ZombieSword_any_parent": false,
-    "attachment_BP_MeleeWeapon_ZombieSword_C_SK_ZombieSword_grip_animation": 4,
+    "attachment_BP_MeleeWeapon_ZombieSword_C_SK_ZombieSword_grip_animation": 3,
     "attachment_BP_MeleeWeapon_ZombieSword_C_SK_ZombieSword_position": [
         3.4000000953674316,
         -5.400000095367432,
@@ -943,7 +1015,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_any_child": true,
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_grip_animation": 5,
     "attachment_BP_RangedWeaponVisuals_AutoCarbine_C_SK_AutoCarbine_position": [
         6.599999904632568,
         -5.400000095367432,
@@ -961,7 +1033,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_any_child": true,
     "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_grip_animation": 5,
     "attachment_BP_RangedWeaponVisuals_Carbine_C_SK_BurstCarbine_position": [
         7.099999904632568,
         -5.599999904632568,
@@ -997,7 +1069,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_any_child": true,
     "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_grip_animation": 5,
     "attachment_BP_RangedWeaponVisuals_HuntingRifle_C_SK_HuntingRifle_position": [
         6.800000190734863,
         -4.800000190734863,
@@ -1015,7 +1087,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_child": true,
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_grip_animation": 5,
     "attachment_BP_RangedWeaponVisuals_LegendaryBodyCount_C_SK_BattleAK_position": [
         7.599999904632568,
         -5.5,
@@ -1033,7 +1105,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_MachinePistol_C_SK_MachinePistol_any_child": true,
     "attachment_BP_RangedWeaponVisuals_MachinePistol_C_SK_MachinePistol_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_MachinePistol_C_SK_MachinePistol_grip_animation": 5,
+    "attachment_BP_RangedWeaponVisuals_MachinePistol_C_SK_MachinePistol_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_MachinePistol_C_SK_MachinePistol_position": [
         8.600000381469727,
         -5.900000095367432,
@@ -1051,7 +1123,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_Nailgun_C_SK_Nailgun_any_child": true,
     "attachment_BP_RangedWeaponVisuals_Nailgun_C_SK_Nailgun_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_Nailgun_C_SK_Nailgun_grip_animation": 5,
+    "attachment_BP_RangedWeaponVisuals_Nailgun_C_SK_Nailgun_grip_animation": 4,
     "attachment_BP_RangedWeaponVisuals_Nailgun_C_SK_Nailgun_position": [
         9.899999618530273,
         -5.699999809265137,
@@ -1123,7 +1195,7 @@
     ],
     "attachment_BP_RangedWeaponVisuals_SportingRifle_C_SK_SportingRifle_any_child": true,
     "attachment_BP_RangedWeaponVisuals_SportingRifle_C_SK_SportingRifle_any_parent": false,
-    "attachment_BP_RangedWeaponVisuals_SportingRifle_C_SK_SportingRifle_grip_animation": 3,
+    "attachment_BP_RangedWeaponVisuals_SportingRifle_C_SK_SportingRifle_grip_animation": 5,
     "attachment_BP_RangedWeaponVisuals_SportingRifle_C_SK_SportingRifle_position": [
         7.300000190734863,
         -5.599999904632568,
@@ -1159,7 +1231,7 @@
     ],
     "attachment_BP_SplittingAxe_C_SK_SplittingAxe_any_child": true,
     "attachment_BP_SplittingAxe_C_SK_SplittingAxe_any_parent": false,
-    "attachment_BP_SplittingAxe_C_SK_SplittingAxe_grip_animation": 4,
+    "attachment_BP_SplittingAxe_C_SK_SplittingAxe_grip_animation": 3,
     "attachment_BP_SplittingAxe_C_SK_SplittingAxe_position": [
         1.0,
         -5.300000190734863,
@@ -1171,6 +1243,24 @@
         0.0
     ],
     "attachment_BP_SplittingAxe_C_SK_SplittingAxe_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb_any_child": false,
+    "attachment_BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb_any_parent": false,
+    "attachment_BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb_grip_animation": 1,
+    "attachment_BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_ChemBomb_C_SK_ChemBomb_scale": [
         1.0,
         1.0,
         1.0
@@ -1207,6 +1297,24 @@
         0.0
     ],
     "attachment_BP_ThrowingWeaponVisuals_PipeBomb_C_SK_PipeBomb_scale": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken_any_child": false,
+    "attachment_BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken_any_parent": false,
+    "attachment_BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken_grip_animation": 1,
+    "attachment_BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken_position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "attachment_BP_ThrowingWeaponVisuals_Shuriken_C_SK_Shuriken_scale": [
         1.0,
         1.0,
         1.0

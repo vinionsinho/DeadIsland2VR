@@ -235,9 +235,9 @@ uevr.sdk.callbacks.on_pre_engine_tick(function(engine, delta)
     end
     local cur_mon = pawn:GetCurrentMontage()
     if cur_mon then
-    -- print(cur_mon:get_full_name())
+    --print(cur_mon:get_full_name())
         if is_melee and not string.find(cur_mon:get_full_name(), "Knockdown") 
-        and not string.find(cur_mon:get_full_name(), "Kick") then
+        and not string.find(cur_mon:get_full_name(), "Kick") and not string.find(cur_mon:get_full_name(), "GroundPound") then
             cur_mon.RateScale = 4.0 -- Maximum working value of 5.0. Lower values may work better. 4.0 seems ideal.
         else
             cur_mon.RateScale = 1.0
