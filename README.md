@@ -20,6 +20,8 @@ Please read this section before playing to understand current limitations and me
 * **Unsupported Weapons:** Thrusting weapons (Knives, Spears, Forks, etc.) do not work well with the current physics system. I do not plan to fix this, so please stick to bludgeoning or slashing weapons.
 * **DLC Weapons:** Attachments for DLC weapons have not been configured yet.
 
+### ⚠️ CRITICAL REQUIREMENT: **Disable HDR in game settings**. Failing to do so will cause a black screen artifact on your right hand/view.
+
 ## Controls & Mechanics
 
 ### 💥 How to use Charged Attacks
@@ -32,6 +34,13 @@ Charged attacks use a custom gesture system:
 ### 🎮 D-Pad Access
 Since the buttons are remapped for VR interaction, the D-Pad is accessed via a combo:
 * **Hold Left Thumbrest + Move Right Stick** = D-Pad Input.
+
+### 🎒 Character Menu & Inventory
+To access the main menu or inventory, a specific timing is required:
+1.  Press and **Hold** the **Left Menu Button** (the small button with three lines `≡`).
+2.  Wait for about **1 second**.
+3.  **Release** the button to open the menu.
+
 
 ## 🛠️ Weapon Positioning Guide
 
